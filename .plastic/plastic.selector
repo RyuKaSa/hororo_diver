@@ -1,0 +1,4 @@
+repository "hororo_diver@LD_RyuKaSa@cloud"
+  path "/"
+    br "/main"
+    co "/main"
