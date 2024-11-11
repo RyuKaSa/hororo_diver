@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
+    enum State
+    {
+        PASSIVE,
+        HUNTING,
+        DEAD
+    }
 
     public UnityEngine.AI.NavMeshAgent agent;
 
     private Vector3 spawnPoint;
 
     private float speed;
+
+    private float health;
+
+    private State state = State.PASSIVE;
 
     [SerializeField] private float visionRange;
 
@@ -43,6 +53,51 @@ public class Mob : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Réduit la santé du mob en fonction de la quantité de dégâts reçus en paramètre.
+    /// </summary>
+    /// <param name="damage">Le montant des dégâts à infliger au mob. La santé sera réduite de cette valeur</param>
+    private void TakeDamage(float damage)
+    {
+        health -= damage;
+
+    }
+
+    /// <summary>
+    /// Vérifie si le joueur est dans le champ de vision du mob.
+    /// </summary>
+    /// <param name="player">Le GameObject représentant le joueur</param>
+    /// <returns>Retourne vrai si le joueur est dans le champ de vision, sinon faux.</returns>
+    private bool IsPlayerInSight(GameObject player)
+    {
+        return Vector3.Distance(player.transform.position, transform.position) <= visionRange;
+
+    }
+
+    /// <summary>
+    /// Modifie l'état du mob en fonction de la visibilité du joueur dans son champ de vision
+    /// </summary>
+    /// <param name="player">Le GameObject représentant le joueur.</param>
+    /// <remarks>
+    /// Cette fonction vérifie si le joueur est dans le champ de vision du mob en appelant la fonction <see cref="IsPlayerInSight"/>.
+    /// Si le joueur est détecté, l'état du mob passe à <see cref="State.HUNTING"/>. Sinon, l'état du mob passe à <see cref="State.PASSIVE"/>.
+    /// </remarks>
+    public void HandleStateBasedOnSight(GameObject player)
+    {
+        state = IsPlayerInSight(player) ? State.HUNTING : State.PASSIVE;
+    }
+
+    public void SetPassiveState()
+    {
+        state = State.PASSIVE;
+    }
+
+    public void SetHuntingState()
+    {
+        state = State.HUNTING;
+    }
+
+
     public void Start()
     {
         spawnPoint = transform.position;
@@ -58,5 +113,6 @@ public class Mob : MonoBehaviour
     void Update()
     {
         PassiveMobMovement();
+
     }
 }
