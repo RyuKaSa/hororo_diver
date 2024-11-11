@@ -7,18 +7,17 @@ public class Mob : MonoBehaviour
 
     private Vector3 spawnPoint;
 
-    private float visionRange;
-
     private float speed;
 
-    private float moveAreaRange = 20f;
+    [SerializeField] private float visionRange;
 
+    [SerializeField] private float moveAreaRange = 20f;
 
-    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    bool RandomPoint(out Vector3 result)
     {
         for (int i = 0; i < 30; i++)
         {
-            Vector3 randomPoint = center + Random.insideUnitSphere * range;
+            Vector3 randomPoint = spawnPoint + Random.insideUnitSphere * moveAreaRange;
             UnityEngine.AI.NavMeshHit hit;
             if (UnityEngine.AI.NavMesh.SamplePosition(randomPoint, out hit, 1.0f, UnityEngine.AI.NavMesh.AllAreas))
             {
@@ -30,11 +29,25 @@ public class Mob : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Méthode utilisé pour faire se déplacer le mob lorsqu'il est en mode passif.
+    /// Trouve un point aléatoire dans un rayon autour du mob et en fait sa destination.
+    /// </summary>
+    private void PassiveMobMovement()
+    {
+        Vector3 point;
+        if (agent.remainingDistance <= 1f && RandomPoint(out point))
+        {
+            Debug.Log("Find random point");
+            agent.destination = point;
+        }
+    }
+
     public void Start()
     {
         spawnPoint = transform.position;
         Vector3 point;
-        while (!RandomPoint(spawnPoint, moveAreaRange, out point))
+        while (!RandomPoint(out point))
         {
             ;
         }
@@ -44,12 +57,6 @@ public class Mob : MonoBehaviour
 
     void Update()
     {
-        Vector3 point;
-        // Ajouter une marge pour éviter que le bord de la capsule cogne les bords des murs
-        if (agent.remainingDistance <= 1f && RandomPoint(spawnPoint, moveAreaRange, out point))
-        {
-            Debug.Log("Find random point");
-            agent.destination = point;
-        }
+        PassiveMobMovement();
     }
 }
