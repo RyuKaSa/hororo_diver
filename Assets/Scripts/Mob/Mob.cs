@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public sealed class Mob : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         PASSIVE,
         HUNTING,
@@ -140,6 +140,14 @@ public sealed class Mob : MonoBehaviour
         agent.destination = dest;
     }
 
+    /// <summary>
+    /// Get mob's state
+    /// </summary>
+    /// <returns>state which indicates if the mob is hunting the player or not</returns>
+    public State GetState()
+    {
+        return state;
+    }
 
     public void Start()
     {
