@@ -104,6 +104,7 @@ public sealed class Mob : MonoBehaviour
     /// If the player is in sight, the mob enters the "HUNTING" state. Otherwise, it enters the "PASSIVE" state.
     /// </summary>
     /// <param name="player">The GameObject representing the player.</param>
+    /// <returns>The current state of the mob</returns>
     /// <remarks>
     /// This function calls <see cref="IsPlayerInSight"/> to determine whether the player is in the mob's vision range.
     /// If the player is detected, the mob switches to "HUNTING" state. If not, it reverts to "PASSIVE" state.
@@ -138,15 +139,6 @@ public sealed class Mob : MonoBehaviour
     public void SetMobAgentDestination(Vector3 dest)
     {
         agent.destination = dest;
-    }
-
-    /// <summary>
-    /// Get mob's state
-    /// </summary>
-    /// <returns>state which indicates if the mob is hunting the player or not</returns>
-    public State GetState()
-    {
-        return state;
     }
 
     public void Start()
