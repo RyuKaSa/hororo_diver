@@ -35,7 +35,7 @@ public sealed class Mob : MonoBehaviour
     /// </summary>
     /// <param name="result">The random position found within the allowed area (output parameter).</param>
     /// <returns>True if a valid random point is found, otherwise false.</returns>
-    bool RandomPoint(out Vector3 result)
+    public bool RandomPoint(out Vector3 result)
     {
         for (int i = 0; i < 30; i++)
         {
@@ -135,7 +135,7 @@ public sealed class Mob : MonoBehaviour
     /// Sets the destination of the mob to the specified position.
     /// </summary>
     /// <param name="dest">The new destination for the mob to move towards.</param>
-    public void SetAgentDestination(Vector3 dest)
+    public void SetMobAgentDestination(Vector3 dest)
     {
         agent.destination = dest;
     }
