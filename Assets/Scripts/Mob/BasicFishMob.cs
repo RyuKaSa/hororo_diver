@@ -7,9 +7,19 @@ using UnityEngine;
 /// </summary>
 public sealed class BasicFishMob : MonoBehaviour
 {
-    private Mob mob = new Mob();
-
+    private Mob mob;
     public UnityEngine.AI.NavMeshAgent agent;
+
+    private Vector3 spawnPoint;
+
+    private float speed;
+
+    private float health;
+
+    private float visionRange;
+
+    private float moveAreaRange = 20f;
+
 
     private void HuntingPlayer()
     {
@@ -18,7 +28,8 @@ public sealed class BasicFishMob : MonoBehaviour
 
     public void Start()
     {
-        mob.Start();
+        mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
+        mob.InitMob();
 
     }
 
