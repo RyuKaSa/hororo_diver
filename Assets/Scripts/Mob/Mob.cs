@@ -154,7 +154,6 @@ public sealed class Mob : MonoBehaviour
 
     public void InitMob()
     {
-        spawnPoint = transform.position;
         Vector3 point;
         while (!RandomPoint(out point))
         {
