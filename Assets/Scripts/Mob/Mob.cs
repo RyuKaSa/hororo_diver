@@ -103,9 +103,9 @@ public sealed class Mob : MonoBehaviour
     /// </summary>
     /// <param name="player">The GameObject representing the player.</param>
     /// <returns>True if the player is within the vision range, otherwise false.</returns>
-    private bool IsPlayerInSight(GameObject player)
+    private bool IsPlayerInSight(GameObject player, Vector3 position)
     {
-        return Vector3.Distance(player.transform.position, transform.position) <= visionRange;
+        return Vector3.Distance(player.transform.position, position) <= visionRange;
 
     }
 
