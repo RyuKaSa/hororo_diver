@@ -30,14 +30,14 @@ public sealed class Mob : MonoBehaviour
 
     private float moveAreaRange = 20f;
 
-    public Mob(UnityEngine.AI.NavMeshAgent agent, float agent, float speed, float visionRange, float moveAreaRange, Vector3 spawnPoint)
+    public Mob(UnityEngine.AI.NavMeshAgent agent, float health, float speed, float visionRange, float moveAreaRange, Vector3 spawnPoint)
     {
         this.agent = agent;
-        this.health = metaData.health;
-        this.speed = metaData.speed;
-        this.visionRange = metaData.visionRange;
-        this.moveAreaRange = metaData.moveAreaRange;
-        this.spawnPoint = metaData.spawnPoint;
+        this.health = health;
+        this.speed = speed;
+        this.visionRange = visionRange;
+        this.moveAreaRange = moveAreaRange;
+        this.spawnPoint = spawnPoint;
     }
 
     /// <summary>
