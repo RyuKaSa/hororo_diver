@@ -7,8 +7,9 @@ using UnityEngine;
 /// </summary>
 public sealed class BasicFishMob : MonoBehaviour
 {
-    Mob mob;
+    private Mob mob = new Mob();
 
+    public UnityEngine.AI.NavMeshAgent agent;
 
     private void HuntingPlayer()
     {
@@ -17,12 +18,7 @@ public sealed class BasicFishMob : MonoBehaviour
 
     public void Start()
     {
-        Vector3 point;
-        while (!mob.RandomPoint(out point))
-        {
-            ;
-        }
-        mob.SetMobAgentDestination(point);
+        mob.Start();
 
     }
 
