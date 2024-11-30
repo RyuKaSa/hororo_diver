@@ -162,4 +162,5 @@ public sealed class Mob : MonoBehaviour
         agent.destination = point;
 
     }
+
 }
