@@ -42,7 +42,7 @@ public sealed class BasicFishMob : MonoBehaviour
         }
         else
         {
-            var state = mob.HandleStateBasedOnSight(player); // Update mob current state
+            var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             if (state == Mob.State.HUNTING)
             {
                 Debug.Log("Follow Player");
