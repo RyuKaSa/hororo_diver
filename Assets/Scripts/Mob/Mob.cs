@@ -119,9 +119,9 @@ public sealed class Mob : MonoBehaviour
     /// This function calls <see cref="IsPlayerInSight"/> to determine whether the player is in the mob's vision range.
     /// If the player is detected, the mob switches to "HUNTING" state. If not, it reverts to "PASSIVE" state.
     /// </remarks>
-    public State HandleStateBasedOnSight(GameObject player)
+    public State HandleStateBasedOnSight(GameObject player, Vector3 position)
     {
-        state = IsPlayerInSight(player) ? State.HUNTING : State.PASSIVE;
+        state = IsPlayerInSight(player, position) ? State.HUNTING : State.PASSIVE;
         return state;
     }
 
