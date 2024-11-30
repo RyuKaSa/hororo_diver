@@ -35,8 +35,25 @@ public sealed class BasicFishMob : MonoBehaviour
 
     void Update()
     {
-        mob.PassiveMobMovement();
+        var player = GameObject.Find("Player");
+        if (player == null)
+        {
+            Debug.Log("PLAYER NULL");
+        }
+        else
+        {
+            var state = mob.HandleStateBasedOnSight(player); // Update mob current state
+            if (state == Mob.State.HUNTING)
+            {
+                Debug.Log("Follow Player");
+                mob.SetMobAgentDestination(player.transform.position);
+            }
+            else
+            {
+                mob.PassiveMobMovement();
+            }
 
+        }
     }
 
 }
