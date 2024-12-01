@@ -31,6 +31,8 @@ public sealed class BasicFishMob : MonoBehaviour
 
         private float speedCharge; // Speed when the mob charge the player after BACKWARD_STG
 
+        private int nbAttack = 0;
+
         public void SetStartPoint(Vector3 startPoint)
         {
             this.startPoint = startPoint;
@@ -73,8 +75,21 @@ public sealed class BasicFishMob : MonoBehaviour
             float deltaY = Math.Abs(mobPosition.y - playerPosition.y);
             float dist = Vector3.Distance(mobPosition, playerPosition);
 
-            backwardPoint = new Vector3(mobPosition.x - (backwardDistance * (deltaX / dist)), mobPosition.y - (backwardDistance * (deltaY / dist)), mobPosition.z);
+            float angleX = (backwardDistance * (deltaX / dist)) * (float)Math.Cos(nbAttack * ((float)Math.PI / 180f));
+            float angleY = (backwardDistance * (deltaY / dist)) * (float)Math.Sin(nbAttack * ((float)Math.PI / 180f));
+            backwardPoint = new Vector3(mobPosition.x - angleX, mobPosition.y - angleY, mobPosition.z);
+            nbAttack += 10;
             return backwardPoint;
+        }
+
+        /// <summary>
+        /// This method reset the field which indicating the number of attacks made by the mob 
+        /// until it is out of reach of the player. This method is called when the mob is out of
+        /// reach of the player.
+        /// </summary>
+        public void ResetNbAttack()
+        {
+            nbAttack = 0;
         }
 
 
