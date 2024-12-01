@@ -9,15 +9,6 @@ using UnityEngine;
 /// </summary>
 public sealed class Mob : MonoBehaviour
 {
-    /// <summary>
-    /// Contains data which represents mob. This class is useful only for the visibility of the Mob constructor
-    /// </summary>
-    /// <param name="spawnPoint"></param>
-    /// <param name="health"></param>
-    /// <param name="speed"></param>
-    /// <param name="visionRange"></param>
-    /// <param name="moveAreaRange"></param>
-    public record MobMetaData(Vector3 spawnPoint, float health, float speed, float visionRange, float moveAreaRange);
 
     public enum State
     {
@@ -48,16 +39,6 @@ public sealed class Mob : MonoBehaviour
         this.visionRange = visionRange;
         this.moveAreaRange = moveAreaRange;
         this.spawnPoint = spawnPoint;
-    }
-
-    public Mob(UnityEngine.AI.NavMeshAgent agent, MobMetaData metaData)
-    {
-        this.agent = agent;
-        this.health = metaData.health;
-        this.speed = metaData.speed;
-        this.visionRange = metaData.visionRange;
-        this.moveAreaRange = metaData.moveAreaRange;
-        this.spawnPoint = metaData.spawnPoint;
     }
 
     /// <summary>
