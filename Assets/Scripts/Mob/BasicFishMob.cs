@@ -26,23 +26,13 @@ public sealed class BasicFishMob : MonoBehaviour
     private sealed class AttackSequenceData
     {
         private Vector3 startPoint;
-        private float backwardDistance; // Distance between startPoint and the point behind mob
+        private Vector3 backwardPoint; // Distance between startPoint and the point behind mob
 
         private float speedCharge; // Speed when the mob charge the player after BACKWARD_STG
 
         public void SetStartPoint(Vector3 startPoint)
         {
             this.startPoint = startPoint;
-        }
-
-        public void SetBackWardDistance(float backwardDistance)
-        {
-            if (this.backwardDistance < 0)
-            {
-                Debug.Log("ERROR : BackWardDistance is negative");
-                return;
-            }
-            this.backwardDistance = backwardDistance;
         }
 
         public void SetSpeedCharge(float speedCharge)
@@ -54,6 +44,32 @@ public sealed class BasicFishMob : MonoBehaviour
             }
 
             this.speedCharge = speedCharge;
+        }
+
+        public float GetSpeedCharge()
+        {
+            return speedCharge;
+        }
+
+        public Vector3 GetBackwardPoint()
+        {
+            return backwardPoint;
+        }
+
+        public Vector3 GetStartPoint()
+        {
+            return startPoint;
+        }
+
+        public Vector3 ProcessBackwardPoint(float backwardDistance, Vector3 position)
+        {
+            if (backwardDistance < 0)
+            {
+                Debug.Log("ERROR : BackwardDistance is negative, return position");
+                return position;
+            }
+            backwardPoint = new Vector3(position.x - backwardDistance, position.y, position.z);
+            return backwardPoint;
         }
 
 
@@ -94,7 +110,11 @@ public sealed class BasicFishMob : MonoBehaviour
         if (state == Mob.State.HUNTING)
         {
             Debug.Log("Follow Player");
-            mob.SetMobAgentDestination(player.transform.position);
+            // Attack sequence not triggered so mob hunting player
+            if (atk_stage == ATTACK_STAGE.NOATK)
+            {
+                mob.SetMobAgentDestination(player.transform.position);
+            }
             AttackSequenceProcess(player);
         }
         else
@@ -121,9 +141,31 @@ public sealed class BasicFishMob : MonoBehaviour
 
             atk_stage = ATTACK_STAGE.BACKWARD_STG;
             float backwardDistance = distMobPlayer * 0.05f;
-            attackSequenceData.SetBackWardDistance(backwardDistance);
+            var backwardPoint = attackSequenceData.ProcessBackwardPoint(backwardDistance, transform.position);
             attackSequenceData.SetStartPoint(transform.position);
-            mob.SetMobAgentDestination(new Vector3(transform.position.x - backwardDistance, transform.position.y, transform.position.z));
+            mob.SetMobAgentDestination(backwardPoint);
+        }
+
+        if (atk_stage == ATTACK_STAGE.BACKWARD_STG && Vector3.Distance(attackSequenceData.GetBackwardPoint(), transform.position) <= 0.05f)
+        {
+            Debug.Log("CHANGE TO ATTACK STAGE");
+
+            atk_stage = ATTACK_STAGE.ATK_STG;
+            mob.SetMobAgentDestination(player.transform.position);
+        }
+
+        if (atk_stage == ATTACK_STAGE.ATK_STG && distMobPlayer <= 1.5f)
+        {
+            Debug.Log("CHANGE TO RETURN STAGE");
+
+            atk_stage = ATTACK_STAGE.RETURN_STG;
+            mob.SetMobAgentDestination(attackSequenceData.GetStartPoint());
+        }
+
+        if (atk_stage == ATTACK_STAGE.RETURN_STG && Vector3.Distance(transform.position, attackSequenceData.GetStartPoint()) <= 0.005f)
+        {
+            Debug.Log("CHANGE TO NOATK STAGE");
+            atk_stage = ATTACK_STAGE.NOATK; // Finish attack sequence, return to start point
         }
     }
 
