@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -61,14 +62,18 @@ public sealed class BasicFishMob : MonoBehaviour
             return startPoint;
         }
 
-        public Vector3 ProcessBackwardPoint(float backwardDistance, Vector3 position)
+        public Vector3 ProcessBackwardPoint(float backwardDistance, Vector3 mobPosition, Vector3 playerPosition)
         {
             if (backwardDistance < 0)
             {
-                Debug.Log("ERROR : BackwardDistance is negative, return position");
-                return position;
+                Debug.Log("ERROR : BackwardDistance is negative, return mobPosition");
+                return mobPosition;
             }
-            backwardPoint = new Vector3(position.x - backwardDistance, position.y, position.z);
+            float deltaX = Math.Abs(mobPosition.x - playerPosition.x);
+            float deltaY = Math.Abs(mobPosition.y - playerPosition.y);
+            float dist = Vector3.Distance(mobPosition, playerPosition);
+
+            backwardPoint = new Vector3(mobPosition.x - (backwardDistance * (deltaX / dist)), mobPosition.y - (backwardDistance * (deltaY / dist)), mobPosition.z);
             return backwardPoint;
         }
 
@@ -140,8 +145,8 @@ public sealed class BasicFishMob : MonoBehaviour
             Debug.Log("CHANGE TO BACKWARD STAGE");
 
             atk_stage = ATTACK_STAGE.BACKWARD_STG;
-            float backwardDistance = distMobPlayer * 0.05f;
-            var backwardPoint = attackSequenceData.ProcessBackwardPoint(backwardDistance, transform.position);
+            float backwardDistance = distMobPlayer * 0.2f;
+            var backwardPoint = attackSequenceData.ProcessBackwardPoint(backwardDistance, transform.position, player.transform.position);
             attackSequenceData.SetStartPoint(transform.position);
             mob.SetMobAgentDestination(backwardPoint);
         }
