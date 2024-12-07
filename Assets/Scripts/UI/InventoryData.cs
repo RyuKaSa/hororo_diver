@@ -1,4 +1,5 @@
-﻿[System.Serializable]
+﻿using System;
+
 public class InventoryData
 {
     public InventoryData(int _slotCount)
@@ -10,16 +11,40 @@ public class InventoryData
 
     public bool SlotAvailable(Item _itemToAdd)
     {
-        throw new System.NotImplementedException();
+        foreach (var _item in items)
+        {
+            if (_item.AvailableFor(_itemToAdd)) return true;
+        }
+        return false;
     }
 
-    public Item AddItem(Item _itemToAdd)
+    public void AddItem(ref Item _itemToAdd)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (_itemToAdd.Empty) return;
+
+            if (items[i].AvailableFor(_itemToAdd))
+            {
+                items[i].Merge(ref _itemToAdd);
+            }
+        }
     }
 
     public Item Pick(int _slotID)
     {
-        throw new System.NotImplementedException();
+        if (_slotID > items.Length) throw new SystemException($"Id {_slotID} out of Inventory");
+
+        Item _item = items[_slotID];
+        items[_slotID] = new Item();
+
+        return _item;
+    }
+
+    public void Swap(int _slotA, int _slotB)
+    {
+        Item _temp = items[_slotA];
+        items[_slotA] = items[_slotB];
+        items[_slotB] = _temp;
     }
 }
