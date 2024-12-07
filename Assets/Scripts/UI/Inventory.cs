@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -9,15 +7,18 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        int _slotCount  = display.Initialize();
+        int _slotCount  = display.Initialize(this);
+
         data = new InventoryData(_slotCount);
+
+        display.UpdateDisplay(data.items);
     }
     
     public Item AddItem(Item _item)
     {
         if (!data.SlotAvailable(_item)) return _item;
 
-        _item = data.AddItem(_item);
+        data.AddItem(ref _item);
 
         display.UpdateDisplay(data.items);
 
@@ -31,5 +32,12 @@ public class Inventory : MonoBehaviour
         display.UpdateDisplay(data.items);
 
         return _result;
+    }
+
+    public void SwapSlot(int _slotA, int _slotB)
+    {
+        data.Swap(_slotA, _slotB);
+
+        display.UpdateDisplay(data.items);
     }
 }

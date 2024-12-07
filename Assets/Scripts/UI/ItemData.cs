@@ -3,5 +3,9 @@
 [CreateAssetMenu(menuName ="Item Data")]
 public class ItemData : ScriptableObject
 {
-    public int stackMaxCount = 1;
+    [SerializeField] public string itemName;
+
+    [SerializeField] public int stackMaxCount;
+
+    [SerializeField] public Sprite icon;
 }
