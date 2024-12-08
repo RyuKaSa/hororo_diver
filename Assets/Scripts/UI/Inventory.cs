@@ -5,6 +5,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private InventoryDisplay display;
     private InventoryData data;
 
+    private InventoryContext context;
+
     private void Awake()
     {
         int _slotCount  = display.Initialize(this);
@@ -40,4 +42,7 @@ public class Inventory : MonoBehaviour
 
         display.UpdateDisplay(data.items);
     }
+
+    public Item[] Data => data.items;
+    public InventoryContext Context => context;
 }

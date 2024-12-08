@@ -2,7 +2,9 @@
 
 public class InventoryDisplay : MonoBehaviour
 {
-    private int draggedSlotIndex; 
+    private int draggedSlotIndex;
+
+    [SerializeField] private InventoryContextMenu contextMenu;
     private Slot[] slots;
     private Inventory inventory;
 
@@ -10,6 +12,8 @@ public class InventoryDisplay : MonoBehaviour
     {
         slots = GetComponentsInChildren<Slot>();
         inventory = _inventory;
+
+        contextMenu.Init(_inventory);
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -30,7 +34,7 @@ public class InventoryDisplay : MonoBehaviour
     #region Inputs
     public void ClickSlot(int _index)
     {
-        Debug.Log($"Click on slot : {_index}");
+        contextMenu.Select(_index, slots[_index]);
     }
 
     public void DragSlot(int _index) => draggedSlotIndex = _index;
