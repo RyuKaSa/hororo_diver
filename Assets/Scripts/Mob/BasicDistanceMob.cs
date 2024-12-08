@@ -20,6 +20,12 @@ public sealed class BasicDistanceMob : MonoBehaviour
 
     private float attackRange = 15f;
 
+    private float waitingPeriod = 1.5f; //
+
+    private float timer = 0f;
+
+    private bool isShooting = false;
+
     public void Start()
     {
         mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
@@ -46,10 +52,21 @@ public sealed class BasicDistanceMob : MonoBehaviour
 
     private void AttackSequenceProcess(GameObject player)
     {
-        // Mob can shoot Player
-        if (Vector3.Distance(player.transform.position, transform.position) <= attackRange)
+        if (timer >= waitingPeriod)
         {
-            Debug.Log("Mob shoot player");
+            timer = 0f;
+            isShooting = false;
+        }
+
+        // Mob can shoot Player
+        if (!isShooting && timer <= waitingPeriod && Vector3.Distance(player.transform.position, transform.position) <= attackRange)
+        {
+            // Mob look Player
+            var direction = player.transform.position - transform.position;
+            direction.z = 0;
+            float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+
             // Calculate Linear equation with mob position and player position
             float gradient = (player.transform.position.y - transform.position.y) / (player.transform.position.x - transform.position.x);
             float offset = transform.position.y - (gradient * transform.position.x);
@@ -58,8 +75,12 @@ public sealed class BasicDistanceMob : MonoBehaviour
             GameObject projectileObject = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile projectileScript = projectileObject.GetComponent<Projectile>();
 
-            projectileScript.Initialize(0.5f, gradient, offset);
+            projectileScript.Initialize(transform.position.x < player.transform.position.x ? 0.5f : -0.5f, gradient, offset);
+            isShooting = true;
+
+            return;
         }
+        timer += Time.deltaTime;
     }
 
     void Update()
