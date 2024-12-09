@@ -26,6 +26,8 @@ public sealed class BasicDistanceMob : MonoBehaviour
 
     private bool isShooting = false;
 
+    private bool isFleing = false;
+
     public void Start()
     {
         mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
@@ -41,8 +43,25 @@ public sealed class BasicDistanceMob : MonoBehaviour
     {
         if (state == Mob.State.HUNTING)
         {
-            Debug.Log("Follow Player");
-            AttackSequenceProcess(player);
+            if (isFleing && Vector3.Distance(transform.position, agent.destination) <= 1.5f)
+            {
+                isFleing = false;
+                Debug.Log("Fuite finis");
+            }
+
+            if (!isFleing && Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            {
+                isFleing = true;
+                Debug.Log("Fuit Joueur");
+
+                Vector3 mobToPlayerDirection = player.transform.position - transform.position;
+                Vector3 oppositeDirection = transform.position - mobToPlayerDirection;
+                agent.SetDestination(oppositeDirection);
+            }
+            else
+            {
+                AttackSequenceProcess(player);
+            }
         }
         else
         {
