@@ -14,7 +14,7 @@ public sealed class BasicDistanceMob : MonoBehaviour
 
     private float health;
 
-    private float visionRange = 15f;
+    private float visionRange = 20f;
 
     private float moveAreaRange = 20f;
 
@@ -36,6 +36,34 @@ public sealed class BasicDistanceMob : MonoBehaviour
     }
 
     /// <summary>
+    /// Manages the escape behavior of a mob when it detects that the player is within attack range. 
+    /// If the player is too close, the mob will flee to a location opposite to the player's position.
+    /// If the player is far enough away, the mob will stop fleeing.
+    /// </summary>
+    /// <param name="player">The player GameObject whose position is used to determine the mob's escape behavior.</param>
+    private void ManageEscapeBehaviorProcess(GameObject player)
+    {
+        // Checks if the mob has moved far enough away from the player
+        if (isFleing && Vector3.Distance(player.transform.position, transform.position) >= attackRange)
+        {
+            isFleing = false;
+            agent.SetDestination(transform.position);
+            Debug.Log("Fuite finis");
+            return;
+        }
+
+        if (!isFleing && Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        {
+            isFleing = true;
+            Debug.Log("Fuit Joueur");
+
+            Vector3 mobToPlayerDirection = player.transform.position - transform.position;
+            Vector3 oppositeDirection = transform.position - mobToPlayerDirection;
+            agent.SetDestination(oppositeDirection);
+        }
+    }
+
+    /// <summary>
     /// This method calls different function which manage behavior according
     /// to Mob's state.
     /// </summary>
@@ -43,25 +71,9 @@ public sealed class BasicDistanceMob : MonoBehaviour
     {
         if (state == Mob.State.HUNTING)
         {
-            if (isFleing && Vector3.Distance(transform.position, agent.destination) <= 1.5f)
-            {
-                isFleing = false;
-                Debug.Log("Fuite finis");
-            }
+            ManageEscapeBehaviorProcess(player);
+            AttackSequenceProcess(player);
 
-            if (!isFleing && Vector3.Distance(transform.position, player.transform.position) <= attackRange)
-            {
-                isFleing = true;
-                Debug.Log("Fuit Joueur");
-
-                Vector3 mobToPlayerDirection = player.transform.position - transform.position;
-                Vector3 oppositeDirection = transform.position - mobToPlayerDirection;
-                agent.SetDestination(oppositeDirection);
-            }
-            else
-            {
-                AttackSequenceProcess(player);
-            }
         }
         else
         {
@@ -78,8 +90,9 @@ public sealed class BasicDistanceMob : MonoBehaviour
         }
 
         // Mob can shoot Player
-        if (!isShooting && timer <= waitingPeriod && Vector3.Distance(player.transform.position, transform.position) <= attackRange)
+        if (!isShooting && timer <= waitingPeriod && Vector3.Distance(player.transform.position, transform.position) <= attackRange + 2f)
         {
+            Debug.Log("Shoot player");
             // Mob look Player
             var direction = player.transform.position - transform.position;
             direction.z = 0;
