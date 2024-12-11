@@ -5,6 +5,9 @@ public sealed class CreeperMob : MonoBehaviour
 
     public UnityEngine.AI.NavMeshAgent agent;
 
+    [SerializeField]
+    private ParticleSystem explosionParticle;
+
     private Mob mob;
     private Vector3 spawnPoint;
 
@@ -66,6 +69,12 @@ public sealed class CreeperMob : MonoBehaviour
         if (timer >= delay)
         {
             Debug.Log("Explosion");
+            explosionParticle.transform.position = transform.position;
+            explosionParticle.Play();
+            // Destroy(GetComponent<Renderer>());
+            // Destroy(GetComponent<Transform>());
+            // Destroy(GetComponent<UnityEngine.AI.NavMeshAgent>());
+            Destroy(gameObject);
         }
     }
 
