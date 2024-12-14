@@ -152,7 +152,7 @@ public sealed class Mob : MonoBehaviour
         agent.destination = dest;
     }
 
-    public void InitMob()
+    public void Start()
     {
         Vector3 point;
         while (!RandomPoint(out point))
