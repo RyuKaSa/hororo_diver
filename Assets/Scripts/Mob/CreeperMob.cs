@@ -91,6 +91,12 @@ public sealed class CreeperMob : MonoBehaviour, IMob
         return health - damage;
     }
 
+    public void ReceiveDamage(float damage)
+    {
+        health -= damage;
+    }
+
+
     void Update()
     {
         var player = GameObject.Find("Player");
