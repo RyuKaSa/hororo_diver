@@ -6,7 +6,7 @@ using UnityEngine;
 /// Represents a basic fish mob that attacks in melee. This class defines the behavior and attributes
 /// of a basic enemy mob, specifically designed for close combat encounters.
 /// </summary>
-public sealed class BasicFishMob : MonoBehaviour, IMob
+public sealed class BasicFishMob : MonoBehaviour, IDamageable
 {
 
     /// <summary>
@@ -183,16 +183,16 @@ public sealed class BasicFishMob : MonoBehaviour, IMob
         }
 
         // Takes the destination agent as a reference not currens player's position because the player may have moved between 2 frame 
-        if (atk_stage == ATTACK_STAGE.ATK_STG && Vector3.Distance(agent.destination, transform.position) <= 1.5f)
+        if (atk_stage == ATTACK_STAGE.ATK_STG && Vector3.Distance(agent.destination, transform.position) <= 0.5f)
         {
             Debug.Log("CHANGE TO RETURN STAGE");
 
             atk_stage = ATTACK_STAGE.RETURN_STG;
             mob.SetMobAgentDestination(attackSequenceData.GetStartPoint());
 
-            // Mob inflicts damage to player
+            /* Mob inflicts damage to player
             var playerScript = player.GetComponent<Player>();
-            playerScript.TakeDamage(this);
+            playerScript.TakeDamage(this);*/
         }
 
         if (atk_stage == ATTACK_STAGE.RETURN_STG && Vector3.Distance(transform.position, attackSequenceData.GetStartPoint()) <= 0.005f)
@@ -202,10 +202,40 @@ public sealed class BasicFishMob : MonoBehaviour, IMob
         }
     }
 
-    public float InflictDamage(float health)
+    // public float InflictDamage(float health)
+    // {
+    //     return health - damage;
+    // }
+
+    // public void ReceiveDamage(float damage)
+    // {
+    //     health -= damage;
+    // }
+
+    public void Damage(float damage)
     {
-        return health - damage;
+        Debug.Log(transform.name + " takes " + damage + " damage");
+        health -= damage;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collide with other obj");
+        if (atk_stage == ATTACK_STAGE.ATK_STG)
+        {
+            var damageable = other.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                Debug.Log(transform.name + " inflicts damage to " + other.name);
+                damageable.Damage(damage);
+            }
+            else
+            {
+                Debug.Log("Interface IDamageable not found");
+            }
+        }
+    }
+
 
     void Update()
     {
