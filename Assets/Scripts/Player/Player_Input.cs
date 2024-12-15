@@ -30,7 +30,7 @@ public class Player_Input : MonoBehaviour
         runAction.Disable();
     }
 
-    void Update()
+    public void Update()
     {
         // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();

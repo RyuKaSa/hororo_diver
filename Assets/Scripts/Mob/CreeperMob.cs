@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public sealed class CreeperMob : MonoBehaviour
+public sealed class CreeperMob : MonoBehaviour, IMob
 {
 
     public UnityEngine.AI.NavMeshAgent agent;
@@ -11,14 +11,22 @@ public sealed class CreeperMob : MonoBehaviour
     private Mob mob;
     private Vector3 spawnPoint;
 
+    [SerializeField]
     private float speed;
 
+    [SerializeField]
     private float health;
 
+    [SerializeField]
+    private float damage = 1f;
+
+    [SerializeField]
     private float visionRange = 20f;
 
+    [SerializeField]
     private float moveAreaRange = 20f;
 
+    [SerializeField]
     private float attackRange = 1.5f;
 
     private float timer = 0f;
@@ -30,7 +38,7 @@ public sealed class CreeperMob : MonoBehaviour
     public void Start()
     {
         mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
-        mob.InitMob();
+        mob.Start();
 
     }
 
@@ -76,6 +84,11 @@ public sealed class CreeperMob : MonoBehaviour
             // Destroy(GetComponent<UnityEngine.AI.NavMeshAgent>());
             Destroy(gameObject);
         }
+    }
+
+    public float InflictDamage(float health)
+    {
+        return health - damage;
     }
 
     void Update()
