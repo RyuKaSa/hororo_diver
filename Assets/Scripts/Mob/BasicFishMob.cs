@@ -6,7 +6,7 @@ using UnityEngine;
 /// Represents a basic fish mob that attacks in melee. This class defines the behavior and attributes
 /// of a basic enemy mob, specifically designed for close combat encounters.
 /// </summary>
-public sealed class BasicFishMob : MonoBehaviour
+public sealed class BasicFishMob : MonoBehaviour, IMob
 {
 
     /// <summary>
@@ -100,14 +100,22 @@ public sealed class BasicFishMob : MonoBehaviour
 
     private Vector3 spawnPoint;
 
+    [SerializeField]
     private float speed;
 
+    [SerializeField]
     private float health;
 
+    [SerializeField]
+    private float damage = 1f;
+
+    [SerializeField]
     private float visionRange = 15f;
 
+    [SerializeField]
     private float moveAreaRange = 20f;
 
+    [SerializeField]
     private float attackRange = 2f;
 
     private ATTACK_STAGE atk_stage = ATTACK_STAGE.NOATK;
@@ -174,12 +182,17 @@ public sealed class BasicFishMob : MonoBehaviour
             mob.SetMobAgentDestination(player.transform.position);
         }
 
-        if (atk_stage == ATTACK_STAGE.ATK_STG && distMobPlayer <= 1.5f)
+        // Takes the destination agent as a reference not currens player's position because the player may have moved between 2 frame 
+        if (atk_stage == ATTACK_STAGE.ATK_STG && Vector3.Distance(agent.destination, transform.position) <= 1.5f)
         {
             Debug.Log("CHANGE TO RETURN STAGE");
 
             atk_stage = ATTACK_STAGE.RETURN_STG;
             mob.SetMobAgentDestination(attackSequenceData.GetStartPoint());
+
+            // Mob inflicts damage to player
+            var playerScript = player.GetComponent<Player>();
+            playerScript.TakeDamage(this);
         }
 
         if (atk_stage == ATTACK_STAGE.RETURN_STG && Vector3.Distance(transform.position, attackSequenceData.GetStartPoint()) <= 0.005f)
@@ -187,6 +200,11 @@ public sealed class BasicFishMob : MonoBehaviour
             Debug.Log("CHANGE TO NOATK STAGE");
             atk_stage = ATTACK_STAGE.NOATK; // Finish attack sequence, return to start point
         }
+    }
+
+    public float InflictDamage(float health)
+    {
+        return health - damage;
     }
 
     void Update()
