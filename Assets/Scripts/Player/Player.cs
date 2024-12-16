@@ -29,6 +29,7 @@ public sealed class Player : MonoBehaviour, IDamageable
     public void Start()
     {
         currentWeapon = meleeWeapon.GetComponent<IWeapons>();
+        currentWeapon = longRangeWeapon.GetComponent<IWeapons>();
         if (currentWeapon == null)
         {
             Debug.Log("Weapon melee not found");
