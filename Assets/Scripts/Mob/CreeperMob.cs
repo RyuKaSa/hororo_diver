@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public sealed class CreeperMob : MonoBehaviour, IMob
+public sealed class CreeperMob : MonoBehaviour, IDamageable
 {
 
     public UnityEngine.AI.NavMeshAgent agent;
@@ -86,13 +86,9 @@ public sealed class CreeperMob : MonoBehaviour, IMob
         }
     }
 
-    public float InflictDamage(float health)
+    public void Damage(float damage)
     {
-        return health - damage;
-    }
-
-    public void ReceiveDamage(float damage)
-    {
+        Debug.Log(transform.name + " takes " + damage + " damage");
         health -= damage;
     }
 
