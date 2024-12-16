@@ -70,4 +70,9 @@ public class Player_Input : MonoBehaviour
     {
         return isRunning;
     }
+
+    public Vector3 GetMoveDirection()
+    {
+        return moveDirection;
+    }
 }

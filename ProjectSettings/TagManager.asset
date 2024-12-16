@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BasicMob
   - Knife
+  - Harpoon
   layers:
   - Default
   - TransparentFX
