@@ -38,20 +38,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
         var projectileGameObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(0.5f, gradient, offset, 1f);
-
-        // Detects ennemies in range of attack
-        // var hitEnnemiesArray = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
-
-        // foreach (var collider in hitEnnemiesArray)
-        // {
-        //     var damageable = collider.GetComponent<IDamageable>();
-        //     if (damageable != null)
-        //     {
-        //         Debug.Log("Interface was found");
-        //         damageable.Damage(attack);
-        //     }
-        // }
+        projectile.Initialize(direction.x <= 0f ? 0.5f : -0.5f, gradient, offset, 1f);
     }
 
 }
