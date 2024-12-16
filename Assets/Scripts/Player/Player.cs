@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public sealed class Player : MonoBehaviour
+public sealed class Player : MonoBehaviour, IDamageable
 {
 
 
@@ -25,10 +25,11 @@ public sealed class Player : MonoBehaviour
         }
     }
 
-    public void TakeDamage(IMob mob)
+    public void Damage(float damage)
     {
-        Debug.Log("Inflige damage");
-        health = mob.InflictDamage(health);
+        Debug.Log(transform.name + " takes " + damage + " damage");
+        health -= damage;
     }
+
 
 }

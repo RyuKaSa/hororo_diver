@@ -126,7 +126,6 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
     {
         mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
         mob.Start();
-
     }
 
     /// <summary>
@@ -183,16 +182,13 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
         }
 
         // Takes the destination agent as a reference not currens player's position because the player may have moved between 2 frame 
-        if (atk_stage == ATTACK_STAGE.ATK_STG && Vector3.Distance(agent.destination, transform.position) <= 0.5f)
+        if (atk_stage == ATTACK_STAGE.ATK_STG && Vector3.Distance(agent.destination, transform.position) <= 1f)
         {
             Debug.Log("CHANGE TO RETURN STAGE");
 
             atk_stage = ATTACK_STAGE.RETURN_STG;
             mob.SetMobAgentDestination(attackSequenceData.GetStartPoint());
 
-            /* Mob inflicts damage to player
-            var playerScript = player.GetComponent<Player>();
-            playerScript.TakeDamage(this);*/
         }
 
         if (atk_stage == ATTACK_STAGE.RETURN_STG && Vector3.Distance(transform.position, attackSequenceData.GetStartPoint()) <= 0.005f)
@@ -249,6 +245,7 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
             var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             BehaviorProcessBasedOnState(player, state); // Determines which behavior algo choose according to mob's state
         }
+
     }
 
 }
