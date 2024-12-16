@@ -25,7 +25,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     {
         Debug.Log("Player attack with " + transform.name);
 
-        //var projectile = Instanciate(projectilePrefab, transform.position, Quaternion.identity);
+        var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
         // Detects ennemies in range of attack
         // var hitEnnemiesArray = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
