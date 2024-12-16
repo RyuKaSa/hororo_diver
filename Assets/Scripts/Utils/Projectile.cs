@@ -27,18 +27,15 @@ public sealed class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collide with other obj");
-        if (atk_stage == ATTACK_STAGE.ATK_STG)
+        var damageable = other.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            var damageable = other.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                Debug.Log(transform.name + " inflicts damage to " + other.name);
-                damageable.Damage(damage);
-            }
-            else
-            {
-                Debug.Log("Interface IDamageable not found");
-            }
+            Debug.Log(transform.name + " inflicts damage to " + other.name);
+            damageable.Damage(damage);
+        }
+        else
+        {
+            Debug.Log("Interface IDamageable not found");
         }
     }
 }
