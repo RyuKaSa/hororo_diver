@@ -3,6 +3,14 @@ using UnityEngine.InputSystem;
 
 public class Player_Input : MonoBehaviour
 {
+    public enum INPUT_ACTION
+    {
+        ATTACK_ACTION,
+        SWAP_WEAPON_ACTION,
+
+        NO_ACTION
+    }
+
     public Rigidbody2D rb;
     public float speed = 5f;
     public float runMultiplier = 2f;
@@ -54,6 +62,21 @@ public class Player_Input : MonoBehaviour
 
         // Pass the velocity to the CapsuleOrientation script for rotation
         capsuleOrientation.SetVelocity(currentVelocity);
+    }
+
+    public INPUT_ACTION GetPlayerActionByKey()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return INPUT_ACTION.ATTACK_ACTION;
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            return INPUT_ACTION.SWAP_WEAPON_ACTION;
+        }
+        return INPUT_ACTION.NO_ACTION;
+
     }
 
     private void FixedUpdate()

@@ -35,7 +35,6 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         float gradient = (player.transform.position.y - transform.position.y) / (player.transform.position.x - transform.position.x);
         float offset = transform.position.y - (gradient * transform.position.x);
 
-
         var projectileGameObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         var projectile = projectileGameObject.GetComponent<Projectile>();
         projectile.Initialize(direction.x <= 0f ? 0.5f : -0.5f, gradient, offset, 1f);
