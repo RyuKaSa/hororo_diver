@@ -7,7 +7,6 @@ public class Player_Input : MonoBehaviour
     {
         ATTACK_ACTION,
         SWAP_WEAPON_ACTION,
-
         NO_ACTION
     }
 
@@ -17,6 +16,7 @@ public class Player_Input : MonoBehaviour
     public float runThreshold = 0.9f;
     public float smoothTransitionTime = 0.1f;
 
+    private Animator animator;
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 currentVelocity = Vector2.zero;
     private Vector2 targetVelocity = Vector2.zero;
@@ -38,10 +38,22 @@ public class Player_Input : MonoBehaviour
         runAction.Disable();
     }
 
+    public void Start()
+    {
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.Log("Animator not found");
+        }
+    }
+
     public void Update()
     {
+
         // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();
+
+        UpdateAnimation(moveDirection);
 
         // Determine if the player is running
         if (Gamepad.current != null)
@@ -77,6 +89,19 @@ public class Player_Input : MonoBehaviour
         }
         return INPUT_ACTION.NO_ACTION;
 
+    }
+
+    private void UpdateAnimation(Vector2 moveDirection)
+    {
+        if (moveDirection.x != 0)
+        {
+            animator.SetBool("isSwimming", true);
+        }
+
+        if (moveDirection.y != 0)
+        {
+            animator.SetBool("isSwimming", false);
+        }
     }
 
     private void FixedUpdate()
