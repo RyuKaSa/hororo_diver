@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
-  m_AssetsPPU: 10
+  m_AssetsPPU: 32
   m_RefResolutionX: 320
   m_RefResolutionY: 180
   m_CropFrame: 0
@@ -245,7 +245,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 13.475
+  orthographic size: 3.3695552
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 119172763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 2.19, z: -9.97}
+  m_LocalPosition: {x: 0.8, y: 5.61, z: -10.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9814,7 +9814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &270832018
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10281,7 +10281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6838904540367945865, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5.72
       objectReference: {fileID: 0}
     - target: {fileID: 6838904540367945865, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_LocalPosition.z

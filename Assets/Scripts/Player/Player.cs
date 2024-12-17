@@ -38,6 +38,10 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
+        // Weapon follow Player's hand
+        var hand = transform.Find("HandPoint");
+        weapons[weaponId].transform.position = hand.transform.position;
+
         playerInput.Update(); // Updates movement
         SwapWeapon();
 
