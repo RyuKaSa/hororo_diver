@@ -4,7 +4,9 @@ using UnityEngine;
 public sealed class Projectile : MonoBehaviour
 {
     Vector3 origin;
-    float radius;
+    Vector3 direction;
+    public float lifeDuration;
+    private float remainingTime;
     float speed;
     float damage;
     float gradient, offset; // Represent gradient and offset in linear equation
@@ -16,10 +18,10 @@ public sealed class Projectile : MonoBehaviour
         this.damage = damage;
     }
 
-    public void Initialize(float speed, float radius, float damage, Vector3 origin)
+    public void Initialize(float speed, float time, float damage, Vector3 origin)
     {
         this.speed = speed;
-        this.radius = radius;
+        this.lifeDuration = time;
         this.damage = damage;
         this.origin = origin;
     }
@@ -27,6 +29,9 @@ public sealed class Projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        direction = transform.forward;
+        GetComponent<Rigidbody>().AddForce(direction*1000);
+        remainingTime = lifeDuration;
     }
 
     void moveProjectiles() {
@@ -34,9 +39,10 @@ public sealed class Projectile : MonoBehaviour
             Debug.LogError("ERROR ERROR ERROR ORIGIN NULL");
             return;
         }
-        transform.position += transform.forward * Time.deltaTime * speed; 
-        float distance = Vector3.Distance(origin, transform.position);
-        if (distance > radius)
+        // transform.position += direction * Time.deltaTime * speed; 
+        // float distance = Vector3.Distance(origin, transform.position);
+        remainingTime -= Time.deltaTime;
+        if (remainingTime <= 0)
         {
             Debug.Log("DESTROYED");
             Destroy(gameObject);
@@ -49,7 +55,19 @@ public sealed class Projectile : MonoBehaviour
         moveProjectiles();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider col)
+{
+
+    Debug.Log("Collision !!!");
+
+    if(col.GetComponent<Collider>().tag == "BasicMob")
+    {
+        // It is object tagged with TagB
+        Debug.Log("Collide with BasicMob");
+    }
+}
+
+    private void OnTriggerEnterNop(Collider other)
     {
         Debug.Log("Collide with other obj");
         var damageable = other.GetComponent<IDamageable>();
