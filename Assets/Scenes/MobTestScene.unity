@@ -245,7 +245,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.3695552
+  orthographic size: 4.2109375
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -10271,6 +10271,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3639464221475551017, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639464221475551017, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6592591959471768985, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Name
       value: Player
@@ -10314,6 +10322,18 @@ PrefabInstance:
     - target: {fileID: 6838904540367945865, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364213725292657056, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: runAction.m_SingletonActionBindings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364213725292657056, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: runAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: fabf3bd8-135f-45b5-a853-d2c1f0c8b784
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364213725292657056, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: runAction.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Run
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
