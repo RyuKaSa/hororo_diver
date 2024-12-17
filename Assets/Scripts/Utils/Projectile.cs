@@ -3,25 +3,16 @@ using UnityEngine;
 
 public sealed class Projectile : MonoBehaviour
 {
-    float speed;
-    float gradient, offset; // Represent gradient and offset in linear equation
+    [SerializeField]
+    private Rigidbody2D rb;
 
+    float speed = 0.05f;
     float damage;
 
-    public void Initialize(float speed, float gradient, float offset, float damage)
+    public void Initialize(float speed, float damage)
     {
-        this.speed = speed;
-        this.gradient = gradient;
-        this.offset = offset;
         this.damage = damage;
-    }
-
-    void Update()
-    {
-        float x = transform.position.x + speed;
-        float y = gradient * x + offset;
-
-        transform.position = new Vector3(x, y, 0f);
+        rb.velocity = transform.right * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

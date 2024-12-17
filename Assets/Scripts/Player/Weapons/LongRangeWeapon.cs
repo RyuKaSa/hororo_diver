@@ -13,6 +13,9 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     public GameObject projectilePrefab;
 
     [SerializeField]
+    private GameObject firePoint;
+
+    [SerializeField]
     private float attackRange = 0.5f;
 
     [SerializeField]
@@ -20,6 +23,8 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
     [SerializeField]
     private float attack;
+
+
 
     public void AttackProcessing()
     {
@@ -29,15 +34,14 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         var direction = player.transform.position - transform.position;
         direction.z = 0;
         float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
 
         // Calculate Linear equation with mob position and player position
         float gradient = (player.transform.position.y - transform.position.y) / (player.transform.position.x - transform.position.x);
         float offset = transform.position.y - (gradient * transform.position.x);
 
-        var projectileGameObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
         var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(direction.x <= 0f ? 0.5f : -0.5f, gradient, offset, 1f);
+        projectile.Initialize(0.5f, 0, transform.position.y, 1f);
     }
 
 }

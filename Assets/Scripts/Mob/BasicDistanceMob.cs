@@ -92,22 +92,10 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
         // Mob can shoot Player
         if (!isShooting && timer <= waitingPeriod && Vector3.Distance(player.transform.position, transform.position) <= attackRange + 2f)
         {
-            Debug.Log("Shoot player");
-            // Mob look Player
-            var direction = player.transform.position - transform.position;
-            direction.z = 0;
-            float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(Vector3.forward * angle);
-
-            // Calculate Linear equation with mob position and player position
-            float gradient = (player.transform.position.y - transform.position.y) / (player.transform.position.x - transform.position.x);
-            float offset = transform.position.y - (gradient * transform.position.x);
-
-
             GameObject projectileObject = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile projectileScript = projectileObject.GetComponent<Projectile>();
 
-            projectileScript.Initialize(transform.position.x < player.transform.position.x ? 0.5f : -0.5f, gradient, offset, 1f);
+            projectileScript.Initialize(0.5f, 1f);
             isShooting = true;
 
             return;
