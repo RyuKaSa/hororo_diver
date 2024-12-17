@@ -8,9 +8,14 @@ public class ImportBWMap : MonoBehaviour
 {
     public string filePath = "Assets/Visual/Maps/processed.png";
 
+    public int yMin;
+    public int yMax;
+
     private Texture2D mapTexture;
     public Tile wallTile;
     private Tilemap tilemap;
+
+    private int offset;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +32,8 @@ public class ImportBWMap : MonoBehaviour
             mapTexture.LoadImage(fileData); //..this will auto-resize the texture dimensions.
         }
 
+        offset = mapTexture.width/5;
+
 
         // Texture2D tex = LoadTexture(filePath);
         Debug.Log(mapTexture);
@@ -40,13 +47,14 @@ public class ImportBWMap : MonoBehaviour
         Vector3Int currentCell = tilemap.WorldToCell(transform.position);
         Vector3Int[] positions = new Vector3Int[mapTexture.width * mapTexture.height];
         TileBase[] tileArray = new TileBase[mapTexture.width * mapTexture.height];
-        for(int y=0; y <mapTexture.height; y++) {
-            for(int x=250; x <mapTexture.width-250; x++) {
+        for(int y=yMin; y < yMax; y++) {
+            Debug.Log("Line " + y);
+            for(int x=offset; x <mapTexture.width-offset; x++) {
                 currentCell.x = x;
                 currentCell.y = y;
-                Debug.Log("" + x + " " + y);
-                positions[x+y*mapTexture.width] = new Vector3Int(x, y, 0);
-                if(colors[x+y*mapTexture.width].r == 1.0) {
+                // Debug.Log("" + x + " " + y);
+                positions[x+y*mapTexture.width] = new Vector3Int(x-(mapTexture.width/2), y-yMin, 0);
+                if(colors[x+y*mapTexture.width].r > 0.5) {
                     tileArray[x+y*mapTexture.width] = wallTile;
                 }
                 else {
