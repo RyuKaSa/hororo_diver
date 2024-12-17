@@ -12,10 +12,9 @@ public sealed class Player : MonoBehaviour, IDamageable
     private float health = 15f;
 
     [SerializeField]
-    private GameObject meleeWeapon;
+    private GameObject[] weapons; // Array of 2 elements which is 2 slots of Player's weapons
 
-    [SerializeField]
-    private GameObject longRangeWeapon;
+    private int weaponId = 0;
 
     [SerializeField]
     private float weaponSwappingTime = 0.5f;
@@ -28,39 +27,51 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Start()
     {
-        currentWeapon = meleeWeapon.GetComponent<IWeapons>();
-        currentWeapon = longRangeWeapon.GetComponent<IWeapons>();
+        currentWeapon = weapons[weaponId].GetComponent<IWeapons>();
         if (currentWeapon == null)
         {
-            Debug.Log("Weapon melee not found");
+            Debug.Log("Weapon not found");
         }
     }
 
     public void Update()
     {
-        playerInput.Update();
+        playerInput.Update(); // Updates movement
+        var action = playerInput.GetPlayerActionByKey();
+        SwapWeapon();
+
         if (health <= 0)
         {
             Debug.Log("Player is dead");
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (action == Player_Input.INPUT_ACTION.ATTACK_ACTION && !isSwapping)
         {
+            Debug.Log("Player attack");
             currentWeapon.AttackProcessing();
+        }
+
+        if (action == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION! && !isSwapping)
+        {
+            Debug.Log("Player swap weapon");
+            weaponId += 1;
+            isSwapping = true;
         }
     }
 
     private void SwapWeapon()
     {
-        if (!isSwapping)
-        {
-            isSwapping = true;
-        }
-
         if (isSwapping)
         {
+            Debug.Log("Current swapping");
             currentTimeSwap += Time.deltaTime;
+        }
+
+        if (currentTimeSwap >= weaponSwappingTime)
+        {
+            Debug.Log("Finish to swap");
+            isSwapping = false;
+            currentWeapon = weapons[weaponId % 2].GetComponent<IWeapons>();
         }
     }
 
