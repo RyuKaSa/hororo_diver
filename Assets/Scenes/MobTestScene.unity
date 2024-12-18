@@ -245,7 +245,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.2109375
+  orthographic size: 4.25
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -10335,6 +10335,10 @@ PrefabInstance:
       propertyPath: runAction.m_SingletonActionBindings.Array.data[0].m_Action
       value: Run
       objectReference: {fileID: 0}
+    - target: {fileID: 9219556668987636304, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1025252199}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10373,6 +10377,11 @@ Transform:
   - {fileID: 2017354653}
   m_Father: {fileID: 270832019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1025252199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8156326098323570947, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+  m_PrefabInstance: {fileID: 509123375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065402360
 GameObject:
   m_ObjectHideFlags: 0
@@ -10913,6 +10922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   projectilePrefab: {fileID: 5302077083622038763, guid: 6a550876f7217eb418ef48747f44042a, type: 3}
+  firePoint: {fileID: 0}
   attackRange: 0.5
   enemyLayer:
     serializedVersion: 2
