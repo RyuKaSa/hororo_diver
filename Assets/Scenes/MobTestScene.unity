@@ -245,7 +245,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.25
+  orthographic size: 2.8333333
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -10271,6 +10271,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3639464221475551017, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -10335,6 +10355,10 @@ PrefabInstance:
       propertyPath: runAction.m_SingletonActionBindings.Array.data[0].m_Action
       value: Run
       objectReference: {fileID: 0}
+    - target: {fileID: 8682300145712599229, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9219556668987636304, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: firePoint
       value: 
@@ -10395,15 +10419,15 @@ GameObject:
   - component: {fileID: 1065402364}
   - component: {fileID: 1065402363}
   - component: {fileID: 1065402361}
-  - component: {fileID: 1065402368}
   - component: {fileID: 1065402367}
+  - component: {fileID: 1065402368}
   m_Layer: 7
   m_Name: BasicMob
   m_TagString: BasicMob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1065402361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10550,7 +10574,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1065402368
 BoxCollider2D:
@@ -10581,7 +10605,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
