@@ -216,15 +216,15 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
         health -= damage;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Collide with other obj");
         if (atk_stage == ATTACK_STAGE.ATK_STG)
         {
-            var damageable = other.GetComponent<IDamageable>();
+            var damageable = other.gameObject.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                Debug.Log(transform.name + " inflicts damage to " + other.name);
+                Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
                 damageable.Damage(damage);
             }
             else

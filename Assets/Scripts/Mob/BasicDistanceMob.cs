@@ -122,6 +122,7 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
         }
     }
 
+
     void OnDrawGizmos()
     {
         // Définir la couleur de la ligne pour la rendre bien visible (par exemple, rouge)
