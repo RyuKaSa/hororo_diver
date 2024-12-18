@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 7598919289567094990}
   - component: {fileID: 7364213725292657056}
   - component: {fileID: 5749725596881576571}
+  - component: {fileID: 9085110426387185934}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -525,6 +526,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsule: {fileID: 6592591959471768985}
   initialRotation: 90
+--- !u!114 &9085110426387185934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592591959471768985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504b64f603bc76c4894ec81c91f83940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 0}
 --- !u!1 &8156326098323570947
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   projectilePrefab: {fileID: 7205021089814124318}
+  firePoint: {fileID: 0}
   attackRange: 0.5
   enemyLayer:
     serializedVersion: 2
@@ -713,7 +728,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7194125918022260568, guid: f17bec5091981994b9dbdd6d48b352e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

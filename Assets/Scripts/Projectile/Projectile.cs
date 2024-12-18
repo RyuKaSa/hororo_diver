@@ -10,6 +10,7 @@ public sealed class Projectile : MonoBehaviour
     float speed;
     float damage;
     float gradient, offset; // Represent gradient and offset in linear equation
+
     public void Initialize(float speed, float gradient, float offset, float damage)
     {
         this.speed = speed;
@@ -26,16 +27,26 @@ public sealed class Projectile : MonoBehaviour
         this.origin = origin;
     }
 
+    public void Initialize(float speed, float damage)
+    {
+        this.speed = speed;
+        this.damage = damage;
+    }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         direction = transform.forward;
-        GetComponent<Rigidbody>().AddForce(direction*1000);
+        GetComponent<Rigidbody>().AddForce(direction * 1000);
         remainingTime = lifeDuration;
     }
 
-    void moveProjectiles() {
-        if (origin == null) {
+    void moveProjectiles()
+    {
+        if (origin == null)
+        {
             Debug.LogError("ERROR ERROR ERROR ORIGIN NULL");
             return;
         }
@@ -56,16 +67,16 @@ public sealed class Projectile : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col)
-{
-
-    Debug.Log("Collision !!!");
-
-    if(col.GetComponent<Collider>().tag == "BasicMob")
     {
-        // It is object tagged with TagB
-        Debug.Log("Collide with BasicMob");
+
+        Debug.Log("Collision !!!");
+
+        if (col.GetComponent<Collider>().tag == "BasicMob")
+        {
+            // It is object tagged with TagB
+            Debug.Log("Collide with BasicMob");
+        }
     }
-}
 
     private void OnTriggerEnterNop(Collider other)
     {
