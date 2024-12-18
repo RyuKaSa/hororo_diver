@@ -29,11 +29,11 @@ public class CapsuleOrientation : MonoBehaviour
             capsule.transform.rotation = Quaternion.Lerp(capsule.transform.rotation, targetRotation, Time.deltaTime * 10f);
 
             // Handle flipping when crossing the 180-degree mark
-            // if (Mathf.Abs(capsule.transform.rotation.eulerAngles.z - angle) > 90f)
-            // {
-            //     // Flip the capsule on itself to simulate diver flipping
-            //     capsule.transform.Rotate(0, 180f, 0);
-            // }
+            if (Mathf.Abs(capsule.transform.rotation.eulerAngles.z - angle) > 90f)
+            {
+                // Flip the capsule on itself to simulate diver flipping
+                capsule.transform.Rotate(0, 180f, 0);
+            }
         }
     }
 
