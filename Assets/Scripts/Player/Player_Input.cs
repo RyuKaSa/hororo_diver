@@ -88,7 +88,6 @@ public class Player_Input : MonoBehaviour
             return INPUT_ACTION.SWAP_WEAPON_ACTION;
         }
         return INPUT_ACTION.NO_ACTION;
-
     }
 
     private void UpdateAnimation(Vector2 moveDirection)
@@ -99,7 +98,7 @@ public class Player_Input : MonoBehaviour
             animator.SetBool("isSwimming", true);
             return;
         }
-        else if (moveDirection.x == 0f && moveDirection.y == 0f)
+        else if (animator.GetBool("isSwimming") && moveDirection.x == 0f && moveDirection.y == 0f)
         {
             animator.SetBool("isSwimming", false);
             return;
