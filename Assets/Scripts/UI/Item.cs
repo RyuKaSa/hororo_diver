@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public struct Item
@@ -7,31 +6,34 @@ public struct Item
     [SerializeField] private int count;
     [SerializeField] private ItemData data;
 
-    public void Merge(ref Item _other)
+    public void Merge(ref Item other)
     {
         if (Full) return;
 
-        if(Empty) data = _other.data;
+        if (Empty)
+            data = other.data;
 
-        if (_other.Data != data) throw new System.Exception("Try to merge differents item types.");
+        if (other.Data != data)
+            throw new System.Exception("Cannot merge different item types.");
 
-        int _total = _other.count + count;
+        int total = other.Count + count;
 
-        if(_total <= data.stackMaxCount)
+        if (total <= data.stackMaxCount)
         {
-            count = _total;
-            _other.count = 0;
+            count = total;
+            other.count = 0;
             return;
         }
 
         count = data.stackMaxCount;
-        _other.count = _total - count;
+        other.count = total - count;
     }
 
-    public bool AvailableFor(Item _other) => Empty || (Data == _other.Data && !Full);
+    public bool AvailableFor(Item other) =>
+        Empty || (Data == other.Data && !Full);
 
     public ItemData Data => data;
-    public bool Full => data && count >= data.stackMaxCount;
+    public bool Full => data != null && count >= data.stackMaxCount;
     public bool Empty => count == 0 || data == null;
     public int Count => count;
 }
