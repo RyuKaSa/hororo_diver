@@ -41,7 +41,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
         var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
         var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(0.5f, 0, transform.position.y, 1f);
+        projectile.Initialize(0.5f, 1f);
     }
 
 }

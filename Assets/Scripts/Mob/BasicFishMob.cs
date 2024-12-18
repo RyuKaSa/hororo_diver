@@ -134,7 +134,9 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
     public void Start()
     {
         mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
+        Debug.Log("Before mob start Transform position z = " + transform.position.z);
         mob.Start();
+        Debug.Log("After mob start Transform position z = " + transform.position.z);
     }
 
     /// <summary>
@@ -237,6 +239,7 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
 
     void Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
         var player = GameObject.Find("Player");
         if (player == null)
         {
