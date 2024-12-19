@@ -3,12 +3,20 @@ using UnityEngine.InputSystem;
 
 public class Player_Input : MonoBehaviour
 {
+    public enum INPUT_ACTION
+    {
+        ATTACK_ACTION,
+        SWAP_WEAPON_ACTION,
+        NO_ACTION
+    }
+
     public Rigidbody2D rb;
     public float speed = 5f;
     public float runMultiplier = 2f;
     public float runThreshold = 0.9f;
     public float smoothTransitionTime = 0.1f;
 
+    private Animator animator;
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 currentVelocity = Vector2.zero;
     private Vector2 targetVelocity = Vector2.zero;
@@ -30,10 +38,22 @@ public class Player_Input : MonoBehaviour
         runAction.Disable();
     }
 
+    public void Start()
+    {
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.Log("Animator not found");
+        }
+    }
+
     public void Update()
     {
+
         // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();
+
+        UpdateAnimation(moveDirection);
 
         // Determine if the player is running
         if (Gamepad.current != null)
@@ -54,6 +74,36 @@ public class Player_Input : MonoBehaviour
 
         // Pass the velocity to the CapsuleOrientation script for rotation
         capsuleOrientation.SetVelocity(currentVelocity);
+    }
+
+    public INPUT_ACTION GetPlayerActionByKey()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return INPUT_ACTION.ATTACK_ACTION;
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            return INPUT_ACTION.SWAP_WEAPON_ACTION;
+        }
+        return INPUT_ACTION.NO_ACTION;
+    }
+
+    private void UpdateAnimation(Vector2 moveDirection)
+    {
+        Debug.Log("Move direction = " + moveDirection);
+        if (moveDirection.x != 0f || moveDirection.y != 0f)
+        {
+            animator.SetBool("isSwimming", true);
+            return;
+        }
+        else if (animator.GetBool("isSwimming") && moveDirection.x == 0f && moveDirection.y == 0f)
+        {
+            animator.SetBool("isSwimming", false);
+            return;
+        }
+
     }
 
     private void FixedUpdate()

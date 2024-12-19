@@ -21,7 +21,7 @@ public class CapsuleOrientation : MonoBehaviour
             float angle = Mathf.Atan2(currentVelocity.y, currentVelocity.x) * Mathf.Rad2Deg;
 
             // Add initial rotation of 90 degrees on the Z-axis
-            angle += initialRotation;
+            //angle += initialRotation;
 
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
@@ -29,11 +29,29 @@ public class CapsuleOrientation : MonoBehaviour
             capsule.transform.rotation = Quaternion.Lerp(capsule.transform.rotation, targetRotation, Time.deltaTime * 10f);
 
             // Handle flipping when crossing the 180-degree mark
-            if (Mathf.Abs(capsule.transform.rotation.eulerAngles.z - angle) > 90f)
-            {
-                // Flip the capsule on itself to simulate diver flipping
-                capsule.transform.Rotate(0, 180f, 0);
-            }
+            // if (Mathf.Abs(capsule.transform.rotation.eulerAngles.z - angle) > 90f)
+            // {
+            //     // Flip the capsule on itself to simulate diver flipping
+            //     capsule.transform.Rotate(0, 180f, 0);
+            // }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (capsule != null)
+        {
+            // Obtenir l'angle de rotation actuel du sprite
+            float angle = capsule.transform.rotation.eulerAngles.z;
+
+            // Calculer la direction du sprite en utilisant l'angle
+            Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0);
+
+            // Définir la couleur du Gizmo (par exemple, une ligne rouge)
+            Gizmos.color = Color.red;
+
+            // Dessiner la ligne depuis la position de la capsule pour indiquer la direction
+            Gizmos.DrawLine(capsule.transform.position, capsule.transform.position + direction * 2f); // *2f pour ajuster la longueur de la ligne
         }
     }
 }
