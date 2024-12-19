@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Levels/Level_2_Scene.unity.meta
 guid: b04f35fc13ed58944aaa2c76fcb5b9e9
+========
+guid: 1ad3c65dcf8181f4ebb41bd41013370f
+folderAsset: yes
+>>>>>>>> origin/feat/projectile:Assets/Materials/Particle.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

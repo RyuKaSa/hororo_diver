@@ -30,7 +30,7 @@ public class Player_Input : MonoBehaviour
         runAction.Disable();
     }
 
-    void Update()
+    public void Update()
     {
         // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();
@@ -69,5 +69,10 @@ public class Player_Input : MonoBehaviour
     public bool IsRunning()
     {
         return isRunning;
+    }
+
+    public Vector3 GetMoveDirection()
+    {
+        return moveDirection;
     }
 }

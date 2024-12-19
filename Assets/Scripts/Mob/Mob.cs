@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public sealed class Mob : MonoBehaviour
 {
+
     public enum State
     {
         PASSIVE,
@@ -162,4 +163,5 @@ public sealed class Mob : MonoBehaviour
         agent.destination = point;
 
     }
+
 }

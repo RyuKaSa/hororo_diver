@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Levels/Level_3_Scene.unity.meta
 guid: e6abcdea7b12b4a4891bc28848971642
+========
+guid: 35b6dbd8fac34d6458d6366004c1a568
+folderAsset: yes
+>>>>>>>> origin/feat/projectile:Assets/Scripts/Player/Weapons.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
