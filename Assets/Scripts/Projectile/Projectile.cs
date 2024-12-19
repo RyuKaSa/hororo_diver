@@ -26,16 +26,24 @@ public sealed class Projectile : MonoBehaviour
         this.origin = origin;
     }
 
+    public void Initialize(float speed, float damage)
+    {
+        this.damage = damage;
+        rb.velocity = transform.right * speed;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         direction = transform.forward;
-        GetComponent<Rigidbody>().AddForce(direction*1000);
+        GetComponent<Rigidbody>().AddForce(direction * 1000);
         remainingTime = lifeDuration;
     }
 
-    void moveProjectiles() {
-        if (origin == null) {
+    void moveProjectiles()
+    {
+        if (origin == null)
+        {
             Debug.LogError("ERROR ERROR ERROR ORIGIN NULL");
             return;
         }
@@ -56,16 +64,16 @@ public sealed class Projectile : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col)
-{
-
-    Debug.Log("Collision !!!");
-
-    if(col.GetComponent<Collider>().tag == "BasicMob")
     {
-        // It is object tagged with TagB
-        Debug.Log("Collide with BasicMob");
+
+        Debug.Log("Collision !!!");
+
+        if (col.GetComponent<Collider>().tag == "BasicMob")
+        {
+            // It is object tagged with TagB
+            Debug.Log("Collide with BasicMob");
+        }
     }
-}
 
     private void OnTriggerEnterNop(Collider other)
     {
@@ -81,4 +89,20 @@ public sealed class Projectile : MonoBehaviour
             Debug.Log("Interface IDamageable not found");
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Collide with other obj");
+        var damageable = other.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
+            damageable.Damage(damage);
+        }
+        else
+        {
+            Debug.Log("Interface IDamageable not found");
+        }
+    }
+
 }
