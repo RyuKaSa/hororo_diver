@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4820445285987163567}
   - component: {fileID: 857266006376529313}
+  - component: {fileID: 7194125918022260568}
   - component: {fileID: 2238105415923022640}
-  - component: {fileID: 1429934641186318032}
   m_Layer: 0
   m_Name: HarpoonAmmo
   m_TagString: Untagged
@@ -86,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7194125918022260568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750483038256637806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f884e6a8a46e8074eadac8b292317d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 2238105415923022640}
 --- !u!50 &2238105415923022640
 Rigidbody2D:
   serializedVersion: 4
@@ -113,19 +126,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1429934641186318032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4750483038256637806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e98ff82066b30447a2fba75b1c3ae18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 7123097850875396110, guid: 36b2428ef4bdc2247b853d26d91c2f38, type: 3}
-  radius: 5
-  speed: 10
-  damage: 1
