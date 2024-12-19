@@ -9,7 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/William_Menus/Main_Menu.unity
     guid: 6eccb1f3e0aa05d428c38b669a4701a6
   - enabled: 1
-    path: Assets/Scenes/TileMap_V1/TileMap_Test.unity
-    guid: 1ecf77f9c021a78498a4249000132dae
+    path: Assets/Scenes/Levels/Level_1_Scene.unity
+    guid: d46b56c7f4c796147a7b058e3725d144
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_2_Scene.unity
+    guid: ad6f046537f248f46b8766dd96bec21a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_3_Scene.unity
+    guid: db88cc0e6d10c6a4bbf13a6738a5ea3e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 24214773e263e6e47a0a9f2efa826ac3, type: 2}
