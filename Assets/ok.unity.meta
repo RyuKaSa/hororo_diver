@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ok.unity.meta
 guid: 642c24a4911c36c4ba3172db57198239
+========
+guid: 87edc80c3c0648d4e8d1f24d793d270c
+folderAsset: yes
+>>>>>>>> origin/feat/boids_mob:Assets/Prefabs/Player.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

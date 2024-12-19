@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Player_animation.unity.meta
 guid: 291871a77d253484eb155eb699d8a198
+========
+guid: 18631f299a625f7458d342aba31d5421
+>>>>>>>> origin/feat/boids_mob:Assets/Scenes/MobTestScene 2.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

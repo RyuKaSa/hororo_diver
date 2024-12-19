@@ -1,15 +1,21 @@
 using UnityEngine;
 
-public class Mob : MonoBehaviour
+/// <summary>
+/// Represents a generic mob character in the game. This class controls the mob's behavior, movement, and state transitions 
+/// between passive, hunting, and dead states. The mob can randomly move around in a designated area, and 
+/// chase the player when it detects them in its vision range. This class doesn't specifie pattern when the mob
+/// is in hunting state that depends on class which encapsulate this class. 
+/// </summary>
+public sealed class Mob : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         PASSIVE,
         HUNTING,
         DEAD
     }
 
-    public UnityEngine.AI.NavMeshAgent agent;
+    private UnityEngine.AI.NavMeshAgent agent;
 
     private Vector3 spawnPoint;
 
@@ -19,11 +25,27 @@ public class Mob : MonoBehaviour
 
     private State state = State.PASSIVE;
 
-    [SerializeField] private float visionRange;
+    private float visionRange;
 
-    [SerializeField] private float moveAreaRange = 20f;
+    private float moveAreaRange = 20f;
 
-    bool RandomPoint(out Vector3 result)
+    public Mob(UnityEngine.AI.NavMeshAgent agent, float health, float speed, float visionRange, float moveAreaRange, Vector3 spawnPoint)
+    {
+        this.agent = agent;
+        this.health = health;
+        this.speed = speed;
+        this.visionRange = visionRange;
+        this.moveAreaRange = moveAreaRange;
+        this.spawnPoint = spawnPoint;
+    }
+
+    /// <summary>
+    /// Tries to find a random point within the movement area around the spawn point.
+    /// The point is returned through the <paramref name="result"/> parameter.
+    /// </summary>
+    /// <param name="result">The random position found within the allowed area (output parameter).</param>
+    /// <returns>True if a valid random point is found, otherwise false.</returns>
+    public bool RandomPoint(out Vector3 result)
     {
         for (int i = 0; i < 30; i++)
         {
@@ -40,13 +62,13 @@ public class Mob : MonoBehaviour
     }
 
     /// <summary>
-    /// Méthode utilisé pour faire se déplacer le mob lorsqu'il est en mode passif.
-    /// Trouve un point aléatoire dans un rayon autour du mob et en fait sa destination.
+    /// Moves the mob randomly within the designated area if it is in the passive state.
+    /// The mob will randomly choose a destination point and move towards it.
     /// </summary>
-    private void PassiveMobMovement()
+    public void PassiveMobMovement()
     {
         Vector3 point;
-        if (agent.remainingDistance <= 1f && RandomPoint(out point))
+        if (state == State.PASSIVE && agent.remainingDistance <= 1f && RandomPoint(out point))
         {
             Debug.Log("Find random point");
             agent.destination = point;
@@ -54,65 +76,90 @@ public class Mob : MonoBehaviour
     }
 
     /// <summary>
-    /// Réduit la santé du mob en fonction de la quantité de dégâts reçus en paramètre.
+    /// Reduces the mob's health by the specified damage amount.
     /// </summary>
-    /// <param name="damage">Le montant des dégâts à infliger au mob. La santé sera réduite de cette valeur</param>
+    /// <param name="damage">The amount of damage to apply to the mob.</param>
     private void TakeDamage(float damage)
     {
         health -= damage;
 
     }
 
+
     /// <summary>
-    /// Vérifie si le joueur est dans le champ de vision du mob.
+    /// Checks if the mob is dead based on its health.
     /// </summary>
-    /// <param name="player">Le GameObject représentant le joueur</param>
-    /// <returns>Retourne vrai si le joueur est dans le champ de vision, sinon faux.</returns>
-    private bool IsPlayerInSight(GameObject player)
+    /// <returns>
+    /// Returns true if the mob's health is less than or equal to zero, indicating that the mob is dead.
+    /// Returns false if the mob's health is greater than zero, indicating that the mob is still alive.
+    /// </returns>
+    public bool IsDead()
     {
-        return Vector3.Distance(player.transform.position, transform.position) <= visionRange;
+        return health <= 0;
+    }
+
+    /// <summary>
+    /// Checks whether the player is within the mob's vision range.
+    /// </summary>
+    /// <param name="player">The GameObject representing the player.</param>
+    /// <returns>True if the player is within the vision range, otherwise false.</returns>
+    private bool IsPlayerInSight(GameObject player, Vector3 position)
+    {
+        return Vector3.Distance(player.transform.position, position) <= visionRange;
 
     }
 
     /// <summary>
-    /// Modifie l'état du mob en fonction de la visibilité du joueur dans son champ de vision
+    /// Updates the mob's state based on whether the player is within its vision range.
+    /// If the player is in sight, the mob enters the "HUNTING" state. Otherwise, it enters the "PASSIVE" state.
     /// </summary>
-    /// <param name="player">Le GameObject représentant le joueur.</param>
+    /// <param name="player">The GameObject representing the player.</param>
+    /// <returns>The current state of the mob</returns>
     /// <remarks>
-    /// Cette fonction vérifie si le joueur est dans le champ de vision du mob en appelant la fonction <see cref="IsPlayerInSight"/>.
-    /// Si le joueur est détecté, l'état du mob passe à <see cref="State.HUNTING"/>. Sinon, l'état du mob passe à <see cref="State.PASSIVE"/>.
+    /// This function calls <see cref="IsPlayerInSight"/> to determine whether the player is in the mob's vision range.
+    /// If the player is detected, the mob switches to "HUNTING" state. If not, it reverts to "PASSIVE" state.
     /// </remarks>
-    public void HandleStateBasedOnSight(GameObject player)
+    public State HandleStateBasedOnSight(GameObject player, Vector3 position)
     {
-        state = IsPlayerInSight(player) ? State.HUNTING : State.PASSIVE;
+        state = IsPlayerInSight(player, position) ? State.HUNTING : State.PASSIVE;
+        return state;
     }
 
+    /// <summary>
+    /// Sets the mob's state to "PASSIVE". 
+    /// In this state, the mob moves randomly in the environment without actively pursuing the player.
+    /// </summary>
     public void SetPassiveState()
     {
         state = State.PASSIVE;
     }
 
+    /// <summary>
+    /// Sets the mob's state to "HUNTING".
+    /// In this state, the mob actively pursues the player or other targets.
+    /// </summary>
     public void SetHuntingState()
     {
         state = State.HUNTING;
     }
 
+    /// <summary>
+    /// Sets the destination of the mob to the specified position.
+    /// </summary>
+    /// <param name="dest">The new destination for the mob to move towards.</param>
+    public void SetMobAgentDestination(Vector3 dest)
+    {
+        agent.destination = dest;
+    }
 
     public void Start()
     {
-        spawnPoint = transform.position;
         Vector3 point;
         while (!RandomPoint(out point))
         {
             ;
         }
         agent.destination = point;
-
-    }
-
-    void Update()
-    {
-        PassiveMobMovement();
 
     }
 }

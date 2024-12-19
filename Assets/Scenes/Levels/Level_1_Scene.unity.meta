@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Levels/Level_1_Scene.unity.meta
 guid: bab27067055aff548a29e17ef8c02c51
 DefaultImporter:
+========
+guid: 38175ca153505784d9dbbb5d4418ccc4
+PrefabImporter:
+>>>>>>>> origin/feat/boids_mob:Assets/Prefabs/Player/Main Camera.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

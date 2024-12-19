@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/UI_test.unity.meta
 guid: 888fbf11658426c4ca13fcafb231971a
+========
+guid: 07876280c03e8ba4bb13e4d8b15ef3de
+folderAsset: yes
+>>>>>>>> origin/feat/boids_mob:Assets/Prefabs.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
