@@ -3,17 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BasicMob
+  - Knife
+  - Harpoon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - BasicMob
+  - MeleeWeapon
   - 
   - 
   - 
@@ -41,6 +44,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+<<<<<<< HEAD
   - name: Background
     uniqueID: 42673417
     locked: 0
@@ -50,3 +54,5 @@ TagManager:
   - name: Foreground
     uniqueID: 1351964669
     locked: 0
+=======
+>>>>>>> feat/mob_player_interaction

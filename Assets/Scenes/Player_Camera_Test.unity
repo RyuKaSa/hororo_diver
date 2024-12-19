@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,7 +258,7 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 4
-    - m_Name: Up
+    - m_Name: up
       m_Id: 8f46e57f-1f28-4307-9d72-6b31984c55d3
       m_Path: <Joystick>/stick/up
       m_Interactions: 
@@ -266,7 +266,7 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 8
-    - m_Name: Down
+    - m_Name: down
       m_Id: 5c6ae88a-a9b8-44f9-9080-ce14b84a6b74
       m_Path: <Joystick>/stick/down
       m_Interactions: 
@@ -274,30 +274,22 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 8
-    - m_Name: Left
-      m_Id: cc81906e-83cc-459d-abbb-7c1a75538e25
+    - m_Name: left
+      m_Id: a06f2fbd-115e-4009-b8b6-3f36ed794693
       m_Path: <Joystick>/stick/left
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Move
       m_Flags: 8
-    - m_Name: Right
-      m_Id: 9365729a-f8af-40c1-ae2c-7fad0bdf8862
+    - m_Name: right
+      m_Id: a767d2bf-fd81-48d8-9ab6-4d0ef282b938
       m_Path: <Joystick>/stick/right
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Move
       m_Flags: 8
-    - m_Name: 
-      m_Id: 2d5f25ef-106f-4d28-888a-d86986546d4d
-      m_Path: <Joystick>/stick
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 0
     m_Flags: 0
   runAction:
     m_Name: Run
