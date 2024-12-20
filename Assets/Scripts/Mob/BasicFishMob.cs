@@ -237,7 +237,7 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
 
     void Update()
     {
-        var player = GameObject.Find("Player");
+        var player = GameObject.FindGameObjectsWithTag("Player")[0];
         if (player == null)
         {
             Debug.Log("PLAYER NULL");

@@ -21,7 +21,7 @@ public class CapsuleOrientation : MonoBehaviour
             float angle = Mathf.Atan2(currentVelocity.y, currentVelocity.x) * Mathf.Rad2Deg;
 
             // Add initial rotation of 90 degrees on the Z-axis
-            //angle += initialRotation;
+            angle += initialRotation;
 
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 

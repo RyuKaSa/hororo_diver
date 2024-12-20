@@ -95,15 +95,14 @@ public class Player_Input : MonoBehaviour
 
     private void UpdateAnimation(Vector2 moveDirection)
     {
-        Debug.Log("Move direction = " + moveDirection);
         if (moveDirection.x != 0f || moveDirection.y != 0f)
         {
-            //animator.SetBool("isSwimming", true);
+            animator.SetBool("isSwimming", true);
             return;
         }
         else if (animator.GetBool("isSwimming") && moveDirection.x == 0f && moveDirection.y == 0f)
         {
-            //animator.SetBool("isSwimming", false);
+            animator.SetBool("isSwimming", false);
             return;
         }
 

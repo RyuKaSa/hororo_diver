@@ -46,7 +46,7 @@ public sealed class Player : MonoBehaviour, IDamageable
         }
         else
         {
-            weapons[weaponId].transform.position = hand.transform.position;
+            weapons[weaponId % 2].transform.position = hand.transform.position;
 
         }
 
