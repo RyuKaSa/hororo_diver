@@ -30,7 +30,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     {
         Debug.Log("Player attack with " + transform.name);
 
-        var player = GameObject.Find("Player");
+        var player = GameObject.FindGameObjectsWithTag("Player")[0];
         var direction = player.transform.position - transform.position;
         direction.z = 0;
         float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;

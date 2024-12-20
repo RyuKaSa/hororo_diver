@@ -40,7 +40,15 @@ public sealed class Player : MonoBehaviour, IDamageable
     {
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
-        weapons[weaponId].transform.position = hand.transform.position;
+        if (hand == null)
+        {
+            Debug.Log("HandPoint not found");
+        }
+        else
+        {
+            weapons[weaponId].transform.position = hand.transform.position;
+
+        }
 
         playerInput.Update(); // Updates movement
         SwapWeapon();

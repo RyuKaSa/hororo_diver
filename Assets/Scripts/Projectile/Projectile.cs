@@ -3,7 +3,9 @@ using UnityEngine;
 
 public sealed class Projectile : MonoBehaviour
 {
-    Rigidbody2D rb;
+
+    [SerializeField]
+    private Rigidbody2D rb;
     Vector3 origin;
     Vector3 direction;
     public float lifeDuration;

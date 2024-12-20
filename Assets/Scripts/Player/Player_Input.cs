@@ -16,6 +16,9 @@ public class Player_Input : MonoBehaviour
     public float runThreshold = 0.9f;
     public float smoothTransitionTime = 0.1f;
 
+    [SerializeField]
+    private GameObject playerSprite;
+
     private Animator animator;
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 currentVelocity = Vector2.zero;
@@ -40,7 +43,7 @@ public class Player_Input : MonoBehaviour
 
     public void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = playerSprite.GetComponent<Animator>();
         if (animator == null)
         {
             Debug.Log("Animator not found");
@@ -95,12 +98,12 @@ public class Player_Input : MonoBehaviour
         Debug.Log("Move direction = " + moveDirection);
         if (moveDirection.x != 0f || moveDirection.y != 0f)
         {
-            animator.SetBool("isSwimming", true);
+            //animator.SetBool("isSwimming", true);
             return;
         }
         else if (animator.GetBool("isSwimming") && moveDirection.x == 0f && moveDirection.y == 0f)
         {
-            animator.SetBool("isSwimming", false);
+            //animator.SetBool("isSwimming", false);
             return;
         }
 
