@@ -5,11 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/William_Menus/Main_Menu.unity
     guid: 6eccb1f3e0aa05d428c38b669a4701a6
   - enabled: 1
-    path: Assets/Scenes/TileMap_V1/TileMap_Test.unity
-    guid: 1ecf77f9c021a78498a4249000132dae
+    path: Assets/Scenes/Levels/Level_1_Scene.unity
+    guid: bab27067055aff548a29e17ef8c02c51
+  - enabled: 0
+    path: Assets/Scenes/Levels/Level_2_Scene.unity
+    guid: b04f35fc13ed58944aaa2c76fcb5b9e9
+  - enabled: 0
+    path: Assets/Scenes/Levels/Level_3_Scene.unity
+    guid: e6abcdea7b12b4a4891bc28848971642
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 24214773e263e6e47a0a9f2efa826ac3, type: 2}

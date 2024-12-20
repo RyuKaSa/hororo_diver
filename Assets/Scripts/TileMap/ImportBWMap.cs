@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class ImportBWMap : MonoBehaviour
 {
-    public string filePath = "Assets/Visual/Maps/processed.png";
+    public string filePath = "Assets/Visual/Maps/processed_3_lvl.png";
+    public TileBase ruleTiles;
 
     public int yMin;
     public int yMax;
 
     private Texture2D mapTexture;
-    public Tile wallTile;
     private Tilemap tilemap;
 
     private int offset;
@@ -55,7 +55,8 @@ public class ImportBWMap : MonoBehaviour
                 // Debug.Log("" + x + " " + y);
                 positions[x+y*mapTexture.width] = new Vector3Int(x-(mapTexture.width/2), y-yMin, 0);
                 if(colors[x+y*mapTexture.width].r > 0.5) {
-                    tileArray[x+y*mapTexture.width] = wallTile;
+                    // tileArray[x+y*mapTexture.width] = wallTile;
+                    tileArray[x+y*mapTexture.width] = ruleTiles;
                 }
                 else {
                     tileArray[x+y*mapTexture.width] = null;
@@ -70,8 +71,8 @@ public class ImportBWMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-        currentCell.x += 1;
-        tilemap.SetTile(currentCell, wallTile);
+        // Vector3Int currentCell = tilemap.WorldToCell(transform.position);
+        // currentCell.x += 1;
+        // tilemap.SetTile(currentCell, ruleTiles);
     }
 }

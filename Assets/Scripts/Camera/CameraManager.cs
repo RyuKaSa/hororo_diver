@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour
         // Get the target's current position and ensure the Z is the same as the camera's
         Vector3 targetPosition = playerInput.transform.position;
         targetPosition.z = transform.position.z;
+        targetPosition.z = -10.0f;
 
         // Determine the max offset based on whether the player is running or moving normally
         float maxOffset = isRunning ? runMaxOffset : normalMaxOffset;
