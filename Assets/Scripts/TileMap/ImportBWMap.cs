@@ -9,70 +9,59 @@ public class ImportBWMap : MonoBehaviour
     public string filePath = "Assets/Visual/Maps/processed_3_lvl.png";
     public TileBase ruleTiles;
 
-    public int yMin;
-    public int yMax;
-
     private Texture2D mapTexture;
     private Tilemap tilemap;
 
     private int offset;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Get the Tilemap component
         tilemap = GetComponent<Tilemap>();
         Debug.Log("Start OK");
         Debug.Log(tilemap);
 
-        mapTexture = new Texture2D(1000, 1000, TextureFormat.BGRA32,false);
+        // Load the image into a Texture2D
         byte[] fileData;
-        if (File.Exists(filePath)) 	{
+        if (File.Exists(filePath))
+        {
             fileData = File.ReadAllBytes(filePath);
             mapTexture = new Texture2D(2, 2);
-            mapTexture.LoadImage(fileData); //..this will auto-resize the texture dimensions.
+            mapTexture.LoadImage(fileData); // This will auto-resize the texture dimensions.
         }
 
-        offset = mapTexture.width/5;
-
-
-        // Texture2D tex = LoadTexture(filePath);
         Debug.Log(mapTexture);
-        Debug.Log(mapTexture.width);
-        Debug.Log(mapTexture.height);
+        Debug.Log($"Texture Width: {mapTexture.width}, Height: {mapTexture.height}");
 
+        // Read pixel data
         Color[] colors = mapTexture.GetPixels(0);
+        Debug.Log($"Total Pixels: {colors.Length}");
 
-        Debug.Log(colors);
-
-        Vector3Int currentCell = tilemap.WorldToCell(transform.position);
+        // Define array sizes based on texture size
         Vector3Int[] positions = new Vector3Int[mapTexture.width * mapTexture.height];
         TileBase[] tileArray = new TileBase[mapTexture.width * mapTexture.height];
-        for(int y=yMin; y < yMax; y++) {
-            Debug.Log("Line " + y);
-            for(int x=offset; x <mapTexture.width-offset; x++) {
-                currentCell.x = x;
-                currentCell.y = y;
-                // Debug.Log("" + x + " " + y);
-                positions[x+y*mapTexture.width] = new Vector3Int(x-(mapTexture.width/2), y-yMin, 0);
-                if(colors[x+y*mapTexture.width].r > 0.5) {
-                    // tileArray[x+y*mapTexture.width] = wallTile;
-                    tileArray[x+y*mapTexture.width] = ruleTiles;
+
+        // Iterate through all pixels
+        for (int y = 0; y < mapTexture.height; y++)
+        {
+            for (int x = 0; x < mapTexture.width; x++)
+            {
+                int index = x + y * mapTexture.width;
+                positions[index] = new Vector3Int(x - (mapTexture.width / 2), y - (mapTexture.height / 2), 0);
+
+                if (colors[index].r > 0.5f)
+                {
+                    tileArray[index] = ruleTiles;
                 }
-                else {
-                    tileArray[x+y*mapTexture.width] = null;
+                else
+                {
+                    tileArray[index] = null;
                 }
             }
         }
 
+        // Apply the tiles to the Tilemap
         tilemap.SetTiles(positions, tileArray);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-        // currentCell.x += 1;
-        // tilemap.SetTile(currentCell, ruleTiles);
+        Debug.Log("Tilemap successfully updated from the image.");
     }
 }
