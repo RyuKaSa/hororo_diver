@@ -1,15 +1,16 @@
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public sealed class Player : MonoBehaviour, IDamageable
 {
 
-
     [SerializeField]
     private Player_Input playerInput;
 
     [SerializeField]
-    private float health = 15f;
+    private float health = 15f, damage, miningSpeed, resistance, speed;
 
     [SerializeField]
     private GameObject[] weapons; // Array of 2 elements which is 2 slots of Player's weapons
@@ -25,6 +26,13 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private float currentTimeSwap = 0f;
 
+    // Il faudrait une liste non modifiable des noms d'attributs existant accessible par toutes les classes (penser à utiliser AsReadonly class List) 
+    private readonly Dictionary<string, Attribute> attributes = new Dictionary<string, Attribute>();
+
+    private ReadOnlyDictionary<string, Attribute> attributesReadOnly;
+
+    private int debugCmpt = 0;
+
     public void Start()
     {
         currentWeapon = weapons[weaponId].GetComponent<IWeapons>();
@@ -34,10 +42,30 @@ public sealed class Player : MonoBehaviour, IDamageable
         }
 
         DisabledWeaponNotHolding();
+
+        // Init Attribute map based on field
+        attributes.Add("damage", new Attribute(damage));
+        attributes.Add("miningSpeed", new Attribute(miningSpeed));
+        attributes.Add("resistance", new Attribute(resistance));
+        attributes.Add("speed", new Attribute(speed));
+
+        attributesReadOnly = new ReadOnlyDictionary<string, Attribute>(attributes);
+    }
+
+    private void DebugAttributeTest()
+    {
+        if (debugCmpt == 0)
+        {
+            attributes["speed"].AddStatModifier(new StatModifier(100, 1, StatModifier.StatModifierType.ADDITIONAL));
+            debugCmpt++;
+        }
     }
 
     public void Update()
     {
+        DebugAttributeTest();
+        Debug.Log("PLAYER : speed from attributes = " + attributes["speed"].FinalValue());
+
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
         weapons[weaponId].transform.position = hand.transform.position;
@@ -104,5 +132,29 @@ public sealed class Player : MonoBehaviour, IDamageable
         health -= damage;
     }
 
+    public bool AddStatModifierToAttribute(string attribute, StatModifier statModifier)
+    {
+        if (attribute == null || statModifier == null)
+        {
+            Debug.Log("Attribute or statModifier is null");
+            return false;
+        }
+
+        if (!attributes.ContainsKey(attribute))
+        {
+            Debug.Log("Attribute in parameter doesn't exists");
+            return false;
+
+        }
+
+        // Add statModifier to the attribute
+        attributes[attribute].AddStatModifier(statModifier);
+        return true;
+    }
+
+    public ReadOnlyDictionary<string, Attribute> AsReadOnlyAttributes()
+    {
+        return attributesReadOnly;
+    }
 
 }

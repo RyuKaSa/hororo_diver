@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Class which represents an attribute in the game
@@ -21,7 +23,6 @@ public sealed class Attribute
         finalValue = baseValue;
     }
 
-
     /// <summary>
     /// Add stat modifier to the List
     /// </summary>
@@ -30,10 +31,16 @@ public sealed class Attribute
     {
         if (statModifier == null)
         {
-            Debug.Warning("StatModifier parameter is null");
             return;
         }
         statModifierList.Add(statModifier);
+
+        var sum = baseValue;
+        foreach (var sm in statModifierList)
+        {
+            sum += ComputeStatModifier(sm, sum);
+        }
+        finalValue = sum;
     }
 
     private float ComputeStatModifier(StatModifier statModifier, float acc)
@@ -56,7 +63,6 @@ public sealed class Attribute
     /// <returns></returns>
     public float FinalValue()
     {
-        return statModifierList.Aggregate(baseValue, (sm, acc) => { acc += ComputeStatModifier(sm, acc); });
+        return finalValue;
     }
-
 }

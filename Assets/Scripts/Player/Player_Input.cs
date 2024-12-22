@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +24,7 @@ public class Player_Input : MonoBehaviour
     private Vector2 currentVelocity = Vector2.zero;
     private Vector2 targetVelocity = Vector2.zero;
     private bool isRunning = false;
+    private ReadOnlyDictionary<string, Attribute> attributes;
 
     public InputAction moveAction;
     public InputAction runAction;
@@ -45,10 +49,30 @@ public class Player_Input : MonoBehaviour
         {
             Debug.Log("Animator not found");
         }
+
+    }
+
+    private bool WaitingLoadAttributes()
+    {
+        if (attributes == null)
+        {
+            var roAttribute = GetComponent<Player>().AsReadOnlyAttributes();
+            if (roAttribute == null)
+            {
+                return false;
+            }
+            attributes = roAttribute;
+        }
+        return true;
     }
 
     public void Update()
     {
+        if (!WaitingLoadAttributes())
+        {
+            return;
+        }
+        Debug.Log("PLAYER INPUT : speed from attributes = " + attributes["speed"].FinalValue());
 
         // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();
@@ -66,7 +90,7 @@ public class Player_Input : MonoBehaviour
         }
 
         // Set target velocity
-        float targetSpeed = isRunning ? speed * runMultiplier : speed;
+        float targetSpeed = isRunning ? attributes["speed"] * runMultiplier : attributes["speed"];
         targetVelocity = moveDirection * targetSpeed;
 
         // Smooth transition between velocities
