@@ -35,18 +35,18 @@ public class ItemDatabase : MonoBehaviour
         }
     }
 
-    public ItemData GetItemByName(string itemName)
-    {
-        // Search through all defined items
-        ItemData[] allItems = new ItemData[]
-        {
-        manganeseOre, copperOre, cobaltOre, ironOre,
-        harpoonHandgun, whalingHarpoonCannon, knife, pickaxe
-        };
+    // public ItemData GetItemByName(string itemName)
+    // {
+    //     // Search through all defined items
+    //     ItemData[] allItems = new ItemData[]
+    //     {
+    //     manganeseOre, copperOre, cobaltOre, ironOre,
+    //     harpoonHandgun, whalingHarpoonCannon, knife, pickaxe
+    //     };
 
-        // Concatenate artifacts to the array
-        allItems = allItems.Concat(artifacts).ToArray();
+    //     // Concatenate artifacts to the array
+    //     allItems = allItems.Concat(artifacts).ToArray();
 
-        return allItems.FirstOrDefault(item => item != null && item.itemName == itemName);
-    }
+    //     return allItems.FirstOrDefault(item => item != null && item.itemName == itemName);
+    // }
 }

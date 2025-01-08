@@ -10,6 +10,8 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
 {
     public Animator animator;
 
+    public Sprite icon;
+
     [SerializeField]
     private float attackRange = 0.5f;
 
@@ -18,6 +20,32 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
 
     [SerializeField]
     private float attack;
+
+    [SerializeField]
+    private string weaponName;
+
+    [SerializeField]
+    private ItemData.ItemType weaponType;
+
+    [SerializeField]
+    private int stackMaxCount;
+
+    public string ItemName(){
+        return weaponName;
+    }
+
+    public Sprite Icon(){
+        return icon;
+    }
+
+    public ItemData.ItemType ItemType(){
+        return weaponType;
+    }
+
+    public int StackMaxCount(){
+        return stackMaxCount;
+    }
+
 
     public void AttackProcessing()
     {

@@ -13,7 +13,13 @@ public sealed class Player : MonoBehaviour, IDamageable
     private float health = 15f, damage, miningSpeed, resistance, speed;
 
     [SerializeField]
-    private GameObject[] weapons; // Array of 2 elements which is 2 slots of Player's weapons
+    private GameObject[] weapons; // Array of 3 elements which is 3 slots of Player's weapons (Pickaxe include)
+
+    [SerializeField]
+    private GameObject pickaxe;
+
+    [SerializeField]
+    private Inventory inventory;
 
     private int weaponId = 0;
 
@@ -35,11 +41,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Start()
     {
-        currentWeapon = weapons[weaponId].GetComponent<IWeapons>();
-        if (currentWeapon == null)
-        {
-            Debug.Log("Weapon not found");
-        }
 
         DisabledWeaponNotHolding();
 
@@ -52,20 +53,28 @@ public sealed class Player : MonoBehaviour, IDamageable
         attributesReadOnly = new ReadOnlyDictionary<string, Attribute>(attributes);
     }
 
+    private void Awake()
+    {
+        Debug.Log("Creates Player");
+        currentWeapon = inventory.Context.EquippedWeapon;
+        if (currentWeapon == null)
+        {
+            Debug.Log("Weapon not found");
+        }
+
+    }
+
     private void DebugAttributeTest()
     {
         if (debugCmpt == 0)
         {
-            attributes["speed"].AddStatModifier(new StatModifier(100, 1, StatModifier.StatModifierType.ADDITIONAL));
+            attributes["speed"].AddStatModifier(new StatModifier(5, 1, StatModifier.StatModifierType.ADDITIONAL));
             debugCmpt++;
         }
     }
 
     public void Update()
     {
-        DebugAttributeTest();
-        Debug.Log("PLAYER : speed from attributes = " + attributes["speed"].FinalValue());
-
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
         weapons[weaponId].transform.position = hand.transform.position;
@@ -83,6 +92,7 @@ public sealed class Player : MonoBehaviour, IDamageable
         {
             Debug.Log("Player attack");
             currentWeapon.AttackProcessing();
+
         }
 
         if (action == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION! && !isSwapping)

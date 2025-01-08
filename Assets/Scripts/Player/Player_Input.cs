@@ -72,7 +72,6 @@ public class Player_Input : MonoBehaviour
         {
             return;
         }
-        Debug.Log("PLAYER INPUT : speed from attributes = " + attributes["speed"].FinalValue());
 
         // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();
@@ -90,7 +89,7 @@ public class Player_Input : MonoBehaviour
         }
 
         // Set target velocity
-        float targetSpeed = isRunning ? attributes["speed"] * runMultiplier : attributes["speed"];
+        float targetSpeed = isRunning ? attributes["speed"].FinalValue() * runMultiplier : attributes["speed"].FinalValue();
         targetVelocity = moveDirection * targetSpeed;
 
         // Smooth transition between velocities

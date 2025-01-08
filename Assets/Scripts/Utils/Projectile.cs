@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public sealed class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody2D rb;

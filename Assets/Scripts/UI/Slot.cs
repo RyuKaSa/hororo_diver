@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     private int index;
-    private Vector3 initialImageLocalPosition; 
+    private Vector3 initialImageLocalPosition;
 
     [SerializeField] private TextMeshProUGUI itemCountText;
     [SerializeField] private Image itemImage;
@@ -34,7 +34,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         itemCountText.text = "";
         itemImage.sprite = null;
-        itemImage.color = new Color(0,0,0,0);
+        itemImage.color = new Color(0, 0, 0, 0);
     }
 
     private void OnClick()
