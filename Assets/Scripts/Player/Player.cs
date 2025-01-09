@@ -51,12 +51,14 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Start()
     {
-        stateMachine.AddState(PlayerStates.IDLE); // Empty state
+        stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
+            onLogic: state => playerInput.IdleState()
+        ));
 
 
         // Set state machine states
         stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
-            onLogic: state => playerInput.Update()
+            onLogic: state => playerInput.UpdateMovement()
         ));
 
         stateMachine.AddState(PlayerStates.ATTACK, new State<PlayerStates>(
@@ -66,13 +68,31 @@ public sealed class Player : MonoBehaviour, IDamageable
         stateMachine.AddTransition(new Transition<PlayerStates>(
             PlayerStates.IDLE,
             PlayerStates.MOVE,
-            transition => playerInput.ActionButtonIsTriggered()
+            transition => playerInput.MovementButtonIsTriggered()
         ));
 
         stateMachine.AddTransition(new Transition<PlayerStates>(
             PlayerStates.MOVE,
             PlayerStates.IDLE,
-            transition => !playerInput.ActionButtonIsTriggered()
+            transition => !playerInput.MovementButtonIsTriggered()
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.IDLE,
+            PlayerStates.ATTACK,
+            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.ATTACK,
+            PlayerStates.MOVE,
+            transition => playerInput.MovementButtonIsTriggered() && !currentWeapon.WeaponAnimationIsPlaying()
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.MOVE,
+            PlayerStates.ATTACK,
+            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION
         ));
 
         stateMachine.SetStartState(PlayerStates.IDLE);
@@ -117,7 +137,6 @@ public sealed class Player : MonoBehaviour, IDamageable
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
         weapons[weaponId].transform.position = hand.transform.position;
-        Debug.Log("Test anim = " + currentWeapon.WeaponAnimationIsPlaying());
 
 
         // playerInput.Update(); // Updates movement
@@ -127,13 +146,6 @@ public sealed class Player : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             Debug.Log("Player is dead");
-        }
-
-        if (action == Player_Input.INPUT_ACTION.ATTACK_ACTION && !isSwapping)
-        {
-            Debug.Log("Player attack");
-            currentWeapon.AttackProcessing();
-
         }
 
         if (action == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION! && !isSwapping)

@@ -66,7 +66,18 @@ public class Player_Input : MonoBehaviour
         return true;
     }
 
-    public void Update()
+    public void IdleState()
+    {
+        if (targetVelocity.magnitude != 0f)
+        {
+            UpdateAnimation(Vector2.zero);
+            targetVelocity = Vector2.zero;
+            currentVelocity = Vector2.zero;
+            capsuleOrientation.SetVelocity(Vector2.zero);
+        }
+    }
+
+    public void UpdateMovement()
     {
         if (!WaitingLoadAttributes())
         {
@@ -74,7 +85,7 @@ public class Player_Input : MonoBehaviour
         }
 
         // Read movement input
-        moveDirection = moveAction.ReadValue<Vector2>();
+        // moveDirection = moveAction.ReadValue<Vector2>();
 
         UpdateAnimation(moveDirection);
 
@@ -99,9 +110,11 @@ public class Player_Input : MonoBehaviour
         capsuleOrientation.SetVelocity(currentVelocity);
     }
 
-    public bool ActionButtonIsTriggered()
+    public bool MovementButtonIsTriggered()
     {
-        return moveAction.triggered;
+        moveDirection = moveAction.ReadValue<Vector2>();
+        Debug.Log("moveDirection = " + moveDirection);
+        return moveDirection.magnitude > 0f;
     }
 
     public INPUT_ACTION GetPlayerActionByKey()

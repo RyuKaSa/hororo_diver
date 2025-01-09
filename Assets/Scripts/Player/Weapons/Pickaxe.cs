@@ -106,6 +106,7 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
     public bool WeaponAnimationIsPlaying()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        Debug.Log("stateInfo = " + stateInfo.IsName("Mining"));
 
         // Check if "Mining" is in progress
         return stateInfo.IsName("Mining");
