@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BasicMob
+  - Knife
+  - Harpoon
+  - Pickaxe
+  - ItemDatabase
   layers:
   - Default
   - TransparentFX
@@ -11,10 +16,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - BasicMob
+  - MeleeWeapon
+  - Ore
   - 
   - 
   - 
