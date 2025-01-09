@@ -15,7 +15,11 @@ public sealed class Ore : MonoBehaviour
     [SerializeField]
     private int hitRequired; // Hit required to get ore
 
+    [SerializeField]
+    private string name;
+
     private int currentHit = 0;
+
 
     /// <summary>
     /// This function add hit to the ore and
@@ -30,5 +34,17 @@ public sealed class Ore : MonoBehaviour
         return currentHit == hitRequired;
     }
 
+    public string Name()
+    {
+        return name;
+    }
+
+    void Update()
+    {
+        if (currentHit == hitRequired)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 }

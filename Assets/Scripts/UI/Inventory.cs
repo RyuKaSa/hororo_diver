@@ -14,12 +14,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void initInventory()
     {
-        var go = GameObject.FindGameObjectsWithTag("ItemDatabase");
-        if (go == null)
-        {
-            Debug.Log("Error: Could not find ItemDatabase game object");
-        }
-        var itemDB = go[0].GetComponent<ItemDatabase>();
+        var itemDB = Utils.GetComponentFromGameObjectTag<ItemDatabase>("ItemDatabase");
 
         if (itemDB == null)
         {

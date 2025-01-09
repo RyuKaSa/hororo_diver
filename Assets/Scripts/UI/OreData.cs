@@ -16,5 +16,23 @@ public class OreData : ItemData
 
     public OrePurpose purpose;
 
+    public static Item FromOreName(string oreName)
+    {
+        var itemDB = Utils.GetComponentFromGameObjectTag<ItemDatabase>("ItemDatabase");
+
+        if (itemDB == null)
+        {
+            Debug.Log("Error: Could not find ItemDatabase component");
+        }
+
+        var oreData = itemDB.GetItemByName(oreName);
+        if (oreData == null)
+        {
+            Debug.Log("Error: Could not find ore which called " + oreName);
+        }
+        return new Item(oreData, 1);
+
+    }
+
 
 }

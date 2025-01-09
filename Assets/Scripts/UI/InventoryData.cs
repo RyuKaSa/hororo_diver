@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 
 public class InventoryData
 {
@@ -27,6 +28,7 @@ public class InventoryData
             if (items[i].AvailableFor(_itemToAdd))
             {
                 items[i].Merge(ref _itemToAdd);
+                Debug.Log("Info: Add item " + _itemToAdd.Data.name + " to inventory");
             }
         }
     }

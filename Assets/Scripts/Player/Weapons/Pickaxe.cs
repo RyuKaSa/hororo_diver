@@ -50,8 +50,7 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Pickaxe collided layer = " + collision.gameObject.layer);
-        // Vérifiez si l'objet avec lequel on entre en collision a la couche "Ore"
+        // Check collision with Ore Layer
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ore"))
         {
             Debug.Log("Pickaxe collided with Ore!");
@@ -60,10 +59,22 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
             if (ore != null)
             {
                 Debug.Log("Hit ore");
-                ore.HitOre();
+                var pickOre = ore.HitOre();
+                if (pickOre)
+                {
+                    AddOre(ore.Name());
+                }
             }
 
         }
+    }
+
+    private void AddOre(string name)
+    {
+        var item = OreData.FromOreName(name);
+        var inventory = Utils.GetComponentFromGameObjectTag<Inventory>("Player");
+        inventory.AddItem(item);
+
     }
 
     public void AttackProcessing()
