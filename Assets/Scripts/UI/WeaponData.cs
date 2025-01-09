@@ -17,17 +17,23 @@ public class WeaponData : ItemData
     public bool isStartingWeapon;
 
     /// <summary>
-    /// This method returns the GameObject which correspond to this weapon data.
+    /// This method returns IWeapon class this weapon data.
     /// </summary>
     /// <returns></returns>
-    public GameObject GetWeapon()
+    public IWeapons GetWeapon()
     {
         var go = GameObject.FindGameObjectWithTag(this.itemName);
         if (go == null)
         {
             Debug.Log("Error: Could not find GameObject '" + this.itemName + "'");
         }
-        return go;
+
+        var component = go.GetComponent<IWeapons>();
+        if (component == null)
+        {
+            Debug.Log("Error: Could not find component");
+        }
+        return component;
     }
 
 }

@@ -24,15 +24,12 @@ public sealed class Player : MonoBehaviour, IDamageable
     private GameObject[] weapons; // Array of 3 elements which is 3 slots of Player's weapons (Pickaxe include)
 
     [SerializeField]
-    private GameObject pickaxe;
-
-    [SerializeField]
     private Inventory inventory;
-
-    private int weaponId = 0;
 
     [SerializeField]
     private float weaponSwappingTime = 0.5f;
+
+    private int weaponId = 0;
 
     private IWeapons currentWeapon;
 
@@ -45,24 +42,34 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private ReadOnlyDictionary<string, Attribute> attributesReadOnly;
 
-    private int debugCmpt = 0;
-
     private StateMachine<PlayerStates> stateMachine = new StateMachine<PlayerStates>();
+
+    private int debugCmpt = 0;
 
     public void Start()
     {
-        stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
-            onLogic: state => playerInput.IdleState()
-        ));
-
-
         // Set state machine states
-        stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
-            onLogic: state => playerInput.UpdateMovement()
-        ));
+        // stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
+        //     onLogic: state => { playerInput.UpdateMovement(); Debug.Log("IDLE STATE"); }
+        // ));
+
+        // stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
+        //     onLogic: state => playerInput.UpdateMovement()
+        // ));
 
         stateMachine.AddState(PlayerStates.ATTACK, new State<PlayerStates>(
             onLogic: state => currentWeapon.AttackProcessing()
+        ));
+
+        stateMachine.AddState(PlayerStates.SWAP, new State<PlayerStates>(
+            onLogic: state =>
+            {
+                weaponId += 1;
+                Debug.Log("Dans swap state");
+                inventory.SwapWeapon(weaponId);
+            },
+            canExit: state => state.timer.Elapsed > weaponSwappingTime,
+            needsExitTime: true
         ));
 
         stateMachine.AddTransition(new Transition<PlayerStates>(
@@ -78,6 +85,12 @@ public sealed class Player : MonoBehaviour, IDamageable
         ));
 
         stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.MOVE,
+            PlayerStates.MOVE,
+            transition => playerInput.MovementButtonIsTriggered()
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
             PlayerStates.IDLE,
             PlayerStates.ATTACK,
             transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION
@@ -90,10 +103,54 @@ public sealed class Player : MonoBehaviour, IDamageable
         ));
 
         stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.ATTACK,
+            PlayerStates.IDLE,
+            transition => !currentWeapon.WeaponAnimationIsPlaying()
+        ));
+
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
             PlayerStates.MOVE,
             PlayerStates.ATTACK,
             transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION
         ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.IDLE,
+            PlayerStates.SWAP,
+            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.SWAP,
+            PlayerStates.IDLE,
+            transition => true
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.SWAP,
+            PlayerStates.ATTACK,
+            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.SWAP,
+            PlayerStates.MOVE,
+            transition => playerInput.MovementButtonIsTriggered()
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.MOVE,
+            PlayerStates.SWAP,
+            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.ATTACK,
+            PlayerStates.SWAP,
+            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION && !currentWeapon.WeaponAnimationIsPlaying()
+        ));
+
 
         stateMachine.SetStartState(PlayerStates.IDLE);
 
@@ -107,7 +164,7 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         attributesReadOnly = new ReadOnlyDictionary<string, Attribute>(attributes);
 
-        stateMachine.Init();
+        // stateMachine.Init();
     }
 
     private void Awake()
@@ -132,15 +189,11 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        stateMachine.OnLogic();
-
+        // stateMachine.OnLogic();
+        // playerInput.UpdateMovement();
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
-        weapons[weaponId].transform.position = hand.transform.position;
-
-
-        // playerInput.Update(); // Updates movement
-        SwapWeapon();
+        // weapons[weaponId].transform.position = hand.transform.position;
 
         var action = playerInput.GetPlayerActionByKey();
         if (health <= 0)
@@ -153,28 +206,6 @@ public sealed class Player : MonoBehaviour, IDamageable
             Debug.Log("Player swap weapon");
             weaponId += 1;
             isSwapping = true;
-        }
-    }
-
-    private void SwapWeapon()
-    {
-        if (isSwapping)
-        {
-            Debug.Log("Current swapping");
-            currentTimeSwap += Time.deltaTime;
-        }
-
-        if (currentTimeSwap >= weaponSwappingTime)
-        {
-            Debug.Log("Finish to swap");
-            isSwapping = false;
-            currentTimeSwap = 0f;
-            currentWeapon = weapons[weaponId % 2].GetComponent<IWeapons>();
-            var currentWeaponRender = weapons[weaponId % 2].GetComponent<Renderer>();
-            currentWeaponRender.enabled = true;
-
-            DisabledWeaponNotHolding(); // Disabled other Renderer
-
         }
     }
 

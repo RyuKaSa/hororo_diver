@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    enum WeaponID
+    {
+        PICKAXE,
+        KNIFE,
+        HARPOON,
+        CANON
+    };
+
+
     [SerializeField] private InventoryDisplay display;
 
     private InventoryData data;
@@ -78,6 +87,21 @@ public class Inventory : MonoBehaviour
         data.Swap(_slotA, _slotB);
 
         display.UpdateDisplay(data.items);
+    }
+
+    public void SwapWeapon(int acc)
+    {
+        int id = acc % 3;
+
+        Item item = data.Peek(id);
+        var weaponData = item.Data as WeaponData;
+        if (weaponData == null)
+        {
+            Debug.Log("Error: weapon data is null");
+        }
+        var weapon = weaponData.GetWeapon();
+        weapon.OnEquiped(context);
+
     }
 
     public Item[] Data => data.items;

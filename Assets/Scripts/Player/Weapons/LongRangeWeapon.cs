@@ -8,9 +8,6 @@ using UnityEngine;
 /// </summary>
 public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 {
-
-    public Sprite icon;
-
     public Animator animator;
 
     public GameObject projectilePrefab;
@@ -26,36 +23,6 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
     [SerializeField]
     private float attack;
-
-    [SerializeField]
-    private string weaponName;
-
-    [SerializeField]
-    private ItemData.ItemType weaponType;
-
-    [SerializeField]
-    private int stackMaxCount;
-
-    public string ItemName()
-    {
-        return weaponName;
-    }
-
-    public Sprite Icon()
-    {
-        return icon;
-    }
-
-    public ItemData.ItemType ItemType()
-    {
-        return weaponType;
-    }
-
-    public int StackMaxCount()
-    {
-        return stackMaxCount;
-    }
-
 
     public void AttackProcessing()
     {
@@ -86,6 +53,13 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
         // Check if "Mining" is in progress
         return stateInfo.IsName("MiningAnimation");
+    }
+
+    public void OnEquiped(InventoryContext _ctx)
+    {
+        var equippedWeapon = _ctx.EquippedWeapon;
+        equippedWeapon = this;
+        Debug.Log("Info: equip " + transform.name);
     }
 
 }

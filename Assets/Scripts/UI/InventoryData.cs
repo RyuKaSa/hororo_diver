@@ -43,6 +43,13 @@ public class InventoryData
         return _item;
     }
 
+    public Item Peek(int _slotID)
+    {
+        if (_slotID > items.Length) throw new SystemException($"Id {_slotID} out of Inventory");
+
+        return items[_slotID];
+    }
+
     public void Swap(int _slotA, int _slotB)
     {
         Item _temp = items[_slotA];

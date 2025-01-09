@@ -7,20 +7,20 @@ public class InventoryToggle : MonoBehaviour
 
     void Update()
     {
-        // Vérifie si la touche A est pressée
+        // Vï¿½rifie si la touche A est pressï¿½e
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // Bascule la visibilité du panel
+            // Bascule la visibilitï¿½ du panel
             ToggleInventory();
         }
     }
 
     void ToggleInventory()
     {
-        // Inverse l'état actuel de l'inventaire
+        // Inverse l'ï¿½tat actuel de l'inventaire
         isInventoryOpen = !isInventoryOpen;
 
-        // Applique la visibilité du panel en fonction de l'état
+        // Applique la visibilitï¿½ du panel en fonction de l'ï¿½tat
         inventoryPanel.SetActive(isInventoryOpen);
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-public interface IWeapons : IItemData
+public interface IWeapons : IEquipable
 {
     public void AttackProcessing();
 

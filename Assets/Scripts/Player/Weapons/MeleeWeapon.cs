@@ -81,4 +81,12 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         return stateInfo.IsName("MiningAnimation");
     }
 
+    public void OnEquiped(InventoryContext _ctx)
+    {
+        var equippedWeapon = _ctx.EquippedWeapon;
+        equippedWeapon = this;
+        Debug.Log("Info: equip " + transform.name);
+    }
+
+
 }

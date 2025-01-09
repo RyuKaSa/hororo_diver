@@ -68,24 +68,25 @@ public class Player_Input : MonoBehaviour
 
     public void IdleState()
     {
-        if (targetVelocity.magnitude != 0f)
-        {
-            UpdateAnimation(Vector2.zero);
-            targetVelocity = Vector2.zero;
-            currentVelocity = Vector2.zero;
-            capsuleOrientation.SetVelocity(Vector2.zero);
-        }
+        Debug.Log("speed = " + targetVelocity + " currentVelocity = " + currentVelocity);
+        UpdateAnimation(Vector2.zero);
+        targetVelocity = Vector2.zero;
+        currentVelocity = Vector2.zero;
+        moveDirection = Vector2.zero;
+        capsuleOrientation.Reset();
+
     }
 
-    public void UpdateMovement()
+    public void Update()
     {
+        Debug.Log("Debug movement call");
         if (!WaitingLoadAttributes())
         {
             return;
         }
 
         // Read movement input
-        // moveDirection = moveAction.ReadValue<Vector2>();
+        moveDirection = moveAction.ReadValue<Vector2>();
 
         UpdateAnimation(moveDirection);
 
@@ -106,8 +107,10 @@ public class Player_Input : MonoBehaviour
         // Smooth transition between velocities
         currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, Time.deltaTime / smoothTransitionTime);
 
+        Debug.Log("Set velocity = " + currentVelocity + " magnitude = " + currentVelocity.magnitude);
         // Pass the velocity to the CapsuleOrientation script for rotation
         capsuleOrientation.SetVelocity(currentVelocity);
+        // capsuleOrientation.Update();
     }
 
     public bool MovementButtonIsTriggered()
@@ -149,7 +152,8 @@ public class Player_Input : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = currentVelocity;
+        Debug.Log("FixedUpdate velocity = " + currentVelocity);
+        rb.velocity = currentVelocity; // A cause d'ici
     }
 
     public Vector2 GetCurrentVelocity()
