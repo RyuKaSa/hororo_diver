@@ -49,13 +49,13 @@ public sealed class Player : MonoBehaviour, IDamageable
     public void Start()
     {
         // Set state machine states
-        // stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
-        //     onLogic: state => { playerInput.UpdateMovement(); Debug.Log("IDLE STATE"); }
-        // ));
+        stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
+            onLogic: state => { playerInput.UpdateMovement(); Debug.Log("IDLE STATE"); }
+        ));
 
-        // stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
-        //     onLogic: state => playerInput.UpdateMovement()
-        // ));
+        stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
+            onLogic: state => playerInput.UpdateMovement()
+        ));
 
         stateMachine.AddState(PlayerStates.ATTACK, new State<PlayerStates>(
             onLogic: state => currentWeapon.AttackProcessing()
@@ -164,7 +164,7 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         attributesReadOnly = new ReadOnlyDictionary<string, Attribute>(attributes);
 
-        // stateMachine.Init();
+        stateMachine.Init();
     }
 
     private void Awake()
@@ -189,8 +189,7 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        // stateMachine.OnLogic();
-        // playerInput.UpdateMovement();
+        stateMachine.OnLogic();
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
         // weapons[weaponId].transform.position = hand.transform.position;

@@ -18,7 +18,7 @@ public class CapsuleOrientation : MonoBehaviour
         capsule.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    public void Update()
+    public void UpdateRotation()
     {
         // Handle capsule rotation based on velocity
         if (currentVelocity.magnitude > 0.01f)  // Avoid unnecessary calculations when nearly still

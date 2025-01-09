@@ -77,7 +77,7 @@ public class Player_Input : MonoBehaviour
 
     }
 
-    public void Update()
+    public void UpdateMovement()
     {
         Debug.Log("Debug movement call");
         if (!WaitingLoadAttributes())
@@ -107,10 +107,9 @@ public class Player_Input : MonoBehaviour
         // Smooth transition between velocities
         currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, Time.deltaTime / smoothTransitionTime);
 
-        Debug.Log("Set velocity = " + currentVelocity + " magnitude = " + currentVelocity.magnitude);
         // Pass the velocity to the CapsuleOrientation script for rotation
         capsuleOrientation.SetVelocity(currentVelocity);
-        // capsuleOrientation.Update();
+        capsuleOrientation.UpdateRotation();
     }
 
     public bool MovementButtonIsTriggered()
