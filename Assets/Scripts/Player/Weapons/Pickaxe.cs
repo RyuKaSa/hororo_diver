@@ -79,7 +79,9 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     public void AttackProcessing()
     {
-        TriggerAnimation();
+        Debug.Log("Tigger mining anim");
+        animator.SetBool("isMining", true);
+
         Debug.Log("Player use Pickaxe ");
 
         var hitEnnemiesArray = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
@@ -95,16 +97,18 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
         }
     }
 
-    public void TriggerAnimation()
-    {
-        Debug.Log("Tigger mining anim");
-        animator.SetBool("isMining", true);
-    }
-
     public void ResetAnimationFlag()
     {
         animator.SetBool("isMining", false);
         Debug.Log("Mining animation end");
+    }
+
+    public bool WeaponAnimationIsPlaying()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Check if "Mining" is in progress
+        return stateInfo.IsName("Mining");
     }
 
 }

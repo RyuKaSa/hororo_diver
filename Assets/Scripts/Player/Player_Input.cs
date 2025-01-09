@@ -99,6 +99,11 @@ public class Player_Input : MonoBehaviour
         capsuleOrientation.SetVelocity(currentVelocity);
     }
 
+    public bool ActionButtonIsTriggered()
+    {
+        return moveAction.triggered;
+    }
+
     public INPUT_ACTION GetPlayerActionByKey()
     {
         if (Input.GetKeyDown(KeyCode.Space))

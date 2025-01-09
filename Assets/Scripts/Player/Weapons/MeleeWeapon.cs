@@ -30,19 +30,23 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private int stackMaxCount;
 
-    public string ItemName(){
+    public string ItemName()
+    {
         return weaponName;
     }
 
-    public Sprite Icon(){
+    public Sprite Icon()
+    {
         return icon;
     }
 
-    public ItemData.ItemType ItemType(){
+    public ItemData.ItemType ItemType()
+    {
         return weaponType;
     }
 
-    public int StackMaxCount(){
+    public int StackMaxCount()
+    {
         return stackMaxCount;
     }
 
@@ -62,6 +66,19 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
                 damageable.Damage(attack);
             }
         }
+    }
+
+    public bool WeaponAnimationIsPlaying()
+    {
+        if (animator == null)
+        {
+            return false;
+        }
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Check if "Mining" is in progress
+        return stateInfo.IsName("MiningAnimation");
     }
 
 }

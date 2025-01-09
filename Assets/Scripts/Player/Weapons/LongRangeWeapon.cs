@@ -36,19 +36,23 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private int stackMaxCount;
 
-    public string ItemName(){
+    public string ItemName()
+    {
         return weaponName;
     }
 
-    public Sprite Icon(){
+    public Sprite Icon()
+    {
         return icon;
     }
 
-    public ItemData.ItemType ItemType(){
+    public ItemData.ItemType ItemType()
+    {
         return weaponType;
     }
 
-    public int StackMaxCount(){
+    public int StackMaxCount()
+    {
         return stackMaxCount;
     }
 
@@ -69,6 +73,19 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
         var projectile = projectileGameObject.GetComponent<Projectile>();
         projectile.Initialize(0.5f, 1f);
+    }
+
+    public bool WeaponAnimationIsPlaying()
+    {
+        if (animator == null)
+        {
+            return false;
+        }
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Check if "Mining" is in progress
+        return stateInfo.IsName("MiningAnimation");
     }
 
 }

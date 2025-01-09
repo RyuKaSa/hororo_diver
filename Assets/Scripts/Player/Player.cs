@@ -1,10 +1,18 @@
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityHFSM;
 
 public sealed class Player : MonoBehaviour, IDamageable
 {
+    enum PlayerStates
+    {
+        IDLE,
+        MOVE,
+        ATTACK,
+        SWAP
+    };
+
 
     [SerializeField]
     private Player_Input playerInput;
@@ -39,8 +47,35 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private int debugCmpt = 0;
 
+    private StateMachine<PlayerStates> stateMachine = new StateMachine<PlayerStates>();
+
     public void Start()
     {
+        stateMachine.AddState(PlayerStates.IDLE); // Empty state
+
+
+        // Set state machine states
+        stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
+            onLogic: state => playerInput.Update()
+        ));
+
+        stateMachine.AddState(PlayerStates.ATTACK, new State<PlayerStates>(
+            onLogic: state => currentWeapon.AttackProcessing()
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.IDLE,
+            PlayerStates.MOVE,
+            transition => playerInput.ActionButtonIsTriggered()
+        ));
+
+        stateMachine.AddTransition(new Transition<PlayerStates>(
+            PlayerStates.MOVE,
+            PlayerStates.IDLE,
+            transition => !playerInput.ActionButtonIsTriggered()
+        ));
+
+        stateMachine.SetStartState(PlayerStates.IDLE);
 
         DisabledWeaponNotHolding();
 
@@ -51,6 +86,8 @@ public sealed class Player : MonoBehaviour, IDamageable
         attributes.Add("speed", new Attribute(speed));
 
         attributesReadOnly = new ReadOnlyDictionary<string, Attribute>(attributes);
+
+        stateMachine.Init();
     }
 
     private void Awake()
@@ -75,11 +112,15 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
+        stateMachine.OnLogic();
+
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
         weapons[weaponId].transform.position = hand.transform.position;
+        Debug.Log("Test anim = " + currentWeapon.WeaponAnimationIsPlaying());
 
-        playerInput.Update(); // Updates movement
+
+        // playerInput.Update(); // Updates movement
         SwapWeapon();
 
         var action = playerInput.GetPlayerActionByKey();
