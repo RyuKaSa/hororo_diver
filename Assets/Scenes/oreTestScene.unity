@@ -302,6 +302,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e314c869c46b854da9b187f9091e5cd, type: 3}
+--- !u!1 &1054970485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8156326098323570947, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+  m_PrefabInstance: {fileID: 1938323459}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1089434477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,9 +468,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1371742176435179570, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: weaponName
+      value: Knife
+      objectReference: {fileID: 0}
     - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883454356651766694, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: weaponName
+      value: Pickaxe
       objectReference: {fileID: 0}
     - target: {fileID: 6592591959471768985, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Name
@@ -521,6 +534,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8701665810425814559, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_TagString
+      value: Harpoon
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219556668987636304, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1054970485}
+    - target: {fileID: 9219556668987636304, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: weaponName
       value: Harpoon
       objectReference: {fileID: 0}
     m_RemovedComponents: []

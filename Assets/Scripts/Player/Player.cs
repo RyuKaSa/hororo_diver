@@ -64,9 +64,17 @@ public sealed class Player : MonoBehaviour, IDamageable
         stateMachine.AddState(PlayerStates.SWAP, new State<PlayerStates>(
             onLogic: state =>
             {
-                weaponId += 1;
-                Debug.Log("Dans swap state");
+                var go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
+
+                go.transform.position = new Vector3(-1000, -1000, -1000);
                 inventory.SwapWeapon(weaponId);
+                currentWeapon = inventory.Context.GetEquippedWeapon();
+
+                go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
+                go.transform.position = transform.Find("HandPoint").position;
+
+                Debug.Log("Info: in swap state and currentWeapon = " + currentWeapon + " get context weapon = " + inventory.Context.GetEquippedWeapon());
+
             },
             canExit: state => state.timer.Elapsed > weaponSwappingTime,
             needsExitTime: true
@@ -189,23 +197,28 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
+
+        var action = playerInput.GetPlayerActionByKey();
+
+        // Avoid multiple swapping by stay in SWAP state during weaponSwappingTime
+        if (action == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION)
+        {
+            Debug.Log("Player swap weapon");
+            weaponId += 1;
+        }
+
         stateMachine.OnLogic();
+
+
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
         // weapons[weaponId].transform.position = hand.transform.position;
 
-        var action = playerInput.GetPlayerActionByKey();
         if (health <= 0)
         {
             Debug.Log("Player is dead");
         }
 
-        if (action == Player_Input.INPUT_ACTION.SWAP_WEAPON_ACTION! && !isSwapping)
-        {
-            Debug.Log("Player swap weapon");
-            weaponId += 1;
-            isSwapping = true;
-        }
     }
 
     private void DisabledWeaponNotHolding()

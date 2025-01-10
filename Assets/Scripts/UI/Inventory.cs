@@ -10,7 +10,6 @@ public class Inventory : MonoBehaviour
         CANON
     };
 
-
     [SerializeField] private InventoryDisplay display;
 
     private InventoryData data;
@@ -49,14 +48,15 @@ public class Inventory : MonoBehaviour
             display.UpdateDisplay(data.items);
         }
 
-        var pickaxeGameObject = GameObject.FindGameObjectWithTag("Pickaxe");
-        if (pickaxeGameObject == null)
-        {
-            Debug.Log("Pickaxe gameObject not found");
-        }
+        // var pickaxeGameObject = GameObject.FindGameObjectWithTag("Pickaxe");
+        // if (pickaxeGameObject == null)
+        // {
+        //     Debug.Log("Pickaxe gameObject not found");
+        // }
 
-        context = new InventoryContext(0, pickaxeGameObject.GetComponent<Pickaxe>());
-        Debug.Log("Creates context");
+        // context = new InventoryContext(0, pickaxeGameObject.GetComponent<Pickaxe>());
+        var pickaxeData = data.Peek(0).Data as WeaponData;
+        context = new InventoryContext(3, pickaxeData.GetWeapon());
     }
 
     public Item AddItem(Item _item)
@@ -100,7 +100,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("Error: weapon data is null");
         }
         var weapon = weaponData.GetWeapon();
-        weapon.OnEquiped(context);
+        context.EquipWeapon(weapon);
 
     }
 

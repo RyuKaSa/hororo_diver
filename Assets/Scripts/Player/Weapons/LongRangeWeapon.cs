@@ -24,6 +24,16 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private float attack;
 
+    [SerializeField]
+    private string weaponName;
+
+
+    public string WeaponName()
+    {
+        return weaponName;
+    }
+
+
     public void AttackProcessing()
     {
         Debug.Log("Player attack with " + transform.name);
@@ -57,8 +67,9 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
     public void OnEquiped(InventoryContext _ctx)
     {
-        var equippedWeapon = _ctx.EquippedWeapon;
-        equippedWeapon = this;
+        // var equippedWeapon = _ctx.EquippedWeapon;
+        // equippedWeapon = this;
+        _ctx.EquipWeapon(this);
         Debug.Log("Info: equip " + transform.name);
     }
 

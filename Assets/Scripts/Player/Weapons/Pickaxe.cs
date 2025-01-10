@@ -16,37 +16,17 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
     private string weaponName;
 
     [SerializeField]
-    private ItemData.ItemType weaponType;
-
-    [SerializeField]
-    private int stackMaxCount;
-
-    [SerializeField]
     private LayerMask enemyLayer;
 
     private float attackRange = 1.5f;
 
     private float attack = 0.15f;
 
-    public string ItemName()
+    public string WeaponName()
     {
         return weaponName;
     }
 
-    public Sprite Icon()
-    {
-        return icon;
-    }
-
-    public ItemData.ItemType ItemType()
-    {
-        return weaponType;
-    }
-
-    public int StackMaxCount()
-    {
-        return stackMaxCount;
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -114,9 +94,11 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     public void OnEquiped(InventoryContext _ctx)
     {
-        var equippedWeapon = _ctx.EquippedWeapon;
-        equippedWeapon = this;
+        // var equippedWeapon = _ctx.EquippedWeapon;
+        // equippedWeapon = this;
+        _ctx.EquipWeapon(this);
         Debug.Log("Info: equip " + transform.name);
+
     }
 
 

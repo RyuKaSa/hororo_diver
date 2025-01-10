@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 
 [System.Serializable]
 public struct InventoryContext
@@ -19,6 +20,11 @@ public struct InventoryContext
     }
 
     public IWeapons EquippedWeapon => equippedWeapon;
+
+    public IWeapons GetEquippedWeapon()
+    {
+        return equippedWeapon;
+    }
 
     public void AddItem()
     {
@@ -53,8 +59,14 @@ public struct InventoryContext
 
     public void EquipWeapon(IWeapons weapon)
     {
+        var go = GameObject.FindGameObjectWithTag(equippedWeapon.WeaponName());
+        if (go == null)
+        {
+            Debug.Log("Error Inventory Context 64: Could not find game object");
+        }
+
         equippedWeapon = weapon;
-        //Console.WriteLine($"L'arme équipée est : {equippedWeapon.GetWeaponName()}");
+
     }
 
     public void UnequipWeapon()
