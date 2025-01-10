@@ -95,7 +95,7 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
             GameObject projectileObject = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile projectileScript = projectileObject.GetComponent<Projectile>();
 
-            projectileScript.Initialize(0.5f, 1f);
+            projectileScript.Initialize(0.5f, 1f, false);
             isShooting = true;
 
             return;

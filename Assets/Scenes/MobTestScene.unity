@@ -10318,6 +10318,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6748699386907800346, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: isPreFab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748699386907800346, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: lifeDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6810005018588324677, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.45
@@ -10414,6 +10422,10 @@ PrefabInstance:
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 1025252199}
+    - target: {fileID: 9219556668987636304, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: projectileSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11008,6 +11020,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   attack: 0
+  projectileSpeed: 1
   weaponName: 
 --- !u!1 &1424471049
 GameObject:
@@ -11654,7 +11667,7 @@ PrefabInstance:
       objectReference: {fileID: 1140287348}
     - target: {fileID: 8014368337461113986, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
       propertyPath: chargeTime
-      value: 20
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8394750697411994604, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
       propertyPath: m_LocalPosition.x

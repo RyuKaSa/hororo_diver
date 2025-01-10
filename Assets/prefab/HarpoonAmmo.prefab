@@ -109,7 +109,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2238105415923022640}
+  isPreFab: 0
+  lifeDuration: 2
 --- !u!61 &7308217935875493671
 BoxCollider2D:
   m_ObjectHideFlags: 0

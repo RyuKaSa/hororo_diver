@@ -25,6 +25,10 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     private float attack;
 
     [SerializeField]
+    private float projectileSpeed = 1f;
+
+
+    [SerializeField]
     private string weaponName;
 
 
@@ -49,7 +53,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
         var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
         var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(0.5f, 1f);
+        projectile.Initialize(projectileSpeed, 1f, false);
     }
 
     public bool WeaponAnimationIsPlaying()
