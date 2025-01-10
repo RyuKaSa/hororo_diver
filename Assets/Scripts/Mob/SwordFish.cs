@@ -4,7 +4,7 @@ using System;
 
 
 
-public sealed class SwordFish : MonoBehaviour
+public sealed class SwordFish : MonoBehaviour, IDamageable
 {
     enum SwordFishState
     {
@@ -143,7 +143,7 @@ public sealed class SwordFish : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        ShakeEffect();
+        ShakeEffect(elapsedTime);
     }
 
 
@@ -155,7 +155,6 @@ public sealed class SwordFish : MonoBehaviour
     /// <param name="speed">The base speed of the SwordFish (before applying the charge speed coefficient).</param>
     private void RushTowardsPlayer()
     {
-        Debug.Log("Info: swordFish = " + Vector3.Distance(transform.position, lastPlayerPos));
         // Calculate the direction from the SwordFish to the player's last known position
         Vector3 directionToPlayer = lastPlayerPos - transform.position;
         directionToPlayer.z = 0; // Ignore Z-axis
@@ -171,52 +170,39 @@ public sealed class SwordFish : MonoBehaviour
         }
     }
 
-    private void ShakeEffect()
+    private void ShakeEffect(float time)
     {
-        var shakeX = Mathf.Sin(Time.time * 10f) * 0.005;
-        var shakeY = Mathf.Cos(Time.time * 10f) * 0.005;
+        var shakeX = Mathf.Sin(Time.time * 10f) * 0.005 * time;
+        var shakeY = Mathf.Cos(Time.time * 10f) * 0.005 * time;
 
         transform.position += new Vector3((float)shakeX, (float)shakeY, 0f);
     }
 
-    void Update()
+    public void Damage(float damage)
     {
-        stateMachine.OnLogic();
-        /*var player = GameObject.Find("Player");
-        if (player == null)
+        Debug.Log(transform.name + " takes " + damage + " damage");
+        health -= damage;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Collide with other obj");
+        var damageable = other.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            Debug.Log("PLAYER NULL");
+            Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
+            damageable.Damage(damage);
         }
         else
         {
-            var stateMob = mob.HandleStateBasedOnSight(player, transform.position);
-            if (stateMob == Mob.State.HUNTING)
-            {
-                if (agent.enabled = true)
-                {
-                    agent.enabled = false;
-                }
+            Debug.Log("Interface IDamageable not found");
+        }
+    }
 
-                Vector3 directionToPlayer = player.transform.position - transform.position;
-                directionToPlayer.z = 0;
 
-                float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-                Debug.Log("Look at player");
-
-            }
-            else
-            {
-                if (agent.enabled == false)
-                {
-                    agent.enabled = true;
-                }
-
-                mob.PassiveMobMovement();
-            }
-
-        }*/
+    void Update()
+    {
+        stateMachine.OnLogic();
 
     }
 }

@@ -151,8 +151,7 @@ public class Player_Input : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("FixedUpdate velocity = " + currentVelocity);
-        rb.velocity = currentVelocity; // A cause d'ici
+        rb.velocity = currentVelocity;
     }
 
     public Vector2 GetCurrentVelocity()
