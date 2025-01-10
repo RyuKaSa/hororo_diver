@@ -33,7 +33,6 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
         // Check collision with Ore Layer
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ore"))
         {
-            Debug.Log("Pickaxe collided with Ore!");
             var ore = collision.gameObject.GetComponent<Ore>();
 
             if (ore != null)
