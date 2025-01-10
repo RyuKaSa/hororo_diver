@@ -18,7 +18,10 @@ public sealed class Player : MonoBehaviour, IDamageable
     private Player_Input playerInput;
 
     [SerializeField]
-    private float health = 15f, damage, miningSpeed, resistance, speed;
+    private float health = 15f, baseHealth = 15f, damage, miningSpeed, resistance, speed;
+
+    [SerializeField]
+    private int nbLife = 3;
 
     [SerializeField]
     private GameObject[] weapons; // Array of 3 elements which is 3 slots of Player's weapons (Pickaxe include)
@@ -64,6 +67,7 @@ public sealed class Player : MonoBehaviour, IDamageable
         stateMachine.AddState(PlayerStates.SWAP, new State<PlayerStates>(
             onLogic: state =>
             {
+                Debug.Log("Weapon name = " + currentWeapon.WeaponName());
                 var go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
 
                 go.transform.position = new Vector3(-1000, -1000, -1000);
@@ -197,6 +201,18 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
+        if (health <= 0)
+        {
+            Debug.Log("Player is dead");
+            nbLife -= 1;
+            if (nbLife > 0)
+            {
+                transform.position = GameObject.Find("MapMetaData").GetComponent<MapMetaData>().PositionToRespawnPoint(transform.position);
+                Debug.Log("Info in Player: player respawn to " + transform.position);
+                health = baseHealth;
+
+            }
+        }
 
         var action = playerInput.GetPlayerActionByKey();
 
@@ -205,6 +221,7 @@ public sealed class Player : MonoBehaviour, IDamageable
         {
             Debug.Log("Player swap weapon");
             weaponId += 1;
+            health -= 1;
         }
 
         stateMachine.OnLogic();
@@ -214,10 +231,6 @@ public sealed class Player : MonoBehaviour, IDamageable
         var hand = transform.Find("HandPoint");
         // weapons[weaponId].transform.position = hand.transform.position;
 
-        if (health <= 0)
-        {
-            Debug.Log("Player is dead");
-        }
 
     }
 
