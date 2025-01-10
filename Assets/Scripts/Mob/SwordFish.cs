@@ -77,7 +77,7 @@ public sealed class SwordFish : MonoBehaviour
 
         stateMachine.AddState(SwordFishState.RUSH, new State<SwordFishState>(
             onLogic: state => RushTowardsPlayer(),
-            canExit: state => Vector3.Distance(transform.position, lastPlayerPos) <= 1f && state.timer.Elapsed >= timeBetween2Charge,
+            canExit: state => Vector3.Distance(transform.position, lastPlayerPos) <= 1.5 && state.timer.Elapsed >= timeBetween2Charge,
             needsExitTime: true
         ));
 
@@ -155,6 +155,7 @@ public sealed class SwordFish : MonoBehaviour
     /// <param name="speed">The base speed of the SwordFish (before applying the charge speed coefficient).</param>
     private void RushTowardsPlayer()
     {
+        Debug.Log("Info: swordFish = " + Vector3.Distance(transform.position, lastPlayerPos));
         // Calculate the direction from the SwordFish to the player's last known position
         Vector3 directionToPlayer = lastPlayerPos - transform.position;
         directionToPlayer.z = 0; // Ignore Z-axis
@@ -164,7 +165,7 @@ public sealed class SwordFish : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
 
         // Move the SwordFish towards the player if it is farther than 1 unit
-        if (distanceToPlayer > 1f)
+        if (distanceToPlayer > 1.5)
         {
             transform.position += directionToPlayer * chargeSpeed * Time.deltaTime;
         }
