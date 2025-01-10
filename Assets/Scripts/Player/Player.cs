@@ -73,6 +73,7 @@ public sealed class Player : MonoBehaviour, IDamageable
                 go.transform.position = new Vector3(-1000, -1000, -1000);
                 inventory.SwapWeapon(weaponId);
                 currentWeapon = inventory.Context.GetEquippedWeapon();
+                Debug.Log("Weapon name 2 = " + currentWeapon.WeaponName());
 
                 go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
                 go.transform.position = transform.Find("HandPoint").position;
