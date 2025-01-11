@@ -74,6 +74,7 @@ public sealed class Projectile : MonoBehaviour
         {
             Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
             damageable.Damage(damage);
+            Destroy(gameObject);
         }
         else
         {
