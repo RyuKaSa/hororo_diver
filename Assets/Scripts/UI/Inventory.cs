@@ -38,9 +38,9 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        // int _slotCount = display.Initialize(this);
+        int _slotCount = display.Initialize(this);
 
-        data = new InventoryData(12);
+        data = new InventoryData(_slotCount);
         initInventory();
 
         if (display != null)
@@ -48,13 +48,6 @@ public class Inventory : MonoBehaviour
             display.UpdateDisplay(data.items);
         }
 
-        // var pickaxeGameObject = GameObject.FindGameObjectWithTag("Pickaxe");
-        // if (pickaxeGameObject == null)
-        // {
-        //     Debug.Log("Pickaxe gameObject not found");
-        // }
-
-        // context = new InventoryContext(0, pickaxeGameObject.GetComponent<Pickaxe>());
         var pickaxeData = data.Peek(0).Data as WeaponData;
         context = new InventoryContext(3, pickaxeData.GetWeapon());
     }
@@ -69,6 +62,8 @@ public class Inventory : MonoBehaviour
         {
             display.UpdateDisplay(data.items);
         }
+
+        Debug.Log("Add Item " + _item);
 
         return _item;
     }
