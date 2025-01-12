@@ -76,7 +76,17 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
         ));
 
         stateMachine.AddState(SwordFishState.RUSH, new State<SwordFishState>(
-            onLogic: state => RushTowardsPlayer(),
+            onLogic: state =>
+            {
+                float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
+                // Move the SwordFish towards the player if it is farther than 1 unit
+                if (distanceToPlayer > 1.5)
+                {
+                    transform.position = RushTowardsPlayer(lastPlayerPos, transform.position, chargeSpeedCoeff, speed);
+                }
+
+
+            },
             canExit: state => Vector3.Distance(transform.position, lastPlayerPos) <= 1.5 && state.timer.Elapsed >= timeBetween2Charge,
             needsExitTime: true
         ));
@@ -153,22 +163,39 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
     /// </summary>
     /// <param name="chargeSpeedCoeff">A coefficient that scales the base speed of the SwordFish's charge.</param>
     /// <param name="speed">The base speed of the SwordFish (before applying the charge speed coefficient).</param>
-    private void RushTowardsPlayer()
+    // private void RushTowardsPlayer()
+    // {
+    //     // Calculate the direction from the SwordFish to the player's last known position
+    //     Vector3 directionToPlayer = lastPlayerPos - transform.position;
+    //     directionToPlayer.z = 0; // Ignore Z-axis
+    //     directionToPlayer.Normalize();
+
+    //     float chargeSpeed = chargeSpeedCoeff * speed;
+    //     float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
+
+    //     // Move the SwordFish towards the player if it is farther than 1 unit
+    //     if (distanceToPlayer > 1.5)
+    //     {
+    //         transform.position += directionToPlayer * chargeSpeed * Time.deltaTime;
+    //     }
+    // }
+
+    /// <summary>
+    /// Moves a mob towards the player's last known position at a certain charge speed.
+    /// </summary>
+    public static Vector3 RushTowardsPlayer(Vector3 targetPos, Vector3 sourcePos, float coeff, float speed)
     {
         // Calculate the direction from the SwordFish to the player's last known position
-        Vector3 directionToPlayer = lastPlayerPos - transform.position;
+        Vector3 directionToPlayer = targetPos - sourcePos;
         directionToPlayer.z = 0; // Ignore Z-axis
         directionToPlayer.Normalize();
 
-        float chargeSpeed = chargeSpeedCoeff * speed;
-        float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
+        float chargeSpeed = coeff * speed;
+        float distanceToPlayer = Vector3.Distance(sourcePos, targetPos);
 
-        // Move the SwordFish towards the player if it is farther than 1 unit
-        if (distanceToPlayer > 1.5)
-        {
-            transform.position += directionToPlayer * chargeSpeed * Time.deltaTime;
-        }
+        return sourcePos + directionToPlayer * chargeSpeed * Time.deltaTime;
     }
+
 
     private void ShakeEffect(float time)
     {
