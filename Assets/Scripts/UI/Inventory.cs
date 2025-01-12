@@ -38,9 +38,9 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        int _slotCount = display.Initialize(this);
+        // int _slotCount = display.Initialize(this);
 
-        data = new InventoryData(_slotCount);
+        data = new InventoryData(12);
         initInventory();
 
         if (display != null)
