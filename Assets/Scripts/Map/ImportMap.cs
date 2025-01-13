@@ -137,7 +137,7 @@ public class ImportMap : MonoBehaviour
     /// <summary>
     /// Compare two colors with a tolerance to account for compression artifacts.
     /// </summary>
-    private bool IsColorMatch(Color a, Color b, float tolerance = 0.1f)
+    private bool IsColorMatch(Color a, Color b, float tolerance = 0.03f)
     {
         return Mathf.Abs(a.r - b.r) < tolerance &&
                Mathf.Abs(a.g - b.g) < tolerance &&
