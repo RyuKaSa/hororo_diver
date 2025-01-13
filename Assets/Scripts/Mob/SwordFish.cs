@@ -84,8 +84,6 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
                 {
                     transform.position = RushTowardsPlayer(lastPlayerPos, transform.position, chargeSpeedCoeff, speed);
                 }
-
-
             },
             canExit: state => Vector3.Distance(transform.position, lastPlayerPos) <= 1.5 && state.timer.Elapsed >= timeBetween2Charge,
             needsExitTime: true
