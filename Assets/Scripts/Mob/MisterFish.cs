@@ -43,6 +43,8 @@ public class MisterFish : MonoBehaviour
     enum MisterFishStates
     {
         IDLE,
+        MOVE_AROUND,
+        SPAWN_AND_RUSH,
         KINEMATIC,
         HUNTING,
         CHARGE,
@@ -89,6 +91,9 @@ public class MisterFish : MonoBehaviour
     private float chargeSpeedCoeff = 5f;
 
     [SerializeField]
+    private float exitHunting = 20f;
+
+    [SerializeField]
     private KinematicData kinematicData;
 
     private StateMachine<MisterFishStates> stateMachine = new StateMachine<MisterFishStates>();
@@ -108,11 +113,22 @@ public class MisterFish : MonoBehaviour
     void Start()
     {
         radius = initialRadius;
-        kinematicData.isTriggered = true;
+        // kinematicData.isTriggered = true;
         kinematicData.startTime = Time.time;
 
         stateMachine.AddState(MisterFishStates.IDLE, new State<MisterFishStates>(
+            onLogic: state =>
+            {
+                Debug.Log("IDLE sate");
+            }
+        ));
+
+        stateMachine.AddState(MisterFishStates.MOVE_AROUND, new State<MisterFishStates>(
             onLogic: state => erraticMovement()
+        ));
+
+        stateMachine.AddState(MisterFishStates.SPAWN_AND_RUSH, new State<MisterFishStates>(
+            onLogic: state => SpawnAndMoveTowardsPlayer()
         ));
 
         stateMachine.AddState(MisterFishStates.KINEMATIC, new State<MisterFishStates>(
@@ -132,7 +148,9 @@ public class MisterFish : MonoBehaviour
             {
                 Debug.Log("Dans HUNTING state");
                 ChasePlayer();
-            }
+            },
+            canExit: state => state.timer.Elapsed > exitHunting,
+            needsExitTime: true
         ));
 
         stateMachine.AddState(MisterFishStates.CHARGE, new State<MisterFishStates>(
@@ -171,18 +189,31 @@ public class MisterFish : MonoBehaviour
             transition => true
         ));
 
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.IDLE,
+            MisterFishStates.KINEMATIC,
+            transition => kinematicData.isTriggered
+        ));
 
-        stateMachine.SetStartState(MisterFishStates.HUNTING);
+
+        stateMachine.SetStartState(MisterFishStates.IDLE);
         stateMachine.Init();
 
     }
 
     private void erraticMovement()
     {
-        angle += speed * Time.deltaTime;
 
-        float x = Mathf.Cos(angle) * radius;
-        float y = Mathf.Sin(angle) * radius;
+        Camera cam = Camera.main;
+        var box = GetComponent<BoxCollider2D>();
+        var hitBox = new Vector2(box.size.x, box.size.y);
+
+        float camWidth = cam.orthographicSize * cam.aspect;
+        float camHeight = cam.orthographicSize;
+        angle += (speed / 5f) * Time.deltaTime;
+
+        float x = Mathf.Cos(angle) * (camWidth + 2f);
+        float y = Mathf.Sin(angle) * (camHeight + 2f);
 
         transform.position = player.transform.position + new Vector3(x, y, 0);
     }
@@ -290,6 +321,7 @@ public class MisterFish : MonoBehaviour
 
         if (Vector3.Distance(transform.position, kinematicData.end.position) <= 1f)
         {
+            Debug.Log("Dans le premier IF");
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
@@ -326,6 +358,14 @@ public class MisterFish : MonoBehaviour
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+    }
+
+    public void TriggerKinematic()
+    {
+        Debug.Log("Trigger kinematic");
+        kinematicData.isTriggered = true;
+        kinematicData.startTime = Time.time;
 
     }
 

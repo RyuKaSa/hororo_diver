@@ -230,7 +230,8 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
-        // weapons[weaponId].transform.position = hand.transform.position;
+        var weaponGO = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
+        weaponGO.transform.position = hand.transform.position;
 
 
     }
