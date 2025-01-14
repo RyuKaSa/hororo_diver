@@ -44,7 +44,9 @@ public class MisterFish : MonoBehaviour
     {
         IDLE,
         KINEMATIC,
-        HUNTING
+        HUNTING,
+        CHARGE,
+        RUSH
     }
 
     [SerializeField]
@@ -81,6 +83,12 @@ public class MisterFish : MonoBehaviour
     private float huntingDuration = 20f;
 
     [SerializeField]
+    private float chargeTime = 1.5f;
+
+    [SerializeField]
+    private float chargeSpeedCoeff = 5f;
+
+    [SerializeField]
     private KinematicData kinematicData;
 
     private StateMachine<MisterFishStates> stateMachine = new StateMachine<MisterFishStates>();
@@ -93,6 +101,9 @@ public class MisterFish : MonoBehaviour
 
     private float startTime;
 
+    private float timeToReachPlayer;
+
+    private Vector3 lastPlayerPos;
 
     void Start()
     {
@@ -124,13 +135,44 @@ public class MisterFish : MonoBehaviour
             }
         ));
 
+        stateMachine.AddState(MisterFishStates.CHARGE, new State<MisterFishStates>(
+            onLogic: state => ChargeAttackProcess(state.timer.Elapsed),
+            canExit: state => state.timer.Elapsed > chargeTime,
+            needsExitTime: true
+        ));
+
+        stateMachine.AddState(MisterFishStates.RUSH, new State<MisterFishStates>(
+            onLogic: state => RushPlayer(),
+            canExit: state => Vector3.Distance(transform.position, lastPlayerPos) <= 2f,
+            needsExitTime: true
+        ));
+
         stateMachine.AddTransition(new Transition<MisterFishStates>(
             MisterFishStates.KINEMATIC,
             MisterFishStates.HUNTING,
             transition => !kinematicData.isTriggered && !audioSource.isPlaying
         ));
 
-        stateMachine.SetStartState(MisterFishStates.KINEMATIC);
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.HUNTING,
+            MisterFishStates.CHARGE,
+            transition => Vector3.Distance(transform.position, player.transform.position) <= 5f
+        ));
+
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.CHARGE,
+            MisterFishStates.RUSH,
+            transition => true
+        ));
+
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.RUSH,
+            MisterFishStates.HUNTING,
+            transition => true
+        ));
+
+
+        stateMachine.SetStartState(MisterFishStates.HUNTING);
         stateMachine.Init();
 
     }
@@ -160,7 +202,7 @@ public class MisterFish : MonoBehaviour
 
         // erraticMovement();
         // ChasePlayer();
-        // ChargePlayer();
+        // RushPlayer();
     }
 
     private void FixedUpdate()
@@ -219,11 +261,12 @@ public class MisterFish : MonoBehaviour
         }
     }
 
-    private void ChargePlayer()
+    private void RushPlayer()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
+        Debug.Log("distanceToPlayer = " + distanceToPlayer);
         // Move the SwordFish towards the player if it is farther than 1 unit
-        if (distanceToPlayer > 1.5)
+        if (distanceToPlayer > 2f)
         {
             transform.position = SwordFish.RushTowardsPlayer(player.transform.position, transform.position, 10f, speed);
         }
@@ -261,6 +304,44 @@ public class MisterFish : MonoBehaviour
             }
         }
 
+    }
+
+    private void ChargeAttackProcess(float elapsedTime)
+    {
+        // saves the player's position up to a certain time
+        if (elapsedTime <= chargeTime * 0.98)
+        {
+            lastPlayerPos = player.transform.position;
+
+            float chargeSpeed = chargeSpeedCoeff * speed;
+            float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
+
+            timeToReachPlayer = distanceToPlayer / chargeSpeed;
+        }
+
+        // Face to player during his charge
+        Vector3 directionToPlayer = player.transform.position - transform.position;
+        directionToPlayer.z = 0; // Ensure we remain on the 2D plane
+
+        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Collide with other obj");
+        var damageable = other.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
+            damageable.Damage(5f);
+        }
+        else
+        {
+            Debug.Log("Interface IDamageable not found");
+        }
     }
 
 }

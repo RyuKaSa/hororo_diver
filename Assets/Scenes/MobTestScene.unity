@@ -247,7 +247,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.515625
+  orthographic size: 7.0703125
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -10306,7 +10306,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Constraints
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6592591959471768985, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Name
@@ -11557,6 +11557,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 836264628984173669, guid: 829afc9a741360141b719a881f2f9b1b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2426841422285797574, guid: 829afc9a741360141b719a881f2f9b1b, type: 3}
       propertyPath: player
       value: 
@@ -11604,6 +11608,10 @@ PrefabInstance:
     - target: {fileID: 3989114178577903118, guid: 829afc9a741360141b719a881f2f9b1b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093368123549819390, guid: 829afc9a741360141b719a881f2f9b1b, type: 3}
+      propertyPath: m_Mass
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
