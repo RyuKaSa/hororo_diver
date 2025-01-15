@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic; // For using lists (optional)
+using System.IO;
 using UnityEngine;
+using UnityHFSM;
+
 public class AstarBehavior : MonoBehaviour
 {
     public int[,] grid; // Your 2D array grid
     public Vector2Int start = new Vector2Int(0, 0); // Starting point
     public Vector2Int goal = new Vector2Int(4, 4);  // Goal point
     public float moveSpeed = 0.5f;  // Speed of movement
+    public int distance = 5;
+    public Transform playerTransform;
     private List<Vector2Int> path; // Holds the resulting path
     private bool confirmNearest = false;
-
+    private StateMachine fsm;
+    private Vector2Int targetPos;
+    
     Vector2Int getNearestEdge(Vector2Int pos) {
         // Check if the start position is valid
         if (pos.x < 0 || pos.y >= grid.GetLength(0) || pos.x < 0 || pos.y >= grid.GetLength(1)) {
@@ -70,22 +77,48 @@ public class AstarBehavior : MonoBehaviour
         return new Vector2Int(vec.x - grid.GetLength(0)/2, vec.y - grid.GetLength(1)/2);
     }
 
+    void farthestFromPlayer(Vector3 playerPos) {
+        // To do
+        var vec = worldToGrid(new Vector3(playerPos.x + distance, playerPos.y));
+        targetPos = getNearestEdge(vec);
+    }
+
     void Start()
     {
+        /*fsm = new StateMachine();
+        fsm.AddState("Idle");
+        fsm.AddState("Move", new CoState(
+            this,
+            walkPath,
+            loop: false,
+            needsExitTime:true
+        ));
+        fsm.AddState("SearchNewPosition", onLogic: state => farthestFromPlayer(playerTransform.position));
+        fsm.AddTransition("Idle", "SearchNewPosition", transition => Vector3.Distance(playerTransform.position, transform.position) < distance);
+        fsm.AddTransition("SearchNewPosition", "Move", transition => "path =" FindPath(worldToGrid(transform.position), targetPos) != null);
+        fsm.AddTransition("Move", "Idle", transition => worldToGrid(transform.position) == targetPos);
+        fsm.SetStartState("Idle");
+        fsm.Init();*/
     }
 
     private void Update() {
         if (GetEdgesBWMap.confirmEdge && !confirmNearest) {
             confirmNearest = true;
             grid = GetEdgesBWMap.grid;
-            Debug.Log(transform.position);
-            start = gridToWorld(getNearestEdge(worldToGrid(transform.position)));
+            /*start = gridToWorld(getNearestEdge(worldToGrid(transform.position)));
             transform.position = new Vector3(start.x, start.y, 0);
             var target = getNearestEdge(worldToGrid(new Vector2Int(10, 324)));
             path = FindPath(worldToGrid(start), target);
-            Debug.Log(path);
+            StartCoroutine(walkPath());*/
+        }
+        if (Vector3.Distance(playerTransform.position, transform.position) < distance) {
+            start = getNearestEdge(worldToGrid(transform.position));
+            var vec = worldToGrid(new Vector3(playerTransform.position.x + distance, playerTransform.position.y));
+            targetPos = getNearestEdge(vec);
+            path = FindPath(start, targetPos);
             StartCoroutine(walkPath());
         }
+        //fsm.OnLogic();
     }
 
     private IEnumerator walkPath() {
@@ -106,6 +139,7 @@ public class AstarBehavior : MonoBehaviour
         }
 
         Debug.Log("Reached the last position!");
+        //fsm.StateCanExit();
     }
 
     List<Vector2Int> FindPath(Vector2Int start, Vector2Int goal)

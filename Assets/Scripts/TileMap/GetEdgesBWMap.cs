@@ -1,18 +1,30 @@
+using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class GetEdgesBWMap : MonoBehaviour
 {
     private Texture2D blackAndWhiteImage; // Assign your image in the inspector
-    public string filePath = "Assets/Visual/Maps/processed_3_lvl.png";
+    public string filePath = "Assets\\Visual\\Maps\\extracted_edges.txt";
     private float tileSize = 1f; // Size of each tile in Unity units
     static public int[,] grid;
     static public bool confirmEdge = false;
 
-    private void Start()
+    /*private void Start()
     {
-        
-    }
+        try
+        {
+            var lines = File.ReadLines(filePath, Encoding.UTF8);
+            foreach (var line in lines) {
+                Debug.Log(line);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to load map: {e.Message}");
+        }
+    }*/
 
     private void Update() {
         if (ImportBWMap.confirmImport && !confirmEdge) {
