@@ -38,7 +38,7 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
             var damageable = collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                Debug.Log("Interface was found");
+                Debug.Log("Interface was found for " + collider.gameObject.transform.name);
                 damageable.Damage(attack);
             }
         }

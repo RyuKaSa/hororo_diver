@@ -146,15 +146,20 @@ public class MisterFish : MonoBehaviour
         stateMachine.AddState(MisterFishStates.HUNTING, new State<MisterFishStates>(
             onLogic: state =>
             {
-                Debug.Log("Dans HUNTING state");
+                Debug.Log("Dans HUNTING state + dist = " + Vector3.Distance(transform.position, player.transform.position));
+                animator.SetBool("isScreaming", false);
                 ChasePlayer();
             },
-            canExit: state => state.timer.Elapsed > exitHunting,
+            canExit: state => true,
             needsExitTime: true
         ));
 
         stateMachine.AddState(MisterFishStates.CHARGE, new State<MisterFishStates>(
-            onLogic: state => ChargeAttackProcess(state.timer.Elapsed),
+            onLogic: state =>
+            {
+                Debug.Log("Charge state");
+                ChargeAttackProcess(state.timer.Elapsed);
+            },
             canExit: state => state.timer.Elapsed > chargeTime,
             needsExitTime: true
         ));
@@ -326,7 +331,7 @@ public class MisterFish : MonoBehaviour
             {
                 audioSource.Play();
                 kinematicData.isTriggered = false; // Kinematic is finished
-                CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
+                // CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
                 animator.SetBool("isScreaming", true);
                 Debug.Log("Joue le son");
             }
@@ -341,7 +346,7 @@ public class MisterFish : MonoBehaviour
     private void ChargeAttackProcess(float elapsedTime)
     {
         // saves the player's position up to a certain time
-        if (elapsedTime <= chargeTime * 0.98)
+        if (elapsedTime <= chargeTime * 0.50)
         {
             lastPlayerPos = player.transform.position;
 
