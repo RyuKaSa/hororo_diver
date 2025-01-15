@@ -3587,7 +3587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a6dc2658c39eb42ad6cbb9b384db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Assets/Scripts/Map/biome_tilemaps/Level3/1.png
+  filePath: Assets/Scripts/Map/biome_tilemaps/Level3/10.png
   colorTileMappings:
   - color: {r: 0, g: 0, b: 0, a: 0}
     tile: {fileID: 0}
@@ -3601,6 +3601,38 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: 8443898f2582cd240bf3cd1593e6c593, type: 2}
   - color: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 0}
     tile: {fileID: 11400000, guid: 880f7ff0c0be63f46a6be192a86db58e, type: 2}
+  - color: {r: 0.13950695, g: 0.8962264, b: 0.7096097, a: 0}
+    tile: {fileID: 11400000, guid: 62d37110c9e60ed429ca0abbdb75ed1e, type: 2}
+  - color: {r: 0.13950695, g: 0.8962264, b: 0.7490196, a: 0}
+    tile: {fileID: 11400000, guid: f481972d705c0e249a5a856a3bb47fce, type: 2}
+  - color: {r: 0.13950695, g: 0.8962264, b: 0.7882353, a: 0}
+    tile: {fileID: 11400000, guid: f34397e971ec4b741b3c0b6235943852, type: 2}
+  - color: {r: 0.13950695, g: 0.8962264, b: 0.827451, a: 0}
+    tile: {fileID: 11400000, guid: f5c0920e490ef514b8c436ee8d5b0b3b, type: 2}
+  - color: {r: 0.13950695, g: 0.78431374, b: 0.6666667, a: 0}
+    tile: {fileID: 11400000, guid: a7a43c727a32a7c43aff4f43c73c3e92, type: 2}
+  - color: {r: 0.13950695, g: 0.8235294, b: 0.6666667, a: 0}
+    tile: {fileID: 11400000, guid: ca0e5c07a2f33c049b5fbeca38bd70eb, type: 2}
+  - color: {r: 0.13950695, g: 0.8627451, b: 0.6666667, a: 0}
+    tile: {fileID: 11400000, guid: a94d8400b52db5d4eb36389bc3798116, type: 2}
+  - color: {r: 0.13950695, g: 0.9019608, b: 0.6666667, a: 0}
+    tile: {fileID: 11400000, guid: 3333367e0fd7941488f710bd99e94dac, type: 2}
+  - color: {r: 0.15686275, g: 0.78431374, b: 0.7058824, a: 0}
+    tile: {fileID: 11400000, guid: 68f63f6e7187035419c0df8eeb305c65, type: 2}
+  - color: {r: 0.19607843, g: 0.78431374, b: 0.7058824, a: 0}
+    tile: {fileID: 11400000, guid: f5283d7a28e7cac45a5528abc60ff11d, type: 2}
+  - color: {r: 0.23529412, g: 0.78431374, b: 0.7058824, a: 0}
+    tile: {fileID: 11400000, guid: ff7c3c751d92e1e4d9aaf5d490d8d1ad, type: 2}
+  - color: {r: 0.27450982, g: 0.78431374, b: 0.7058824, a: 0}
+    tile: {fileID: 11400000, guid: e3c8233771ce7a446afc798f5d4e1ede, type: 2}
+  - color: {r: 0.11764706, g: 0.78431374, b: 0.7058824, a: 0}
+    tile: {fileID: 11400000, guid: 18d44c4e3519fba48b4d4fc7e4aa0e99, type: 2}
+  - color: {r: 0.11764706, g: 0.78431374, b: 0.74509805, a: 0}
+    tile: {fileID: 11400000, guid: 0141af8baac79c94bbbc8de2327c344f, type: 2}
+  - color: {r: 0.11764706, g: 0.78431374, b: 0.78431374, a: 0}
+    tile: {fileID: 11400000, guid: 06476d380a305b149a28b827a1eb903d, type: 2}
+  - color: {r: 0.11764706, g: 0.78431374, b: 0.8235294, a: 0}
+    tile: {fileID: 11400000, guid: fd2f83929adab704c88edcc48f0d6870, type: 2}
 --- !u!114 &6647742449513689678
 MonoBehaviour:
   m_ObjectHideFlags: 0
