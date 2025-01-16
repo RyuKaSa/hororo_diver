@@ -1,19 +1,24 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BoidBehavior : MonoBehaviour
 {
     public GameObject boidPrefab;
+    public Transform mainCamera;
+    public Transform playerPos;
+    // public UnityEngine.AI.NavMeshAgent navMesh;
     public int boidCount = 10; // Number of boids to spawn
     public float spawnRadius = 5f; // Radius to spawn boids around the target
     public float speed = 5f; // Movement speed
     public float targetRadius = 1f; // Minimum distance to stay near the target
-
     private List<Boid> boids;
+    // private Mob mob;
 
     void Start()
     {
         boids = new List<Boid>();
+        // mob = new Mob(navMesh, 10.0f, 1.0f, 30.0f, 30.0f, transform.position);
 
         // Spawn boids
         for (int i = 0; i < boidCount; i++)
@@ -25,6 +30,8 @@ public class BoidBehavior : MonoBehaviour
             boid.target = transform;
             boid.speed = speed;
             boid.targetRadius = targetRadius;
+            boid.mainCamera = mainCamera;
+            boid.playerPos = playerPos;
 
             boids.Add(boid);
         }
@@ -34,14 +41,18 @@ public class BoidBehavior : MonoBehaviour
 public class Boid : MonoBehaviour
 {
     public Transform target; // The object to orbit around
+    public Transform mainCamera;
+    public Transform playerPos;
     public float speed; // Movement speed
     public float targetRadius; // Minimum distance to stay near the target
+    private SpriteRenderer sprite;
 
     public Vector3 velocity;
 
     void Start()
     {
         velocity = Random.insideUnitSphere * speed; // init random velocity
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -62,9 +73,14 @@ public class Boid : MonoBehaviour
         // Update position
         transform.position += velocity * Time.deltaTime;
 
-        // Face direction of movement
-        if (velocity != Vector3.zero)
-            transform.forward = velocity.normalized;
+        // // Face direction of movement
+        // if (velocity != Vector3.zero)
+        //     transform.forward = velocity.normalized;
+
+        // Face Camera
+        transform.LookAt(mainCamera.position);
+        if (playerPos.position.x < transform.position.x) sprite.flipX = true;
+        else sprite.flipX = false;
     }
 
     Vector3 OrbitAroundTarget()
