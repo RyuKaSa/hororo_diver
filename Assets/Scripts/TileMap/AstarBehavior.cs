@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic; // For using lists (optional)
-using System.IO;
 using UnityEngine;
 using UnityHFSM;
+using System;
+using System.IO;
 
 public class AstarBehavior : MonoBehaviour
 {
     public int[,] grid; // Your 2D array grid
-    public Vector2Int start = new Vector2Int(0, 0); // Starting point
-    public Vector2Int goal = new Vector2Int(4, 4);  // Goal point
     public float moveSpeed = 0.5f;  // Speed of movement
     public int distance = 5;
     public Transform playerTransform;
@@ -16,109 +15,154 @@ public class AstarBehavior : MonoBehaviour
     private bool confirmNearest = false;
     private StateMachine fsm;
     private Vector2Int targetPos;
+    private string filePath = "Assets/Visual/Maps/extracted_edges.txt";
     
     Vector2Int getNearestEdge(Vector2Int pos) {
-        // Check if the start position is valid
-        if (pos.x < 0 || pos.y >= grid.GetLength(0) || pos.x < 0 || pos.y >= grid.GetLength(1)) {
-            return new Vector2Int(-1, -1); // Invalid start position
+        Debug.Log($"Starting BFS from position: {pos}");
+        if (pos.x < 0 || pos.x >= grid.GetLength(0) || pos.y < 0 || pos.y >= grid.GetLength(1)) {
+            Debug.LogError($"Invalid start position: {pos}");
+            return new Vector2Int(-1, -1);
         }
 
-        // If the start position is already an edge
         if (grid[pos.x, pos.y] == 1) {
-            return new Vector2Int(pos.x, pos.y);
+            Debug.Log($"Starting position is already an edge: {pos}");
+            return pos;
         }
 
-        // Directions for movement (up, down, left, right)
-        Vector2Int[] directions = { new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0) };
+        Vector2Int[] directions = {
+            new Vector2Int(0, 1), new Vector2Int(1, 0),
+            new Vector2Int(0, -1), new Vector2Int(-1, 0),
+            new Vector2Int(1, 1), new Vector2Int(-1, 1),
+            new Vector2Int(1, -1), new Vector2Int(-1, -1)
+        };
 
-        // BFS setup
         Queue<Vector2Int> queue = new Queue<Vector2Int>();
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
 
-        queue.Enqueue(new Vector2Int(pos.x, pos.y));
-        visited.Add(new Vector2Int(pos.x, pos.y));
+        queue.Enqueue(pos);
+        visited.Add(pos);
 
         while (queue.Count > 0) {
             Vector2Int current = queue.Dequeue();
-
-            // Explore neighbors
             foreach (var dir in directions) {
                 Vector2Int neighbor = current + dir;
 
-                // Bounds check
-                if (neighbor.x >= 0 && neighbor.x < grid.GetLength(0) && neighbor.y >= 0 && neighbor.y < grid.GetLength(1)) {
-                    // If it's an edge, return it
+                // Check bounds
+                if (neighbor.x >= 0 && neighbor.x < grid.GetLength(0) && 
+                    neighbor.y >= 0 && neighbor.y < grid.GetLength(1)) {
+                    
                     if (grid[neighbor.x, neighbor.y] == 1) {
+                        Debug.Log($"Found nearest edge at: {neighbor}");
                         return neighbor;
                     }
 
-                    // If not visited, add to queue
                     if (!visited.Contains(neighbor)) {
                         queue.Enqueue(neighbor);
                         visited.Add(neighbor);
                     }
                 }
             }
-        }      
+        }
 
-        // No edge found
+        Debug.LogWarning("No edge found!");
         return new Vector2Int(-1, -1);
     }
+
 
     Vector2Int worldToGrid(Vector2Int vec) {
         return new Vector2Int(vec.x + grid.GetLength(0)/2, vec.y + grid.GetLength(1)/2);
     }
 
     Vector2Int worldToGrid(Vector3 vec) {
-        return new Vector2Int((int)vec.x + grid.GetLength(0)/2, (int)vec.y + grid.GetLength(1)/2);
+        return new Vector2Int(
+            Mathf.FloorToInt(vec.x + grid.GetLength(0) / 2),
+            Mathf.FloorToInt(vec.y + grid.GetLength(1) / 2)
+        );
     }
 
-    Vector2Int gridToWorld(Vector2Int vec) {
-        return new Vector2Int(vec.x - grid.GetLength(0)/2, vec.y - grid.GetLength(1)/2);
+    Vector3 gridToWorld(Vector2Int vec) {
+        return new Vector3(
+            vec.x - grid.GetLength(0) / 2,
+            vec.y - grid.GetLength(1) / 2,
+            0
+        );
     }
 
     void farthestFromPlayer(Vector3 playerPos) {
         // To do
         var vec = worldToGrid(new Vector3(playerPos.x + distance, playerPos.y));
         targetPos = getNearestEdge(vec);
+        Debug.Log(targetPos);
+    }
+
+    void LoadMap(string path)
+    {
+        try
+        {
+            // Read all lines from the file, ensuring to use "\n" to properly handle line endings
+            string[] lines = File.ReadAllLines(path);
+
+            // Assuming all lines should be the same length, determine number of columns from the first line
+            int rows = lines.Length;
+            int cols = lines[0].Trim().Length; // Trim leading/trailing spaces and check column length
+
+            // Initialize the grid
+            grid = new int[rows, cols];
+
+            // Parse the file into the grid
+            for (int y = 0; y < rows; y++)
+            {
+                string line = lines[y].Trim(); // Remove any leading/trailing whitespace
+                
+                if (line.Length != cols)
+                {
+                    Debug.LogError($"Line {y + 1} has an incorrect length. Expected {cols} characters, but got {line.Length}.");
+                    return;
+                }
+
+                for (int x = 0; x < cols; x++)
+                {
+                    // Convert each character ('0' or '1') into an integer
+                    grid[x, y] = line[x] == '1' ? 1 : 0;
+                }
+            }
+
+            Debug.Log($"Map loaded successfully: {rows} x {cols}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to load map: {e.Message}");
+        }
     }
 
     void Start()
     {
-        /*fsm = new StateMachine();
-        fsm.AddState("Idle");
-        fsm.AddState("Move", new CoState(
-            this,
-            walkPath,
-            loop: false,
-            needsExitTime:true
-        ));
-        fsm.AddState("SearchNewPosition", onLogic: state => farthestFromPlayer(playerTransform.position));
-        fsm.AddTransition("Idle", "SearchNewPosition", transition => Vector3.Distance(playerTransform.position, transform.position) < distance);
-        fsm.AddTransition("SearchNewPosition", "Move", transition => "path =" FindPath(worldToGrid(transform.position), targetPos) != null);
-        fsm.AddTransition("Move", "Idle", transition => worldToGrid(transform.position) == targetPos);
+        LoadMap(filePath);
+        fsm = new StateMachine();
+        fsm.AddState("Idle", onLogic: state => {
+            if (grid == null) return;
+            Debug.Log(transform.position);
+            transform.position = gridToWorld(getNearestEdge(worldToGrid(transform.position)));
+        });
+        // fsm.AddState("Move", new CoState(
+        //     this,
+        //     walkPath,
+        //     loop: false,
+        //     needsExitTime:true
+        // ));
+        // fsm.AddTransition("Idle", "Move", transition => {
+        //     farthestFromPlayer(transform.position);
+        //     var path = FindPath(worldToGrid(transform.position), targetPos);
+        //     Debug.Log(path);
+        //     return path != null;
+        // });
+        // fsm.AddTransition("Move", "Idle", transition => worldToGrid(transform.position) == targetPos);
         fsm.SetStartState("Idle");
-        fsm.Init();*/
+        fsm.Init();
     }
 
     private void Update() {
-        if (GetEdgesBWMap.confirmEdge && !confirmNearest) {
-            confirmNearest = true;
-            grid = GetEdgesBWMap.grid;
-            /*start = gridToWorld(getNearestEdge(worldToGrid(transform.position)));
-            transform.position = new Vector3(start.x, start.y, 0);
-            var target = getNearestEdge(worldToGrid(new Vector2Int(10, 324)));
-            path = FindPath(worldToGrid(start), target);
-            StartCoroutine(walkPath());*/
-        }
-        if (Vector3.Distance(playerTransform.position, transform.position) < distance) {
-            start = getNearestEdge(worldToGrid(transform.position));
-            var vec = worldToGrid(new Vector3(playerTransform.position.x + distance, playerTransform.position.y));
-            targetPos = getNearestEdge(vec);
-            path = FindPath(start, targetPos);
-            StartCoroutine(walkPath());
-        }
-        //fsm.OnLogic();
+        fsm.OnLogic();
     }
 
     private IEnumerator walkPath() {

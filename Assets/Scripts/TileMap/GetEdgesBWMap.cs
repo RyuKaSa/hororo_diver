@@ -1,37 +1,65 @@
 using System;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 public class GetEdgesBWMap : MonoBehaviour
 {
     private Texture2D blackAndWhiteImage; // Assign your image in the inspector
-    public string filePath = "Assets\\Visual\\Maps\\extracted_edges.txt";
+    private string filePath = "Assets/Visual/Maps/edges.json";
     private float tileSize = 1f; // Size of each tile in Unity units
     static public int[,] grid;
     static public bool confirmEdge = false;
 
-    /*private void Start()
+    [Serializable]
+    public class GridData
+    {
+        public int[,] grid;
+    }
+
+    private void Start()
+    {
+        LoadMapFromJson(filePath);
+    }
+
+    // private void Update() {
+    //     if (ImportBWMap.confirmImport && !confirmEdge) {
+    //         blackAndWhiteImage = ImportBWMap.mapTexture;
+    //         grid = new int[blackAndWhiteImage.width, blackAndWhiteImage.height];
+    //         ExtractEdges();
+    //         confirmEdge = true;
+    //     }
+    // }
+
+    void LoadMapFromJson(string path)
     {
         try
         {
-            var lines = File.ReadLines(filePath, Encoding.UTF8);
-            foreach (var line in lines) {
-                Debug.Log(line);
+            // Check if file exists
+            if (!File.Exists(path))
+            {
+                Debug.LogError($"File does not exist at path: {path}");
+                return;
             }
+
+            // Print the absolute path for debugging
+            Debug.Log($"Reading file from: {Path.GetFullPath(path)}");
+
+            // Read the JSON file
+            string jsonContent = File.ReadAllText(path);
+
+            Debug.Log(jsonContent);
+
+            // Deserialize the JSON content into a GridData object
+            GridData gridData = JsonUtility.FromJson<GridData>(jsonContent);
+
+            // Assign the grid data to the local grid variable
+            grid = gridData.grid;
+
+            Debug.Log($"Map loaded successfully. Grid size: {grid.GetLength(0)} x {grid.GetLength(1)}");
         }
         catch (Exception e)
         {
             Debug.LogError($"Failed to load map: {e.Message}");
-        }
-    }*/
-
-    private void Update() {
-        if (ImportBWMap.confirmImport && !confirmEdge) {
-            blackAndWhiteImage = ImportBWMap.mapTexture;
-            grid = new int[blackAndWhiteImage.width, blackAndWhiteImage.height];
-            ExtractEdges();
-            confirmEdge = true;
         }
     }
 
