@@ -18,6 +18,21 @@ public class CapsuleOrientation : MonoBehaviour
         capsule.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
+    // public void UpdateRotation()
+    // {
+    //     // Handle capsule rotation based on velocity
+    //     if (currentVelocity.magnitude > 0.01f)  // Avoid unnecessary calculations when nearly still
+    //     {
+    //         float angle = Mathf.Atan2(currentVelocity.y, currentVelocity.x) * Mathf.Rad2Deg;
+
+    //         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+
+    //         capsule.transform.rotation = Quaternion.Euler(0, 0, capsule.transform.rotation.eulerAngles.z);
+    //         capsule.transform.rotation = Quaternion.Lerp(capsule.transform.rotation, targetRotation, Time.deltaTime * 10f);
+
+    //     }
+    // }
+
     public void UpdateRotation()
     {
         // Handle capsule rotation based on velocity
@@ -27,13 +42,13 @@ public class CapsuleOrientation : MonoBehaviour
 
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
-            capsule.transform.rotation = Quaternion.Lerp(capsule.transform.rotation, targetRotation, Time.deltaTime * 10f);
-
-            Vector3 currentPosition = capsule.transform.position;
-            capsule.transform.rotation = Quaternion.Euler(0, 0, capsule.transform.rotation.eulerAngles.z);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            Debug.Log("transform.rotation = " + transform.rotation);
 
         }
     }
+
+
 
     void OnDrawGizmos()
     {

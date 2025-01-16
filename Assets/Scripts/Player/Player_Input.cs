@@ -19,6 +19,7 @@ public class Player_Input : MonoBehaviour
     public float runThreshold = 0.9f;
     public float smoothTransitionTime = 0.1f;
 
+    [SerializeField]
     private Animator animator;
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 currentVelocity = Vector2.zero;
@@ -44,10 +45,13 @@ public class Player_Input : MonoBehaviour
 
     public void Start()
     {
-        animator = GetComponent<Animator>();
         if (animator == null)
         {
-            Debug.Log("Animator not found");
+            animator = GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.Log("Animator not found");
+            }
         }
 
     }
@@ -77,6 +81,42 @@ public class Player_Input : MonoBehaviour
 
     }
 
+    // public void UpdateMovement()
+    // {
+    //     Debug.Log("Debug movement call");
+    //     if (!WaitingLoadAttributes())
+    //     {
+    //         return;
+    //     }
+
+    //     // Read movement input
+    //     moveDirection = moveAction.ReadValue<Vector2>();
+
+    //     UpdateAnimation(moveDirection);
+
+    //     // Determine if the player is running
+    //     if (Gamepad.current != null)
+    //     {
+    //         isRunning = moveDirection.magnitude > runThreshold;
+    //     }
+    //     else
+    //     {
+    //         isRunning = runAction.IsPressed();
+    //     }
+
+    //     // Set target velocity
+    //     float targetSpeed = isRunning ? attributes["speed"].FinalValue() * runMultiplier : attributes["speed"].FinalValue();
+    //     targetVelocity = moveDirection * targetSpeed;
+
+    //     // Smooth transition between velocities
+    //     currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, Time.deltaTime / smoothTransitionTime);
+
+    //     // Pass the velocity to the CapsuleOrientation script for rotation
+    //     capsuleOrientation.SetVelocity(currentVelocity);
+    //     capsuleOrientation.UpdateRotation();
+
+    // }
+
     public void UpdateMovement()
     {
         Debug.Log("Debug movement call");
@@ -85,12 +125,10 @@ public class Player_Input : MonoBehaviour
             return;
         }
 
-        // Read movement input
         moveDirection = moveAction.ReadValue<Vector2>();
 
         UpdateAnimation(moveDirection);
 
-        // Determine if the player is running
         if (Gamepad.current != null)
         {
             isRunning = moveDirection.magnitude > runThreshold;
@@ -100,17 +138,15 @@ public class Player_Input : MonoBehaviour
             isRunning = runAction.IsPressed();
         }
 
-        // Set target velocity
         float targetSpeed = isRunning ? attributes["speed"].FinalValue() * runMultiplier : attributes["speed"].FinalValue();
         targetVelocity = moveDirection * targetSpeed;
 
-        // Smooth transition between velocities
         currentVelocity = Vector2.Lerp(currentVelocity, targetVelocity, Time.deltaTime / smoothTransitionTime);
 
-        // Pass the velocity to the CapsuleOrientation script for rotation
         capsuleOrientation.SetVelocity(currentVelocity);
-        capsuleOrientation.UpdateRotation();
+        // capsuleOrientation.UpdateRotation();
     }
+
 
     public bool MovementButtonIsTriggered()
     {
@@ -150,7 +186,10 @@ public class Player_Input : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdateMovement();
         rb.velocity = currentVelocity;
+        capsuleOrientation.UpdateRotation();
+
     }
 
     public Vector2 GetCurrentVelocity()
