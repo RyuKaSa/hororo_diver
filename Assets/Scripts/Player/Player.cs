@@ -40,7 +40,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private float currentTimeSwap = 0f;
 
-    // Il faudrait une liste non modifiable des noms d'attributs existant accessible par toutes les classes (penser à utiliser AsReadonly class List) 
     private readonly Dictionary<string, Attribute> attributes = new Dictionary<string, Attribute>();
 
     private ReadOnlyDictionary<string, Attribute> attributesReadOnly;
@@ -53,7 +52,7 @@ public sealed class Player : MonoBehaviour, IDamageable
     {
         // Set state machine states
         stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
-            onLogic: state => { playerInput.UpdateMovement(); Debug.Log("IDLE STATE"); }
+            onLogic: state => { playerInput.IdleState(); Debug.Log("IDLE STATE"); }
         ));
 
         stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
