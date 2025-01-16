@@ -115,7 +115,6 @@ public class Player_Input : MonoBehaviour
     public bool MovementButtonIsTriggered()
     {
         moveDirection = moveAction.ReadValue<Vector2>();
-        Debug.Log("moveDirection = " + moveDirection);
         return moveDirection.magnitude > 0f;
     }
 

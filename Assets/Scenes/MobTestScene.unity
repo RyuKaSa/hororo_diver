@@ -10304,6 +10304,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1371742176435179570, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: attack
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -10363,6 +10367,14 @@ PrefabInstance:
     - target: {fileID: 6986722205801852383, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682300145712599229, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219556668987636304, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: attack
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11581,6 +11593,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MisterFishData
       objectReference: {fileID: 0}
+    - target: {fileID: 3728663376777484409, guid: 829afc9a741360141b719a881f2f9b1b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3989114178577903118, guid: 829afc9a741360141b719a881f2f9b1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.19
@@ -11695,18 +11711,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1125038843976133779, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2165907941113474218, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
+      propertyPath: m_Mass
+      value: 1000000
+      objectReference: {fileID: 0}
     - target: {fileID: 3082173425823050043, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
       propertyPath: m_Name
       value: SwordFish
       objectReference: {fileID: 0}
     - target: {fileID: 3082173425823050043, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8014368337461113986, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
+      propertyPath: health
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8014368337461113986, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 589493958}
     - target: {fileID: 8014368337461113986, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
       propertyPath: chargeTime
       value: 2
