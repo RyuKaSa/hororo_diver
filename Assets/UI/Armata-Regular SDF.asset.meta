@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/UI/Armata-Regular SDF.asset.meta
+<<<<<<<< HEAD:Assets/Scenes/TestRespawnToSafeZone.unity.meta
+guid: 4aaafde7b42fadb4aac94b4a9bcf0338
+DefaultImporter:
+========
 guid: de83f4213ac61c64b93dcc7d4437d317
 NativeFormatImporter:
-========
-guid: c14f22f09daa74648a306e626a3560c4
-DefaultImporter:
->>>>>>>> origin/feat/mob_player_interaction:Assets/Scenes/oreTestScene.unity.meta
+>>>>>>>> origin/UI:Assets/UI/Armata-Regular SDF.asset.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

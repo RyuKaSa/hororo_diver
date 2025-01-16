@@ -6,6 +6,13 @@ using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
+    enum WeaponID
+    {
+        PICKAXE,
+        KNIFE,
+        HARPOON,
+        CANON
+    };
 
     [SerializeField] private InventoryDisplay display;
     [SerializeField] private AmmunitionData ammoData;
@@ -55,7 +62,7 @@ public class Inventory : MonoBehaviour
         Debug.Log("Creates context");
     }
 
-    // Méthodes pour les boutons UI
+    // Mï¿½thodes pour les boutons UI
     public void CraftSingleAmmo()
     {
         if (crafter.CanCraftAmmunition(ammoData, 0))
@@ -109,7 +116,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             string randomAttribute = attributes[Random.Range(0, attributes.Length)];
-            float randomPercentage = Random.Range(5f, 20f); // 5% à 20% d'amélioration.
+            float randomPercentage = Random.Range(5f, 20f); // 5% ï¿½ 20% d'amï¿½lioration.
             Dictionary<string, int> requiredOres = new Dictionary<string, int>
         {
             { "IronOre", Random.Range(1, 5) },
@@ -160,6 +167,8 @@ public class Inventory : MonoBehaviour
             display.UpdateDisplay(data.items);
         }
 
+        Debug.Log("Add Item " + _item);
+
         return _item;
     }
 
@@ -177,6 +186,21 @@ public class Inventory : MonoBehaviour
         data.Swap(_slotA, _slotB);
 
         display.UpdateDisplay(data.items);
+    }
+
+    public void SwapWeapon(int acc)
+    {
+        int id = acc % 3;
+
+        Item item = data.Peek(id);
+        var weaponData = item.Data as WeaponData;
+        if (weaponData == null)
+        {
+            Debug.Log("Error: weapon data is null");
+        }
+        var weapon = weaponData.GetWeapon();
+        context.EquipWeapon(weapon);
+
     }
 
     public Item[] Data => data.items;

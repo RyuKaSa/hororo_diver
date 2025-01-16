@@ -66,8 +66,20 @@ public class Player_Input : MonoBehaviour
         return true;
     }
 
-    public void Update()
+    public void IdleState()
     {
+        Debug.Log("speed = " + targetVelocity + " currentVelocity = " + currentVelocity);
+        UpdateAnimation(Vector2.zero);
+        targetVelocity = Vector2.zero;
+        currentVelocity = Vector2.zero;
+        moveDirection = Vector2.zero;
+        capsuleOrientation.Reset();
+
+    }
+
+    public void UpdateMovement()
+    {
+        Debug.Log("Debug movement call");
         if (!WaitingLoadAttributes())
         {
             return;
@@ -97,6 +109,13 @@ public class Player_Input : MonoBehaviour
 
         // Pass the velocity to the CapsuleOrientation script for rotation
         capsuleOrientation.SetVelocity(currentVelocity);
+        capsuleOrientation.UpdateRotation();
+    }
+
+    public bool MovementButtonIsTriggered()
+    {
+        moveDirection = moveAction.ReadValue<Vector2>();
+        return moveDirection.magnitude > 0f;
     }
 
     public INPUT_ACTION GetPlayerActionByKey()

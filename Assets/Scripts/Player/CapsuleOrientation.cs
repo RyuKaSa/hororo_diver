@@ -12,28 +12,26 @@ public class CapsuleOrientation : MonoBehaviour
         currentVelocity = velocity;
     }
 
-    void Update()
+    public void Reset()
+    {
+        currentVelocity = Vector2.zero;
+        capsule.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void UpdateRotation()
     {
         // Handle capsule rotation based on velocity
         if (currentVelocity.magnitude > 0.01f)  // Avoid unnecessary calculations when nearly still
         {
-            // Calculate angle from velocity vector
             float angle = Mathf.Atan2(currentVelocity.y, currentVelocity.x) * Mathf.Rad2Deg;
-
-            // Add initial rotation of 90 degrees on the Z-axis
-            //angle += initialRotation;
 
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
-            // Smoothly rotate the capsule to match the velocity direction with initial rotation
             capsule.transform.rotation = Quaternion.Lerp(capsule.transform.rotation, targetRotation, Time.deltaTime * 10f);
 
-            // Handle flipping when crossing the 180-degree mark
-            if (Mathf.Abs(capsule.transform.rotation.eulerAngles.z - angle) > 90f)
-            {
-                // Flip the capsule on itself to simulate diver flipping
-                capsule.transform.Rotate(0, 180f, 0);
-            }
+            Vector3 currentPosition = capsule.transform.position;
+            capsule.transform.rotation = Quaternion.Euler(0, 0, capsule.transform.rotation.eulerAngles.z);
+
         }
     }
 

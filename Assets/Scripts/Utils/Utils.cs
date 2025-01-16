@@ -14,7 +14,7 @@ public sealed class Utils
         var go = GameObject.FindGameObjectWithTag(tag);
         if (go == null)
         {
-            Debug.Log("Error: GameObject is null");
+            Debug.Log("Error: GameObject with " + tag + " tag name not found");
         }
 
         T goComponent = go.GetComponent<T>();

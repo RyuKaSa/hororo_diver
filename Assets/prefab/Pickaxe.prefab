@@ -285,9 +285,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   boxCollider: {fileID: 953901667134085342}
   animator: {fileID: 363857883547069502}
-  weaponName: pickaxe
-  weaponType: 0
-  stackMaxCount: 0
+  weaponName: Pickaxe
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512

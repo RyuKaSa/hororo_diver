@@ -8,9 +8,6 @@ using UnityEngine;
 /// </summary>
 public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 {
-
-    public Sprite icon;
-
     public Animator animator;
 
     public GameObject projectilePrefab;
@@ -28,28 +25,16 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     private float attack;
 
     [SerializeField]
+    private float projectileSpeed = 1f;
+
+
+    [SerializeField]
     private string weaponName;
 
-    [SerializeField]
-    private ItemData.ItemType weaponType;
 
-    [SerializeField]
-    private int stackMaxCount;
-
-    public string ItemName(){
+    public string WeaponName()
+    {
         return weaponName;
-    }
-
-    public Sprite Icon(){
-        return icon;
-    }
-
-    public ItemData.ItemType ItemType(){
-        return weaponType;
-    }
-
-    public int StackMaxCount(){
-        return stackMaxCount;
     }
 
 
@@ -68,7 +53,28 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
         var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
         var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(0.5f, 1f);
+        projectile.Initialize(projectileSpeed, 1f, false);
+    }
+
+    public bool WeaponAnimationIsPlaying()
+    {
+        if (animator == null)
+        {
+            return false;
+        }
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Check if "Mining" is in progress
+        return stateInfo.IsName("MiningAnimation");
+    }
+
+    public void OnEquiped(InventoryContext _ctx)
+    {
+        // var equippedWeapon = _ctx.EquippedWeapon;
+        // equippedWeapon = this;
+        _ctx.EquipWeapon(this);
+        Debug.Log("Info: equip " + transform.name);
     }
 
     public void ApplyUpgrade(string attribute, float percentage)

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/UI/Armata-Regular SDF.asset.meta
-guid: 99cdbe9323abdf7458bbd0944fc97e95
-NativeFormatImporter:
-========
+<<<<<<<< HEAD:Assets/Scenes/oreTestScene.unity.meta
 guid: c14f22f09daa74648a306e626a3560c4
 DefaultImporter:
->>>>>>>> origin/feat/mob_player_interaction:Assets/Scenes/oreTestScene.unity.meta
+========
+guid: 67cf474ae5216654480f9d25573056a9
+NativeFormatImporter:
+>>>>>>>> origin/UI:Assets/UI/Silkscreen-Bold SDF.asset.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

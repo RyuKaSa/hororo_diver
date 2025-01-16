@@ -1,14 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/UI/Silkscreen-Bold SDF.asset.meta
-guid: 600534a74044e514599b8cf5d04739cf
-NativeFormatImporter:
-========
 guid: ed340b04dc77bff47834e601e0fc55fb
 folderAsset: yes
 DefaultImporter:
->>>>>>>> origin/feat/mob_player_interaction:Assets/Animations.meta
   externalObjects: {}
-  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

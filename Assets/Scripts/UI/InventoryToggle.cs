@@ -15,10 +15,10 @@ public class InventoryToggle : MonoBehaviour
 
     void Update()
     {
-        // Vérifie si la touche A est pressée
+        // Vï¿½rifie si la touche A est pressï¿½e
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // Bascule la visibilité du panel
+            // Bascule la visibilitï¿½ du panel
             ToggleInventory();
         }
     }
@@ -64,7 +64,7 @@ public class InventoryToggle : MonoBehaviour
     {
         foreach (Upgrade upgrade in upgrades)
         {
-            Debug.Log($"Amélioration : {upgrade.Attribute} +{upgrade.Percentage}%");
+            Debug.Log($"Amï¿½lioration : {upgrade.Attribute} +{upgrade.Percentage}%");
         }
     }
 }

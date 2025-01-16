@@ -10,8 +10,6 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
 {
     public Animator animator;
 
-    public Sprite icon;
-
     [SerializeField]
     private float attackRange = 0.5f;
 
@@ -24,28 +22,10 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private string weaponName;
 
-    [SerializeField]
-    private ItemData.ItemType weaponType;
-
-    [SerializeField]
-    private int stackMaxCount;
-
-    public string ItemName(){
+    public string WeaponName()
+    {
         return weaponName;
     }
-
-    public Sprite Icon(){
-        return icon;
-    }
-
-    public ItemData.ItemType ItemType(){
-        return weaponType;
-    }
-
-    public int StackMaxCount(){
-        return stackMaxCount;
-    }
-
 
     public void AttackProcessing()
     {
@@ -58,7 +38,7 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
             var damageable = collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                Debug.Log("Interface was found");
+                Debug.Log("Interface was found for " + collider.gameObject.transform.name);
                 damageable.Damage(attack);
             }
         }
@@ -78,5 +58,27 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
                 break;
         }
     }
+
+    public bool WeaponAnimationIsPlaying()
+    {
+        if (animator == null)
+        {
+            return false;
+        }
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Check if "Mining" is in progress
+        return stateInfo.IsName("MiningAnimation");
+    }
+
+    public void OnEquiped(InventoryContext _ctx)
+    {
+        // var equippedWeapon = _ctx.EquippedWeapon;
+        // equippedWeapon = this;
+        Debug.Log("Info: equip " + transform.name);
+        _ctx.EquipWeapon(this);
+    }
+
 
 }
