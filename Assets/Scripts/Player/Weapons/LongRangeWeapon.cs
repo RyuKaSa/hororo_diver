@@ -71,4 +71,19 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         projectile.Initialize(0.5f, 1f);
     }
 
+    public void ApplyUpgrade(string attribute, float percentage)
+    {
+        switch (attribute.ToLower())
+        {
+            case "attack":
+                attack *= (1 + percentage / 100f);
+                Debug.Log($"LongRangeWeapon damage upgraded to: {attack}");
+                break;
+            case "range":
+                attackRange *= (1 + percentage / 100f);
+                Debug.Log($"LongRangeWeapon range upgraded to: {attackRange}");
+                break;
+        }
+    }
+
 }

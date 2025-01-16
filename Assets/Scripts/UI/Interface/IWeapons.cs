@@ -1,6 +1,12 @@
 using System;
+using UnityEngine;
 
-public interface IWeapons : IItemData
+public interface IWeapons
 {
-    public void AttackProcessing();
+    string ItemName();
+    Sprite Icon();
+    ItemData.ItemType ItemType();
+    int StackMaxCount();
+    void AttackProcessing();
+    void ApplyUpgrade(string attribute, float percentage);
 }

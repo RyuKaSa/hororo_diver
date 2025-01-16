@@ -6,6 +6,10 @@ using UnityEngine;
 public sealed class Player : MonoBehaviour, IDamageable
 {
 
+    public event System.Action OnStatsChanged;
+
+    public event System.Action OnHealthChanged;
+
     [SerializeField]
     private Player_Input playerInput;
 
@@ -140,6 +144,7 @@ public sealed class Player : MonoBehaviour, IDamageable
     {
         Debug.Log(transform.name + " takes " + damage + " damage");
         health -= damage;
+        OnHealthChanged?.Invoke();
     }
 
     public bool AddStatModifierToAttribute(string attribute, StatModifier statModifier)
@@ -154,17 +159,26 @@ public sealed class Player : MonoBehaviour, IDamageable
         {
             Debug.Log("Attribute in parameter doesn't exists");
             return false;
-
         }
 
         // Add statModifier to the attribute
         attributes[attribute].AddStatModifier(statModifier);
+
+        // Notifier les changements
+        OnStatsChanged?.Invoke();
+
         return true;
     }
+
 
     public ReadOnlyDictionary<string, Attribute> AsReadOnlyAttributes()
     {
         return attributesReadOnly;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 
 }

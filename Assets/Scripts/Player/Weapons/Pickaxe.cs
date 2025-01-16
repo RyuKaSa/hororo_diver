@@ -107,4 +107,19 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
         Debug.Log("Mining animation end");
     }
 
+    public void ApplyUpgrade(string attribute, float percentage)
+    {
+        switch (attribute.ToLower())
+        {
+            case "attack":
+                attack *= (1 + percentage / 100f);
+                Debug.Log($"Pickaxe damage upgraded to: {attack}");
+                break;
+            case "range":
+                attackRange *= (1 + percentage / 100f);
+                Debug.Log($"Pickaxe range upgraded to: {attackRange}");
+                break;
+        }
+    }
+
 }
