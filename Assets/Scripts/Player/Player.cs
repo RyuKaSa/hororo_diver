@@ -53,7 +53,7 @@ public sealed class Player : MonoBehaviour, IDamageable
     {
         // Set state machine states
         stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
-            onLogic: state => { playerInput.UpdateMovement(); Debug.Log("IDLE STATE"); }
+            onLogic: state => { playerInput.IdleState(); Debug.Log("IDLE STATE"); }
         ));
 
         stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
