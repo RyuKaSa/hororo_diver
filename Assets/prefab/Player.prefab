@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 7598919289567094990}
   - component: {fileID: 7364213725292657056}
   - component: {fileID: 5749725596881576571}
+  - component: {fileID: -7192321233873569433}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -191,7 +192,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa04de5b4d05df14da34f1dcd647d705, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -444,6 +445,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsule: {fileID: 6592591959471768985}
   initialRotation: 90
+--- !u!195 &-7192321233873569433
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592591959471768985}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.375
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.375
+  m_BaseOffset: 0.6875
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &8156326098323570947
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +604,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attack: 0
+  projectileSpeed: 1
   weaponName: Harpoon
 --- !u!1001 &226035518703671904
 PrefabInstance:
