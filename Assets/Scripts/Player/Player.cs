@@ -40,7 +40,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private float currentTimeSwap = 0f;
 
-    // Il faudrait une liste non modifiable des noms d'attributs existant accessible par toutes les classes (penser à utiliser AsReadonly class List) 
     private readonly Dictionary<string, Attribute> attributes = new Dictionary<string, Attribute>();
 
     private ReadOnlyDictionary<string, Attribute> attributesReadOnly;
