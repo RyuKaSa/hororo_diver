@@ -32,10 +32,27 @@ public sealed class Projectile : MonoBehaviour
         isPreFab = preFabFlag;
     }
 
+    public void Initialize(float speed, float damage, bool preFabFlag, Vector3 direction)
+    {
+        this.speed = speed;
+        this.damage = damage;
+        this.direction = direction;
+        rb.velocity = this.direction.normalized * speed;
+
+        float rot = Mathf.Atan2(-this.direction.y, -this.direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rot);
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        direction = transform.forward;
+        if (direction == null)
+        {
+            direction = transform.forward;
+        }
+
+
         //GetComponent<Rigidbody>().AddForce(direction * 1000);
         remainingTime = lifeDuration;
     }

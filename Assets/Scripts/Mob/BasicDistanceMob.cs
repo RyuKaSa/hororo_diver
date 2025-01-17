@@ -14,13 +14,17 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
 
     private float health;
 
+    [SerializeField]
     private float visionRange = 20f;
 
+    [SerializeField]
     private float moveAreaRange = 20f;
 
+    [SerializeField]
     private float attackRange = 15f;
 
-    private float waitingPeriod = 1.5f; //
+    [SerializeField]
+    private float waitingPeriod = 1.5f; // Time between 2 shoot
 
     private float timer = 0f;
 
@@ -44,7 +48,7 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
     private void ManageEscapeBehaviorProcess(GameObject player)
     {
         // Checks if the mob has moved far enough away from the player
-        if (isFleing && Vector3.Distance(player.transform.position, transform.position) >= attackRange)
+        if (isFleing && Vector3.Distance(player.transform.position, transform.position) >= attackRange * 0.5f)
         {
             isFleing = false;
             agent.SetDestination(transform.position);
@@ -52,15 +56,18 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
             return;
         }
 
-        if (!isFleing && Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
             isFleing = true;
             Debug.Log("Fuit Joueur");
 
-            Vector3 mobToPlayerDirection = player.transform.position - transform.position;
-            Vector3 oppositeDirection = transform.position - mobToPlayerDirection;
+            Vector3 fleeVector = player.transform.position - transform.position;
+            Vector3 oppositeDirection = transform.position - fleeVector;
             agent.SetDestination(oppositeDirection);
+            return;
         }
+
+        Debug.Log("Aucun état actuellement isFleing = " + isFleing + " Vector3.Distance(player.transform.position, transform.position) = " + Vector3.Distance(player.transform.position, transform.position) + " attackRange = " + attackRange);
     }
 
     /// <summary>
@@ -92,10 +99,11 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
         // Mob can shoot Player
         if (!isShooting && timer <= waitingPeriod && Vector3.Distance(player.transform.position, transform.position) <= attackRange + 2f)
         {
+            Debug.Log("Shoot !");
             GameObject projectileObject = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile projectileScript = projectileObject.GetComponent<Projectile>();
 
-            projectileScript.Initialize(0.5f, 1f, false);
+            projectileScript.Initialize(0.5f, 1f, false, player.transform.position - transform.position);
             isShooting = true;
 
             return;

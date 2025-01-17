@@ -43,7 +43,6 @@ public class CapsuleOrientation : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 10f);
-            Debug.Log("transform.rotation = " + transform.rotation);
 
         }
     }
