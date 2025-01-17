@@ -10,6 +10,11 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
 {
     public Animator animator;
 
+    [SerializeField] private Sprite icon;
+
+    [SerializeField] private ItemData.ItemType itemType;
+    [SerializeField] private int stackMaxCount = 1;
+
     [SerializeField]
     private float attackRange = 0.5f;
 
@@ -78,6 +83,21 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         // equippedWeapon = this;
         Debug.Log("Info: equip " + transform.name);
         _ctx.EquipWeapon(this);
+    }
+
+    public Sprite Icon()
+    {
+        return icon;
+    }
+
+    public ItemData.ItemType ItemType()
+    {
+        return itemType;
+    }
+
+    public int StackMaxCount()
+    {
+        return stackMaxCount;
     }
 
 

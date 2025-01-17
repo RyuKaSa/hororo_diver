@@ -3,7 +3,6 @@ using UnityEngine;
 
 public interface IWeapons : IEquipable
 {
-    string ItemName();
     Sprite Icon();
     ItemData.ItemType ItemType();
     int StackMaxCount();

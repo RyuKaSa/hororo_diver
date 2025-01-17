@@ -265,7 +265,6 @@ public class InventoryDisplay : MonoBehaviour
         }
     }
 
-    #region Inputs
     public void ClickSlot(int _index)
     {
         contextMenu.Select(_index, slots[_index]);
@@ -278,5 +277,4 @@ public class InventoryDisplay : MonoBehaviour
         inventory.SwapSlot(draggedSlotIndex, _index);
     }
 
-    #endregion
 }

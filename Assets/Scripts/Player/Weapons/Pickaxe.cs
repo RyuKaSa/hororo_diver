@@ -1,11 +1,15 @@
 using UnityEngine;
+using static ItemData;
 
 
 
 public sealed class Pickaxe : MonoBehaviour, IWeapons
 {
 
-    public Sprite icon;
+    [SerializeField] public Sprite icon;
+
+    [SerializeField] private ItemData.ItemType itemType;
+    [SerializeField] private int stackMaxCount = 1;
 
     public BoxCollider2D boxCollider;
 
@@ -115,5 +119,18 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     }
 
+    public Sprite Icon()
+    {
+        return icon;
+    }
 
+    public ItemData.ItemType ItemType()
+    {
+        return itemType;
+    }
+
+    public int StackMaxCount()
+    {
+        return stackMaxCount;
+    }
 }

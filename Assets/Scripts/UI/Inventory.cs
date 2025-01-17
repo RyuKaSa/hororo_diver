@@ -156,6 +156,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void OnWeaponUpgradeOpen()
+    {
+        // Utiliser la méthode de l'InventoryDisplay pour générer les améliorations
+        List<WeaponUpgrade> weaponUpgrades = display.GenerateRandomWeaponUpgrades();
+        if (display != null)
+        {
+            display.DisplayWeaponUpgrades(weaponUpgrades, this);
+        }
+    }
+
     public Item AddItem(Item _item)
     {
         if (!data.SlotAvailable(_item)) return _item;
