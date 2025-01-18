@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -247,7 +247,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.9921875
+  orthographic size: 3.4427083
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -10250,7 +10250,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7192321233873569433, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 511340055290703599, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Enabled
@@ -10259,6 +10259,10 @@ PrefabInstance:
     - target: {fileID: 1371742176435179570, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: attack
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3327333917415631692, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
       propertyPath: m_Constraints
@@ -10436,6 +10440,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8314c08d15c69468130221e27c0cb3, type: 3}
+--- !u!195 &546377290 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 3733220343083392491, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
+  m_PrefabInstance: {fileID: 873690715}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &589493958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6592591959471768985, guid: bc6b52bf744386742950834e1c9c5556, type: 3}
@@ -10560,6 +10569,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3733220343083392491, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4804488290997455332, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 589493958}
+    - target: {fileID: 4804488290997455332, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
+      propertyPath: navMesh
+      value: 
+      objectReference: {fileID: 546377290}
     - target: {fileID: 4804488290997455332, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
       propertyPath: playerPos
       value: 
@@ -10612,7 +10633,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boids
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8674406001001079430, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -11667,6 +11693,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicMob
       objectReference: {fileID: 0}
+    - target: {fileID: 6043496542226775133, guid: 57104598bba7a0b448ab6c44c5919161, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7505133058124848937, guid: 57104598bba7a0b448ab6c44c5919161, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.8
@@ -11763,6 +11793,10 @@ PrefabInstance:
     - target: {fileID: 5268616889397563041, guid: 54db1f2acb796b048b91d96820450b8a, type: 3}
       propertyPath: m_Name
       value: BasicDistMob
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268616889397563041, guid: 54db1f2acb796b048b91d96820450b8a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

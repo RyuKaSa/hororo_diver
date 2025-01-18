@@ -1,25 +1,57 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityHFSM;
 using UnityEngine;
 
 public class BoidBehavior : MonoBehaviour
 {
     public GameObject boidPrefab;
     public Transform mainCamera;
-    public Transform playerPos;
-    // public UnityEngine.AI.NavMeshAgent navMesh;
+    public GameObject player;
+    public UnityEngine.AI.NavMeshAgent navMesh;
     public int boidCount = 10; // Number of boids to spawn
     public float spawnRadius = 5f; // Radius to spawn boids around the target
-    public float speed = 5f; // Movement speed
+    public float speedRotation = 5f; // Movement speed
     public float targetRadius = 1f; // Minimum distance to stay near the target
     private List<Boid> boids;
-    // private Mob mob;
+    private Mob mob;
+    private StateMachine<State> fsm = new StateMachine<State>();
+    private float health = 10.0f;
+    private float speed = 1.0f;
+    private float visionRange = 30.0f;
+    private float moveAreaRange = 30.0f; 
+
+    enum State {
+        IDLE,
+        HUNTING,
+        DEAD
+    };
 
     void Start()
     {
         boids = new List<Boid>();
-        // mob = new Mob(navMesh, 10.0f, 1.0f, 30.0f, 30.0f, transform.position);
+        mob = new Mob(navMesh, health, speed, visionRange, moveAreaRange, transform.position);
+        mob.Start();
 
+        generateBoids();
+
+        fsm.AddState(State.IDLE, onLogic: state => mob.PassiveMobMovement());
+        fsm.AddState(State.HUNTING, onLogic: state => navMesh.SetDestination(player.transform.position)); 
+
+        fsm.AddTransition(State.IDLE, State.HUNTING, 
+                        transition => mob.HandleStateBasedOnSight(player, transform.position) == Mob.State.HUNTING);
+        
+        fsm.AddTransition(State.HUNTING, State.IDLE, 
+                        transition => mob.HandleStateBasedOnSight(player, transform.position) == Mob.State.PASSIVE);
+
+        fsm.SetStartState(State.IDLE);
+        fsm.Init(); 
+    }
+
+    void Update() {
+        fsm.OnLogic();
+    }
+
+    void generateBoids() {
         // Spawn boids
         for (int i = 0; i < boidCount; i++)
         {
@@ -28,13 +60,13 @@ public class BoidBehavior : MonoBehaviour
             Boid boid = boidObject.AddComponent<Boid>();
 
             boid.target = transform;
-            boid.speed = speed;
+            boid.speed = speedRotation;
             boid.targetRadius = targetRadius;
             boid.mainCamera = mainCamera;
-            boid.playerPos = playerPos;
+            boid.playerPos = player.transform;
 
             boids.Add(boid);
-        }
+        }    
     }
 }
 

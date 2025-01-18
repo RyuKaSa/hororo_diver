@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4850790974047794142}
   - component: {fileID: 4804488290997455332}
-  - component: {fileID: 1505537342004501758}
   - component: {fileID: 3733220343083392491}
   m_Layer: 0
   m_Name: Boids
@@ -48,30 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boidPrefab: {fileID: 5897383034247973845, guid: 28f1294800012b44c847e6e49b70fd40, type: 3}
   mainCamera: {fileID: 0}
+  player: {fileID: 0}
   playerPos: {fileID: 0}
+  navMesh: {fileID: 0}
   boidCount: 15
   spawnRadius: 5
-  speed: 10
+  speedRotation: 5
   targetRadius: 3
---- !u!114 &1505537342004501758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8674406001001079430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafdebb560681da4c94d5f72f56f2a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 3733220343083392491}
-  speed: 0
-  health: 0
-  damage: 1
-  visionRange: 15
-  moveAreaRange: 20
-  attackRange: 2
 --- !u!195 &3733220343083392491
 NavMeshAgent:
   m_ObjectHideFlags: 0
