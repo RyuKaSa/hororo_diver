@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/MobTestScene.unity.meta
 guid: daf8ca2101a172e418c7fe481bcfba72
+========
+guid: fb87691cf04967e408b3abf7701af66a
+folderAsset: yes
+>>>>>>>> origin/UI:Assets/UI.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

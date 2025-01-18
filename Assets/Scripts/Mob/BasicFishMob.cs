@@ -6,7 +6,7 @@ using UnityEngine;
 /// Represents a basic fish mob that attacks in melee. This class defines the behavior and attributes
 /// of a basic enemy mob, specifically designed for close combat encounters.
 /// </summary>
-public sealed class BasicFishMob : MonoBehaviour
+public sealed class BasicFishMob : MonoBehaviour, IDamageable
 {
 
     /// <summary>
@@ -75,10 +75,9 @@ public sealed class BasicFishMob : MonoBehaviour
             float deltaY = Math.Abs(mobPosition.y - playerPosition.y);
             float dist = Vector3.Distance(mobPosition, playerPosition);
 
-            float angleX = (backwardDistance * (deltaX / dist)) * (float)Math.Cos(nbAttack * ((float)Math.PI / 180f));
-            float angleY = (backwardDistance * (deltaY / dist)) * (float)Math.Sin(nbAttack * ((float)Math.PI / 180f));
+            float angleX = (backwardDistance * (deltaX / dist));
+            float angleY = (backwardDistance * (deltaY / dist));
             backwardPoint = new Vector3(mobPosition.x - angleX, mobPosition.y - angleY, mobPosition.z);
-            nbAttack += 10;
             return backwardPoint;
         }
 
@@ -92,6 +91,16 @@ public sealed class BasicFishMob : MonoBehaviour
             nbAttack = 0;
         }
 
+        public int GetNbAttack()
+        {
+            return nbAttack;
+        }
+
+        public void IncreaseNbAttack()
+        {
+            nbAttack += 1;
+        }
+
 
     }
 
@@ -100,14 +109,22 @@ public sealed class BasicFishMob : MonoBehaviour
 
     private Vector3 spawnPoint;
 
+    [SerializeField]
     private float speed;
 
+    [SerializeField]
     private float health;
 
+    [SerializeField]
+    private float damage = 1f;
+
+    [SerializeField]
     private float visionRange = 15f;
 
+    [SerializeField]
     private float moveAreaRange = 20f;
 
+    [SerializeField]
     private float attackRange = 2f;
 
     private ATTACK_STAGE atk_stage = ATTACK_STAGE.NOATK;
@@ -118,7 +135,6 @@ public sealed class BasicFishMob : MonoBehaviour
     {
         mob = new Mob(agent, health, speed, visionRange, moveAreaRange, transform.position);
         mob.Start();
-
     }
 
     /// <summary>
@@ -129,7 +145,6 @@ public sealed class BasicFishMob : MonoBehaviour
     {
         if (state == Mob.State.HUNTING)
         {
-            Debug.Log("Follow Player");
             // Attack sequence not triggered so mob hunting player
             if (atk_stage == ATTACK_STAGE.NOATK)
             {
@@ -154,6 +169,8 @@ public sealed class BasicFishMob : MonoBehaviour
     private void AttackSequenceProcess(GameObject player)
     {
         float distMobPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+
         // Trigger firt stage
         if (atk_stage == ATTACK_STAGE.NOATK && distMobPlayer <= attackRange)
         {
@@ -164,6 +181,7 @@ public sealed class BasicFishMob : MonoBehaviour
             var backwardPoint = attackSequenceData.ProcessBackwardPoint(backwardDistance, transform.position, player.transform.position);
             attackSequenceData.SetStartPoint(transform.position);
             mob.SetMobAgentDestination(backwardPoint);
+
         }
 
         if (atk_stage == ATTACK_STAGE.BACKWARD_STG && Vector3.Distance(attackSequenceData.GetBackwardPoint(), transform.position) <= 0.05f)
@@ -174,12 +192,15 @@ public sealed class BasicFishMob : MonoBehaviour
             mob.SetMobAgentDestination(player.transform.position);
         }
 
-        if (atk_stage == ATTACK_STAGE.ATK_STG && distMobPlayer <= 1.5f)
+        // Takes the destination agent as a reference not currens player's position because the player may have moved between 2 frame 
+        if (atk_stage == ATTACK_STAGE.ATK_STG && Vector3.Distance(agent.destination, transform.position) <= 1f)
         {
             Debug.Log("CHANGE TO RETURN STAGE");
 
+            attackSequenceData.IncreaseNbAttack();
             atk_stage = ATTACK_STAGE.RETURN_STG;
             mob.SetMobAgentDestination(attackSequenceData.GetStartPoint());
+
         }
 
         if (atk_stage == ATTACK_STAGE.RETURN_STG && Vector3.Distance(transform.position, attackSequenceData.GetStartPoint()) <= 0.005f)
@@ -188,6 +209,31 @@ public sealed class BasicFishMob : MonoBehaviour
             atk_stage = ATTACK_STAGE.NOATK; // Finish attack sequence, return to start point
         }
     }
+
+    public void Damage(float damage)
+    {
+        Debug.Log(transform.name + " takes " + damage + " damage");
+        health -= damage;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Collide with other obj");
+        if (atk_stage == ATTACK_STAGE.ATK_STG)
+        {
+            var damageable = other.gameObject.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
+                damageable.Damage(damage);
+            }
+            else
+            {
+                Debug.Log("Interface IDamageable not found");
+            }
+        }
+    }
+
 
     void Update()
     {
@@ -201,6 +247,7 @@ public sealed class BasicFishMob : MonoBehaviour
             var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             BehaviorProcessBasedOnState(player, state); // Determines which behavior algo choose according to mob's state
         }
+
     }
 
 }

@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BasicMob
+  - Knife
+  - Harpoon
+  - Pickaxe
+  - ItemDatabase
   layers:
   - Default
   - TransparentFX
@@ -11,12 +16,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - BasicMob
+  - MeleeWeapon
+  - Ore
+  - Artifact
+  - ArtifactZone
   - 
   - 
   - 
@@ -40,4 +45,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background_Base
+    uniqueID: 3171694685
+    locked: 0
+  - name: Background
+    uniqueID: 1941114675
+    locked: 0
+  - name: Midground
+    uniqueID: 3611307505
+    locked: 0
+  - name: Foreground
+    uniqueID: 1916651955
     locked: 0

@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public sealed class Mob : MonoBehaviour
 {
+
     public enum State
     {
         PASSIVE,
@@ -154,12 +155,13 @@ public sealed class Mob : MonoBehaviour
 
     public void Start()
     {
-        Vector3 point;
-        while (!RandomPoint(out point))
-        {
-            ;
-        }
-        agent.destination = point;
+        // Vector3 point;
+        // while (!RandomPoint(out point))
+        // {
+        //     ;
+        // }
+        // agent.destination = point;
 
     }
+
 }
