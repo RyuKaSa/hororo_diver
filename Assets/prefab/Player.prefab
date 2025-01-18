@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 346081344411567124}
   - {fileID: 73112372699945976}
+  - {fileID: 8022174450315293915}
   m_Father: {fileID: 825734584535413707}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451666298320199550
@@ -1081,6 +1082,7 @@ GameObject:
   - component: {fileID: 8685328542345622439}
   - component: {fileID: 4645373174340293927}
   - component: {fileID: 756557959932084439}
+  - component: {fileID: 5224653142379814342}
   - component: {fileID: 4055460491240492630}
   m_Layer: 12
   m_Name: HarpoonAmmo
@@ -1196,8 +1198,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4645373174340293927}
-  isPreFab: 0
-  lifeDuration: 2
+  isPreFab: 1
+  lifeDuration: 3
+--- !u!114 &5224653142379814342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6907820538698939986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c9af094ca4ded47b54a5e252650108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticle: {fileID: 6822909186346119765}
 --- !u!61 &4055460491240492630
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1296,3 +1311,70 @@ MonoBehaviour:
   breathSpeed: 1
   spawnProbabilityScale: 0.15
   spawnThreshold: 0.6
+--- !u!1001 &7676550179376306960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8861944425799011798}
+    m_Modifications:
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0764925
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.3239317
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.0833317
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1091588658961798514, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+      propertyPath: m_Name
+      value: ProjectileExplode
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+--- !u!198 &6822909186346119765 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3758045489657243973, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+  m_PrefabInstance: {fileID: 7676550179376306960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8022174450315293915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 422468237002698699, guid: 52b755a7b26eef24ab8b2220e05cb850, type: 3}
+  m_PrefabInstance: {fileID: 7676550179376306960}
+  m_PrefabAsset: {fileID: 0}
