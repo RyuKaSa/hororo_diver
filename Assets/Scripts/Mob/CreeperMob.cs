@@ -12,6 +12,9 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
     private Vector3 spawnPoint;
 
     [SerializeField]
+    private ColoredFlash coloredFlash;
+
+    [SerializeField]
     private float speed;
 
     [SerializeField]
@@ -34,6 +37,10 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
     private float delay = 2f;
 
     private bool triggerExplosion = false;
+
+    private float explosionStartTime = 0f;
+
+    private float currentTime = 0f;
 
     public void Start()
     {
@@ -74,15 +81,19 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
             agent.enabled = false;
         }
 
-        if (timer >= delay)
+        if (timer >= delay && !explosionParticle.isPlaying)
         {
             Debug.Log("Explosion");
             explosionParticle.transform.position = transform.position;
             explosionParticle.Play();
-            // Destroy(GetComponent<Renderer>());
-            // Destroy(GetComponent<Transform>());
+            explosionStartTime = Time.deltaTime;
+            currentTime = explosionStartTime;
+            Destroy(GetComponent<Renderer>());
+            Destroy(GetComponent<Rigidbody2D>());
+            Destroy(GetComponent<BoxCollider2D>());
+
             // Destroy(GetComponent<UnityEngine.AI.NavMeshAgent>());
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
     }
 
@@ -95,6 +106,17 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
 
     void Update()
     {
+
+        if (explosionParticle.isPlaying)
+        {
+            currentTime += Time.deltaTime;
+        }
+
+        if (currentTime - explosionStartTime >= explosionParticle.main.duration)
+        {
+            Destroy(gameObject);
+        }
+
         var player = GameObject.Find("Player");
         if (player == null)
         {
@@ -105,6 +127,16 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
             var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             BehaviorProcessBasedOnState(player, state); // Determines which behavior algo choose according to mob's state
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Knife") || other.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+        {
+            Debug.Log("Receive damage");
+            coloredFlash.Flash(Color.red);
+        }
+
     }
 
 }

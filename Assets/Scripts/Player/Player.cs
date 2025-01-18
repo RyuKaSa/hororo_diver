@@ -224,8 +224,7 @@ public sealed class Player : MonoBehaviour, IDamageable
             health -= 1;
         }
 
-        // stateMachine.OnLogic();
-        playerInput.UpdateMovement();
+        stateMachine.OnLogic();
 
         // Weapon follow Player's hand
         var hand = transform.Find("HandPoint");
