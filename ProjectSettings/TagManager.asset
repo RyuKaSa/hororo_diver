@@ -49,6 +49,9 @@ TagManager:
   - name: Background_Base
     uniqueID: 3171694685
     locked: 0
+  - name: Background2
+    uniqueID: 4282893243
+    locked: 0
   - name: Background
     uniqueID: 1941114675
     locked: 0
