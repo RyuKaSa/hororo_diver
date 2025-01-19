@@ -16,7 +16,7 @@ public struct Item
     public int Quantity => Count;
 
     // Constructeur par défaut
-    public Item(ItemData data = null, int count = 0)
+    public Item(ItemData data = null, int count = 1)
     {
         Data = data;
         this.count = count;

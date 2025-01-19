@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c080599b576c2c2489a15b9f8ee6a95a, type: 3}
+  m_Name: HarpoonAmmo
+  m_EditorClassIdentifier: 
+  itemName: harpoonAmmo
+  itemType: 2
+  icon: {fileID: 0}
+  stackMaxCount: 999
+  miningLevel: 0
+  isRare: 0
+  baseDamage: 0
+  isCraftable: 0
+  requiredOres: []
+  isUnique: 0
+  isMandatory: 0
+  damage: 0.75
+  RequiredOres:
+  - ore: {fileID: 11400000, guid: b230e46b38cd39440a6d8a93934126d6, type: 2}
+    baseAmount: 2
+  - ore: {fileID: 11400000, guid: 01d9ff3d0c685e74c82fb81b576f2b83, type: 2}
+    baseAmount: 1
+  CraftBatches:
+  - amount: 1
+    discount: 0
+  - amount: 5
+    discount: 0.1
+  - amount: 25
+    discount: 0.2

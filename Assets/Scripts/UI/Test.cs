@@ -6,6 +6,8 @@ public class Test : MonoBehaviour
 {
     [SerializeField] private Item itemToPush, pickedItem;
 
+    [SerializeField] private OreData oreData;
+
     private Inventory inventory;
 
     private void Awake()
@@ -13,6 +15,21 @@ public class Test : MonoBehaviour
         inventory = FindObjectOfType<Inventory>();
         Add();
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            AddIron();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            AddCobalt();
+        }
+
+    }
+
 
     [ContextMenu("Test push")]
     private void Add()
@@ -25,4 +42,19 @@ public class Test : MonoBehaviour
     {
         pickedItem = inventory.PickItem(1);
     }
+
+    private void AddIron()
+    {
+        Debug.Log("Add Iron !");
+        var iron = new Item(oreData, 1);
+        inventory.AddItem(iron);
+    }
+
+    private void AddCobalt()
+    {
+        Debug.Log("Add Cobalt !");
+        var cobalt = new Item(oreData, 1);
+        inventory.AddItem(cobalt);
+    }
+
 }

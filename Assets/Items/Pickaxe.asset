@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pickaxe
   itemType: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 24e4d2f25635af44f9497b5fcabec058, type: 3}
   stackMaxCount: 1
   miningLevel: 0
   isRare: 0

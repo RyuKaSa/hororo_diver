@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryDisplay : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class InventoryDisplay : MonoBehaviour
     private StatsDisplay statsDisplay;
 
     [SerializeField] private InventoryContextMenu contextMenu;
-    private Slot[] slots;
+    private Slot[] slots; // The last 3 correspond to the weapon slot
+
+    private int weaponOffset = 3; // Offset which indicates index of weapons in inventory
+
     private Inventory inventory;
 
     [SerializeField] private Button[] upgradeButtons;
@@ -34,14 +38,33 @@ public class InventoryDisplay : MonoBehaviour
 
     public void UpdateDisplay(Item[] _items)
     {
-        for (int i = 0; i < slots.Length; i++)
+        // Display Weapons
+        for (int i = 0; i < 3; i++)
         {
-            slots[i].UpdateDisplay(_items[i]);
+            if (_items[i].Data != null)
+            {
+                slots[(slots.Length - 1) - i].UpdateDisplay(_items[i]);
+            }
+            else
+            {
+                Debug.Log("item is null");
+            }
+        }
+
+        // Item display
+        for (int i = 0; i < slots.Length - 3; i++)
+        {
+            if (_items[i + weaponOffset].Data != null)
+            {
+                slots[i].UpdateDisplay(_items[i + weaponOffset]);
+            }
         }
     }
 
+
     public void DisplayUpgrades(List<Upgrade> upgrades, Inventory inventory)
     {
+        Debug.Log("upgradeButtons.Length = " + upgradeButtons.Length);
         for (int i = 0; i < upgradeButtons.Length; i++)
         {
             Button button = upgradeButtons[i];
@@ -56,10 +79,31 @@ public class InventoryDisplay : MonoBehaviour
             Upgrade upgrade = upgrades[i];
 
             string requirements = string.Join("\n", upgrade.RequiredOres.Select(r => $"{r.Key}: {r.Value}"));
-            button.GetComponentInChildren<Text>().text =
-                $"Amélioration: {upgrade.Attribute}\n" +
-                $"+{upgrade.Percentage:F1}%\n" +
-                $"Coût:\n{requirements}";
+
+            var buttonText = button.GetComponentsInChildren<TextMeshProUGUI>();
+            for (int j = 0; j < 3; j++)
+            {
+                if (j == 0)
+                {
+                    buttonText[0].text = $"{upgrade.Attribute} ";
+                }
+
+                if (j == 1)
+                {
+                    buttonText[1].text = $"+{upgrade.Percentage:F1}% ";
+                }
+
+                if (j == 2)
+                {
+                    buttonText[1].text = $"{requirements}";
+                }
+            }
+
+            // button.GetComponentInChildren<TextMeshProUGUI>().text =
+            //     $"Amélioration: {upgrade.Attribute}\n" +
+            //     $"+{upgrade.Percentage:F1}%\n" +
+            //     $"Coût:\n{requirements}";
+
 
             button.onClick.RemoveAllListeners();
             int upgradeIndex = i; // Capture l'index pour le listener

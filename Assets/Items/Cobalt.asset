@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56ef5399ee5b53c459f208f2f4caa16d, type: 3}
-  m_Name: Iron
+  m_Name: Cobalt
   m_EditorClassIdentifier: 
-  itemName: ironOre
+  itemName: cobaltOre
   itemType: 0
   icon: {fileID: 0}
   stackMaxCount: 50

@@ -17,6 +17,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private InventoryDisplay display;
     [SerializeField] private AmmunitionData ammoData;
 
+    [SerializeField] private int nbSlots = 13; // Nb slot in inventory (weapons slots include)
+
     private InventoryData data;
     private InventoryContext context;
     private AmmunitionCrafter crafter;
@@ -35,6 +37,7 @@ public class Inventory : MonoBehaviour
         }
 
         // Add base weapons to inventory
+        Debug.Log("Init inve ICI");
         AddItem(new Item(itemDB.pickaxe, 1));
         AddItem(new Item(itemDB.knife, 1));
         AddItem(new Item(itemDB.harpoonHandgun, 1));
@@ -43,7 +46,10 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        data = new InventoryData(12);
+        Debug.Log("Awake called on " + gameObject.name);
+        data = new InventoryData(nbSlots);
+        display.Initialize(this);
+
         initInventory();
 
         crafter = new AmmunitionCrafter(data.items);
@@ -145,8 +151,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
-
     public void OnInventoryOpen()
     {
         List<Upgrade> upgrades = GenerateRandomUpgrades();
@@ -168,6 +172,7 @@ public class Inventory : MonoBehaviour
 
     public Item AddItem(Item _item)
     {
+        Debug.Log("Info inventory: Add Item = " + _item.Data.itemType + " name = " + _item.Data.itemName);
         if (!data.SlotAvailable(_item)) return _item;
 
         data.AddItem(ref _item);
@@ -180,6 +185,13 @@ public class Inventory : MonoBehaviour
         Debug.Log("Add Item " + _item);
 
         return _item;
+    }
+
+    private void AddWeapon(Item _item)
+    {
+        data.AddItem(ref _item);
+        display.UpdateDisplay(data.items);
+
     }
 
     public Item PickItem(int _slotID)

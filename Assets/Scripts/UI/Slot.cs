@@ -20,6 +20,11 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         button.onClick.AddListener(OnClick);
         index = _index;
         inventoryDisplay = _inventoryDisplay;
+        if (itemCountText == null)
+        {
+            Debug.Log("gameObecjt name" + gameObject.name);
+        }
+
     }
 
     public void UpdateDisplay(Item _item)
