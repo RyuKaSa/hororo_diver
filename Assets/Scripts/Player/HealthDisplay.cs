@@ -10,6 +10,11 @@ public class HealthDisplay : MonoBehaviour
     }
 
     [SerializeField]
+    private Image HealthBar;
+
+    private float healthAmount = 100f;
+
+    [SerializeField]
     private HealthIcon[] healthIcons;
 
     [SerializeField]
@@ -32,13 +37,18 @@ public class HealthDisplay : MonoBehaviour
             return;
         }
 
-        // Vérifier que nous avons assez d'icônes
+        // Vï¿½rifier que nous avons assez d'icï¿½nes
         if (healthIcons.Length < maxHealth)
         {
             Debug.LogWarning($"Not enough health icons! Have {healthIcons.Length}, need {maxHealth}");
         }
 
         player.OnHealthChanged += UpdateHealthDisplay;
+        UpdateHealthDisplay();
+    }
+
+    public void Update()
+    {
         UpdateHealthDisplay();
     }
 
@@ -54,7 +64,7 @@ public class HealthDisplay : MonoBehaviour
     {
         float currentHealth = player.GetHealth();
 
-        // Limiter l'affichage au maximum de vies configuré
+        // Limiter l'affichage au maximum de vies configurï¿½
         int iconCount = Mathf.Min(healthIcons.Length, maxHealth);
 
         for (int i = 0; i < iconCount; i++)
@@ -65,7 +75,7 @@ public class HealthDisplay : MonoBehaviour
             }
         }
 
-        // Désactiver les icônes en surplus si on en a trop
+        // Dï¿½sactiver les icï¿½nes en surplus si on en a trop
         for (int i = iconCount; i < healthIcons.Length; i++)
         {
             if (healthIcons[i].healthImage != null)
@@ -73,5 +83,8 @@ public class HealthDisplay : MonoBehaviour
                 healthIcons[i].healthImage.gameObject.SetActive(false);
             }
         }
+
+        // Update HealthBar
+        HealthBar.fillAmount = currentHealth / 15f;
     }
 }
