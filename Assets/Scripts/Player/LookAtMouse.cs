@@ -37,7 +37,7 @@ public class LookAtMouseZAxisSmooth : MonoBehaviour
             float desiredAngle = absoluteAngle + angleOffset;
 
             // Set the target rotation around the Z-axis to the desired angle.
-            targetRotation = Quaternion.Euler(-desiredAngle - 90f, 90f, 0f);
+            targetRotation = Quaternion.Euler(0f, desiredAngle + 180f, 90f);
         }
 
         // Smoothly interpolate the object's rotation toward the target rotation.

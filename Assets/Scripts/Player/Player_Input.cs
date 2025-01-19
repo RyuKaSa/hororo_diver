@@ -90,23 +90,24 @@ public class Player_Input : MonoBehaviour
         bool moving = direction.sqrMagnitude > 0f;
         animator.SetBool("isSwimming", moving);
 
-        // Flip sprite using localScale based on horizontal movement
-        Vector3 scale = transform.localScale;
-
-        if (direction.x < 0)
+        // Get the SpriteRenderer component
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            // Moving left: Ensure the X scale is negative
-            scale.x = Mathf.Abs(scale.x) * -1;
-        }
-        else if (direction.x > 0)
-        {
-            // Moving right: Ensure the X scale is positive
-            scale.x = Mathf.Abs(scale.x);
+            // Flip the sprite when moving left, unflip when moving right
+            if (direction.x < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (direction.x > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
         }
 
-        transform.localScale = scale;
+        // Ensure no unwanted rotation issues
+        transform.localRotation = Quaternion.identity;
     }
-
 
     public bool MovementButtonIsTriggered()
     {

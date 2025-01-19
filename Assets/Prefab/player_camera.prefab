@@ -705,6 +705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  icon: {fileID: 0}
+  itemType: 0
+  stackMaxCount: 1
   projectilePrefab: {fileID: 0}
   firePoint: {fileID: 1295680451321791381}
   attackRange: 0.5
@@ -812,6 +815,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  icon: {fileID: 0}
+  itemType: 0
+  stackMaxCount: 1
   attackRange: 0.5
   enemyLayer:
     serializedVersion: 2
@@ -933,6 +939,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
+  itemType: 0
+  stackMaxCount: 1
   boxCollider: {fileID: 8825286084269503635}
   animator: {fileID: 5075976955750054195}
   weaponName: Pickaxe
@@ -1091,6 +1099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 0}
+  ammoData: {fileID: 0}
 --- !u!114 &3390591519852830321
 MonoBehaviour:
   m_ObjectHideFlags: 0
