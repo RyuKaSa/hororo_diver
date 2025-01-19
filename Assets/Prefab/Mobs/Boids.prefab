@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4850790974047794142}
   - component: {fileID: 4804488290997455332}
   - component: {fileID: 3733220343083392491}
+  - component: {fileID: 7443680289622908804}
   m_Layer: 0
   m_Name: Boids
   m_TagString: Untagged
@@ -48,8 +49,7 @@ MonoBehaviour:
   boidPrefab: {fileID: 5897383034247973845, guid: 28f1294800012b44c847e6e49b70fd40, type: 3}
   mainCamera: {fileID: 0}
   player: {fileID: 0}
-  playerPos: {fileID: 0}
-  navMesh: {fileID: 0}
+  navMesh: {fileID: 3733220343083392491}
   boidCount: 15
   spawnRadius: 5
   speedRotation: 5
@@ -76,3 +76,38 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!58 &7443680289622908804
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8674406001001079430}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

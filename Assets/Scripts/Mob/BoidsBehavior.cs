@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using UnityHFSM;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class BoidBehavior : MonoBehaviour
+public sealed class BoidBehavior : MonoBehaviour, IDamageable
 {
     public GameObject boidPrefab;
     public Transform mainCamera;
     public GameObject player;
-    public UnityEngine.AI.NavMeshAgent navMesh;
-    public int boidCount = 10; // Number of boids to spawn
-    public float spawnRadius = 5f; // Radius to spawn boids around the target
-    public float speedRotation = 5f; // Movement speed
-    public float targetRadius = 1f; // Minimum distance to stay near the target
+    public int boidCount = 10;
+    public float spawnRadius = 5f;
+    public float speedRotation = 5f;
+    public float targetRadius = 1f;
+    public float damage = 1f;
     private List<Boid> boids;
     private Mob mob;
     private StateMachine<State> fsm = new StateMachine<State>();
@@ -19,6 +20,7 @@ public class BoidBehavior : MonoBehaviour
     private float speed = 1.0f;
     private float visionRange = 30.0f;
     private float moveAreaRange = 30.0f; 
+    private NavMeshAgent navMesh;
 
     enum State {
         IDLE,
@@ -30,6 +32,11 @@ public class BoidBehavior : MonoBehaviour
     {
         boids = new List<Boid>();
         mob = new Mob(navMesh, health, speed, visionRange, moveAreaRange, transform.position);
+        var collider = GetComponent<CircleCollider2D>();
+        if (collider != null) {
+            collider.radius = targetRadius;
+        }
+        navMesh = GetComponent<NavMeshAgent>();
         mob.Start();
 
         generateBoids();
@@ -51,8 +58,27 @@ public class BoidBehavior : MonoBehaviour
         fsm.OnLogic();
     }
 
+    public void Damage(float damage)
+    {
+        health -= damage;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collide with other obj");
+        var damageable = other.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
+            damageable.Damage(damage);
+        }
+        else
+        {
+            Debug.Log("Interface IDamageable not found");
+        }
+    }
+
     void generateBoids() {
-        // Spawn boids
         for (int i = 0; i < boidCount; i++)
         {
             Vector3 spawnPosition = transform.position + Random.insideUnitSphere * spawnRadius;
@@ -67,6 +93,17 @@ public class BoidBehavior : MonoBehaviour
 
             boids.Add(boid);
         }    
+    }
+
+    void OnDrawGizmos()
+    {
+        var collider = GetComponent<CircleCollider2D>();
+        if (collider != null)
+        {
+            Gizmos.color = Color.green; // Set the gizmo color
+            Vector3 position = transform.position + (Vector3)collider.offset; // Account for the collider offset
+            Gizmos.DrawWireSphere(position, collider.radius); // Draw the collider radius
+        }
     }
 }
 
