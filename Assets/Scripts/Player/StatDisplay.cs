@@ -8,7 +8,7 @@ public class StatsDisplay : MonoBehaviour
     public class StatUI
     {
         public string attributeName;
-        public TMP_Text valueText; // Changé de Text à TMP_Text
+        public TMP_Text valueText; // Changï¿½ de Text ï¿½ TMP_Text
         [HideInInspector]
         public float initialValue;
         [HideInInspector]
@@ -20,6 +20,8 @@ public class StatsDisplay : MonoBehaviour
 
     private Player player;
 
+    private bool isInit = false;
+
     private void Start()
     {
         player = FindObjectOfType<Player>();
@@ -29,8 +31,18 @@ public class StatsDisplay : MonoBehaviour
             return;
         }
 
-        InitializeBaseValues();
-        UpdateStats();
+        // InitializeBaseValues();
+        // UpdateStats();
+    }
+
+    private void Update()
+    {
+        if (!isInit && player.AsReadOnlyAttributes() != null)
+        {
+            InitializeBaseValues();
+            UpdateStats();
+            isInit = true;
+        }
     }
 
     private void InitializeBaseValues()
@@ -39,9 +51,10 @@ public class StatsDisplay : MonoBehaviour
 
         foreach (var statUI in statDisplays)
         {
-            if (attributes.ContainsKey(statUI.attributeName) && !statUI.isInitialized)
+            var lowerAtrribute = statUI.attributeName.ToLower();
+            if (attributes.ContainsKey(lowerAtrribute) && !statUI.isInitialized)
             {
-                var attr = attributes[statUI.attributeName];
+                var attr = attributes[lowerAtrribute];
                 statUI.initialValue = attr.FinalValue();
                 statUI.isInitialized = true;
             }

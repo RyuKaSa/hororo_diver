@@ -23,6 +23,8 @@ public class Inventory : MonoBehaviour
     private InventoryContext context;
     private AmmunitionCrafter crafter;
 
+    private Dictionary<string, Upgrade> upgradeMap;
+
     /// <summary>
     /// This method initialize Player's inventory with
     /// weapon (pickaxe, knife, harpoon)
@@ -47,6 +49,8 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Awake called on " + gameObject.name);
+
+        upgradeMap = GenerateRandomUpgrades();
         data = new InventoryData(nbSlots);
         display.Initialize(this);
 
@@ -57,6 +61,7 @@ public class Inventory : MonoBehaviour
         if (display != null)
         {
             display.UpdateDisplay(data.items);
+            display.DisplayUpgrades(upgradeMap.Values.ToList(), this);
         }
 
         var pickaxeGameObject = GameObject.FindGameObjectWithTag("Pickaxe");
@@ -114,25 +119,38 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public List<Upgrade> GenerateRandomUpgrades()
+    public Dictionary<string, Upgrade> GenerateRandomUpgrades()
     {
-        string[] attributes = { "damage", "miningSpeed", "resistance", "speed" };
-        List<Upgrade> upgrades = new List<Upgrade>();
+        string[] attributes = { "damage", "resistance", "speed", "miningSpeed" };
+        Dictionary<string, Upgrade> upgrades = new Dictionary<string, Upgrade>();
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < attributes.Length; i++)
         {
-            string randomAttribute = attributes[Random.Range(0, attributes.Length)];
-            float randomPercentage = Random.Range(5f, 20f); // 5% � 20% d'am�lioration.
             Dictionary<string, int> requiredOres = new Dictionary<string, int>
         {
-            { "IronOre", Random.Range(1, 5) },
-            { "GoldOre", Random.Range(0, 3) }
+            { "Iron", Random.Range(1, 5) },
+            { "Manganese", Random.Range(0, 3) }
         };
 
-            upgrades.Add(new Upgrade(randomAttribute, randomPercentage, requiredOres));
+            upgrades.Add(attributes[i], new Upgrade(attributes[i], 15f, requiredOres));
         }
 
         return upgrades;
+    }
+
+    public void GenerateRandomUpgradeForKey(string key)
+    {
+        string[] attributes = { "damage", "resistance", "speed", "miningSpeed" };
+        Dictionary<string, int> requiredOres = new Dictionary<string, int>
+    {
+        { "Iron", Random.Range(1, 5) },
+        { "Manganese", Random.Range(0, 3) }
+    };
+
+        if (attributes.Contains(key))
+        {
+            upgradeMap[key] = new Upgrade(key, 15f, requiredOres);
+        }
     }
 
     public void ModifyItemQuantity(string itemName, int amount)
@@ -153,21 +171,14 @@ public class Inventory : MonoBehaviour
 
     public void OnInventoryOpen()
     {
-        List<Upgrade> upgrades = GenerateRandomUpgrades();
         if (display != null)
         {
-            display.DisplayUpgrades(upgrades, this);
+            display.DisplayUpgrades(upgradeMap.Values.ToList(), this);
         }
     }
 
     public void OnWeaponUpgradeOpen()
     {
-        // Utiliser la méthode de l'InventoryDisplay pour générer les améliorations
-        List<WeaponUpgrade> weaponUpgrades = display.GenerateRandomWeaponUpgrades();
-        if (display != null)
-        {
-            display.DisplayWeaponUpgrades(weaponUpgrades, this);
-        }
     }
 
     public Item AddItem(Item _item)
@@ -223,6 +234,12 @@ public class Inventory : MonoBehaviour
         var weapon = weaponData.GetWeapon();
         context.EquipWeapon(weapon);
 
+    }
+
+    // Getter for upgradeMap
+    public Dictionary<string, Upgrade> GetUpgradeMap()
+    {
+        return upgradeMap;
     }
 
     public Item[] Data => data.items;

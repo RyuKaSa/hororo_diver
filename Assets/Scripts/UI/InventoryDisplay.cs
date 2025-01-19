@@ -8,7 +8,7 @@ public class InventoryDisplay : MonoBehaviour
 {
     private int draggedSlotIndex;
 
-    private StatsDisplay statsDisplay;
+    [SerializeField] private StatsDisplay statsDisplay;
 
     [SerializeField] private InventoryContextMenu contextMenu;
     private Slot[] slots; // The last 3 correspond to the weapon slot
@@ -62,9 +62,14 @@ public class InventoryDisplay : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Method which display upgrade and returns name of the attribute that player has updgrade
+    /// </summary>
+    /// <param name="upgrades"></param>
+    /// <param name="inventory"></param>
+    /// <returns></returns>
     public void DisplayUpgrades(List<Upgrade> upgrades, Inventory inventory)
     {
-        Debug.Log("upgradeButtons.Length = " + upgradeButtons.Length);
         for (int i = 0; i < upgradeButtons.Length; i++)
         {
             Button button = upgradeButtons[i];
@@ -80,39 +85,20 @@ public class InventoryDisplay : MonoBehaviour
 
             string requirements = string.Join("\n", upgrade.RequiredOres.Select(r => $"{r.Key}: {r.Value}"));
 
-            var buttonText = button.GetComponentsInChildren<TextMeshProUGUI>();
-            for (int j = 0; j < 3; j++)
-            {
-                if (j == 0)
-                {
-                    buttonText[0].text = $"{upgrade.Attribute} ";
-                }
+            var requirementText = button.transform.Find("Requirement").GetComponent<TextMeshProUGUI>();
 
-                if (j == 1)
-                {
-                    buttonText[1].text = $"+{upgrade.Percentage:F1}% ";
-                }
-
-                if (j == 2)
-                {
-                    buttonText[1].text = $"{requirements}";
-                }
-            }
-
-            // button.GetComponentInChildren<TextMeshProUGUI>().text =
-            //     $"Amélioration: {upgrade.Attribute}\n" +
-            //     $"+{upgrade.Percentage:F1}%\n" +
-            //     $"Coût:\n{requirements}";
-
+            requirementText.text = requirements;
 
             button.onClick.RemoveAllListeners();
             int upgradeIndex = i; // Capture l'index pour le listener
+            bool isUpgrade = false;
             button.onClick.AddListener(() =>
             {
                 if (ApplyUpgrade(upgrades[upgradeIndex], inventory))
                 {
                     Debug.Log($"{upgrade.Attribute} amélioré de {upgrade.Percentage}% !");
                     button.interactable = false;
+                    inventory.GenerateRandomUpgradeForKey(upgrade.Attribute.ToLower());
                 }
                 else
                 {
@@ -160,7 +146,7 @@ public class InventoryDisplay : MonoBehaviour
                 StatModifier.StatModifierType.PERCENTAGE
             );
 
-            if (player.AddStatModifierToAttribute(upgrade.Attribute, modifier))
+            if (player.AddStatModifierToAttribute(upgrade.Attribute.ToLower(), modifier))
             {
                 Debug.Log($"Attribut {upgrade.Attribute} amélioré de {(int)upgrade.Percentage}%");
 
@@ -208,105 +194,6 @@ public class InventoryDisplay : MonoBehaviour
         }
 
         return upgrades;
-    }
-
-    public bool ApplyWeaponUpgrade(WeaponUpgrade upgrade, Inventory inventory)
-    {
-        // Vérification des ressources
-        foreach (var ore in upgrade.RequiredOres)
-        {
-            bool hasEnoughResources = false;
-            foreach (var item in inventory.Data)
-            {
-                if (item.Name == ore.Key && item.Quantity >= ore.Value)
-                {
-                    hasEnoughResources = true;
-                    break;
-                }
-            }
-            if (!hasEnoughResources)
-            {
-                Debug.Log($"Pas assez de {ore.Key} : requis {ore.Value}");
-                return false;
-            }
-        }
-
-        // Rechercher l'arme dans les enfants du joueur
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            IWeapons weapon = null;
-
-            // Trouver le bon composant d'arme selon le type
-            switch (upgrade.WeaponType)
-            {
-                case "Pickaxe":
-                    weapon = player.GetComponentInChildren<Pickaxe>();
-                    break;
-                case "MeleeWeapon":
-                    weapon = player.GetComponentInChildren<MeleeWeapon>();
-                    break;
-                case "LongRangeWeapon":
-                    weapon = player.GetComponentInChildren<LongRangeWeapon>();
-                    break;
-            }
-
-            if (weapon == null)
-            {
-                Debug.Log($"Arme de type {upgrade.WeaponType} non trouvée");
-                return false;
-            }
-
-            // Consommer les ressources
-            foreach (var ore in upgrade.RequiredOres)
-            {
-                inventory.ModifyItemQuantity(ore.Key, -ore.Value);
-            }
-
-            // Appliquer l'amélioration
-            weapon.ApplyUpgrade(upgrade.Attribute, upgrade.Percentage);
-            Debug.Log($"{upgrade.WeaponType} amélioré : {upgrade.Attribute} +{upgrade.Percentage}%");
-
-            return true;
-        }
-
-        Debug.Log("Player non trouvé");
-        return false;
-    }
-
-    public void DisplayWeaponUpgrades(List<WeaponUpgrade> upgrades, Inventory inventory)
-    {
-        for (int i = 0; i < upgradeButtons.Length; i++)
-        {
-            Button button = upgradeButtons[i];
-
-            if (i >= upgrades.Count)
-            {
-                button.gameObject.SetActive(false);
-                continue;
-            }
-
-            button.gameObject.SetActive(true);
-            WeaponUpgrade upgrade = upgrades[i];
-
-            // Traduire les attributs en français
-            string attributeFr = upgrade.Attribute.ToLower() == "attack" ? "Dégâts" : "Portée";
-
-            string requirements = string.Join("\n", upgrade.RequiredOres.Select(r => $"{r.Key}: {r.Value}"));
-            button.GetComponentInChildren<Text>().text =
-                $"Arme: {upgrade.WeaponType}\n" +
-                $"{attributeFr} +{upgrade.Percentage:F1}%\n" +
-                $"Coût:\n{requirements}";
-
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() =>
-            {
-                if (ApplyWeaponUpgrade(upgrade, inventory))
-                {
-                    button.interactable = false;
-                }
-            });
-        }
     }
 
     public void ClickSlot(int _index)

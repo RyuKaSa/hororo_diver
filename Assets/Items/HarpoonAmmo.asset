@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: harpoonAmmo
   itemType: 2
-  icon: {fileID: 0}
+  icon: {fileID: 113117513, guid: ef54c9b83307b7c4b98f587922cccbce, type: 3}
   stackMaxCount: 999
   miningLevel: 0
   isRare: 0

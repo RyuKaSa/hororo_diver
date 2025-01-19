@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class InventoryToggle : MonoBehaviour
 {
@@ -29,10 +30,11 @@ public class InventoryToggle : MonoBehaviour
 
         if (isInventoryOpen)
         {
-            List<Upgrade> upgrades = GenerateRandomUpgrades();
+            List<Upgrade> upgrades = inventory.GetUpgradeMap().Values.ToList();
             if (inventoryDisplay != null)
             {
                 inventoryDisplay.DisplayUpgrades(upgrades, inventory);
+
             }
         }
 

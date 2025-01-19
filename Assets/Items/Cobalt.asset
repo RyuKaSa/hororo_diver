@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: cobaltOre
   itemType: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 59d55311667887f4b9e8d72455337fd1, type: 3}
   stackMaxCount: 50
   miningLevel: 0
   isRare: 0
