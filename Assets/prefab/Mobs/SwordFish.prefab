@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 8394750697411994604}
   - component: {fileID: 3119627333861314027}
   - component: {fileID: 8014368337461113986}
-  - component: {fileID: 1125038843976133779}
-  - component: {fileID: 336376059593018829}
+  - component: {fileID: 50736475040030000}
   - component: {fileID: 2165907941113474218}
   - component: {fileID: 6544322486422480530}
+  - component: {fileID: 9183850090957900725}
+  - component: {fileID: 7169496137297271369}
   m_Layer: 7
   m_Name: SwordFish
   m_TagString: Untagged
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 1129825647, guid: 0d5da2d28a37bc64d85dbd47107eafe5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
@@ -101,10 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee6192e5daf93c4db2a6e78070250c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1125038843976133779}
+  agent: {fileID: 9183850090957900725}
+  coloredFlash: {fileID: 50736475040030000}
   speed: 2
-  health: 0
-  damage: 1
+  health: 5
+  damage: 5
   visionRange: 15
   moveAreaRange: 20
   attackRange: 2
@@ -112,29 +114,7 @@ MonoBehaviour:
   chargeSpeedCoeff: 10
   player: {fileID: 0}
   timeBetween2Charge: 2
---- !u!195 &1125038843976133779
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3082173425823050043}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &336376059593018829
+--- !u!114 &50736475040030000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,9 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3082173425823050043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 94ec5487f18b6804990b02a5f8f6f28b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 15578e8f29298ba4aa95895367e74128, type: 2}
+  duration: 0.5
 --- !u!50 &2165907941113474218
 Rigidbody2D:
   serializedVersion: 4
@@ -218,3 +200,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6296296, y: 0.8148148}
   m_EdgeRadius: 0
+--- !u!195 &9183850090957900725
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3082173425823050043}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.8148148
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.8148148
+  m_BaseOffset: 0.4074074
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &7169496137297271369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3082173425823050043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

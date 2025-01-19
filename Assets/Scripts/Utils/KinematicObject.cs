@@ -25,6 +25,11 @@ public class KinematicObject : MonoBehaviour
         if (isTriggered)
         {
             MoveTo();
+            Debug.Log("Vector3.Distance(transform.position, destination.position) = " + Vector3.Distance(transform.position, destination.position));
+            if (Vector3.Distance(transform.position, destination.position) <= 1.5f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -37,8 +42,8 @@ public class KinematicObject : MonoBehaviour
             float camWidth = mainCamera.orthographicSize * mainCamera.aspect;
             float camHeight = mainCamera.orthographicSize;
 
-            transform.position = new Vector3(mainCamera.transform.position.x + camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 5f);
-            destination.position = new Vector3(mainCamera.transform.position.x - camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 5f);
+            transform.position = new Vector3(mainCamera.transform.position.x + camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 12.5f);
+            destination.position = new Vector3(mainCamera.transform.position.x - camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 12.5f);
 
             Debug.Log("source.position = " + source.position + " destination.position = " + destination.position + " camWidth = " + camWidth);
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scenes/MobTestScene.unity.meta
-guid: 13ac824cfa7cfa94588ac6b5bf5f7d4e
-========
+<<<<<<<< HEAD:Assets/UI.meta
 guid: fb87691cf04967e408b3abf7701af66a
 folderAsset: yes
->>>>>>>> origin/UI:Assets/UI.meta
+========
+guid: daf8ca2101a172e418c7fe481bcfba72
+>>>>>>>> origin/feat/mob_player_interaction:Assets/Scenes/MobTestScene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

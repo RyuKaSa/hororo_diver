@@ -1,11 +1,15 @@
 using UnityEngine;
+using static ItemData;
 
 
 
 public sealed class Pickaxe : MonoBehaviour, IWeapons
 {
 
-    public Sprite icon;
+    [SerializeField] public Sprite icon;
+
+    [SerializeField] private ItemData.ItemType itemType;
+    [SerializeField] private int stackMaxCount = 1;
 
     public BoxCollider2D boxCollider;
 
@@ -82,6 +86,21 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
         Debug.Log("Mining animation end");
     }
 
+    public void ApplyUpgrade(string attribute, float percentage)
+    {
+        switch (attribute.ToLower())
+        {
+            case "attack":
+                attack *= (1 + percentage / 100f);
+                Debug.Log($"Pickaxe damage upgraded to: {attack}");
+                break;
+            case "range":
+                attackRange *= (1 + percentage / 100f);
+                Debug.Log($"Pickaxe range upgraded to: {attackRange}");
+                break;
+        }
+    }
+
     public bool WeaponAnimationIsPlaying()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -100,5 +119,18 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     }
 
+    public Sprite Icon()
+    {
+        return icon;
+    }
 
+    public ItemData.ItemType ItemType()
+    {
+        return itemType;
+    }
+
+    public int StackMaxCount()
+    {
+        return stackMaxCount;
+    }
 }

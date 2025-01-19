@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
+
 
 public class Inventory : MonoBehaviour
 {
@@ -11,10 +15,11 @@ public class Inventory : MonoBehaviour
     };
 
     [SerializeField] private InventoryDisplay display;
+    [SerializeField] private AmmunitionData ammoData;
 
     private InventoryData data;
-
     private InventoryContext context;
+    private AmmunitionCrafter crafter;
 
     /// <summary>
     /// This method initialize Player's inventory with
@@ -38,18 +43,127 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        // int _slotCount = display.Initialize(this);
-
         data = new InventoryData(12);
         initInventory();
+
+        crafter = new AmmunitionCrafter(data.items);
 
         if (display != null)
         {
             display.UpdateDisplay(data.items);
         }
 
-        var pickaxeData = data.Peek(0).Data as WeaponData;
-        context = new InventoryContext(3, pickaxeData.GetWeapon());
+        var pickaxeGameObject = GameObject.FindGameObjectWithTag("Pickaxe");
+        if (pickaxeGameObject == null)
+        {
+            Debug.Log("Pickaxe gameObject not found");
+        }
+        context = new InventoryContext(0, pickaxeGameObject.GetComponent<Pickaxe>());
+        Debug.Log("Creates context");
+    }
+
+    // M�thodes pour les boutons UI
+    public void CraftSingleAmmo()
+    {
+        if (crafter.CanCraftAmmunition(ammoData, 0))
+        {
+            if (crafter.CraftAmmunition(ammoData, 0))
+            {
+                display?.UpdateDisplay(data.items);
+            }
+        }
+        else
+        {
+            Debug.Log("Pas assez de ressources pour crafter une munition!");
+        }
+    }
+
+    public void CraftFiveAmmo()
+    {
+        if (crafter.CanCraftAmmunition(ammoData, 1))
+        {
+            if (crafter.CraftAmmunition(ammoData, 1))
+            {
+                display?.UpdateDisplay(data.items);
+            }
+        }
+        else
+        {
+            Debug.Log("Pas assez de ressources pour crafter 5 munitions!");
+        }
+    }
+
+    public void CraftTwentyTenAmmo()
+    {
+        if (crafter.CanCraftAmmunition(ammoData, 2))
+        {
+            if (crafter.CraftAmmunition(ammoData, 2))
+            {
+                display?.UpdateDisplay(data.items);
+            }
+        }
+        else
+        {
+            Debug.Log("Pas assez de ressources pour crafter 25 munitions!");
+        }
+    }
+
+    public List<Upgrade> GenerateRandomUpgrades()
+    {
+        string[] attributes = { "damage", "miningSpeed", "resistance", "speed" };
+        List<Upgrade> upgrades = new List<Upgrade>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            string randomAttribute = attributes[Random.Range(0, attributes.Length)];
+            float randomPercentage = Random.Range(5f, 20f); // 5% � 20% d'am�lioration.
+            Dictionary<string, int> requiredOres = new Dictionary<string, int>
+        {
+            { "IronOre", Random.Range(1, 5) },
+            { "GoldOre", Random.Range(0, 3) }
+        };
+
+            upgrades.Add(new Upgrade(randomAttribute, randomPercentage, requiredOres));
+        }
+
+        return upgrades;
+    }
+
+    public void ModifyItemQuantity(string itemName, int amount)
+    {
+        for (int i = 0; i < data.items.Length; i++)
+        {
+            if (data.items[i].Name == itemName)
+            {
+                data.items[i] = data.items[i].ModifyCount(amount);
+                if (display != null)
+                {
+                    display.UpdateDisplay(data.items);
+                }
+                break;
+            }
+        }
+    }
+
+
+
+    public void OnInventoryOpen()
+    {
+        List<Upgrade> upgrades = GenerateRandomUpgrades();
+        if (display != null)
+        {
+            display.DisplayUpgrades(upgrades, this);
+        }
+    }
+
+    public void OnWeaponUpgradeOpen()
+    {
+        // Utiliser la méthode de l'InventoryDisplay pour générer les améliorations
+        List<WeaponUpgrade> weaponUpgrades = display.GenerateRandomWeaponUpgrades();
+        if (display != null)
+        {
+            display.DisplayWeaponUpgrades(weaponUpgrades, this);
+        }
     }
 
     public Item AddItem(Item _item)

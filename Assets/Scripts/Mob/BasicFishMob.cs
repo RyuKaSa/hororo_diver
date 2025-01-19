@@ -110,6 +110,9 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
     private Vector3 spawnPoint;
 
     [SerializeField]
+    private ColoredFlash coloredFlash;
+
+    [SerializeField]
     private float speed;
 
     [SerializeField]
@@ -232,6 +235,13 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
                 Debug.Log("Interface IDamageable not found");
             }
         }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Knife") || other.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+        {
+            Debug.Log("Receive damage");
+            coloredFlash.Flash(Color.red);
+        }
+
     }
 
 

@@ -82,13 +82,13 @@ public class MisterFish : MonoBehaviour
     private float radiusChangeInterval = 3f; // Intervalle de temps entre les changements de rayon
 
     [SerializeField]
-    private float huntingDuration = 20f;
+    private float huntingMaxDuration = 20f;
 
     [SerializeField]
     private float chargeTime = 1.5f;
 
     [SerializeField]
-    private float chargeSpeedCoeff = 5f;
+    private float chargeSpeedCoeff = 10f;
 
     [SerializeField]
     private float exitHunting = 20f;
@@ -110,6 +110,11 @@ public class MisterFish : MonoBehaviour
 
     private Vector3 lastPlayerPos;
 
+    private bool waitNextCharge = false;
+
+    private float huntingDurationTimer = 0f;
+
+
     void Start()
     {
         radius = initialRadius;
@@ -119,6 +124,10 @@ public class MisterFish : MonoBehaviour
         stateMachine.AddState(MisterFishStates.IDLE, new State<MisterFishStates>(
             onLogic: state =>
             {
+                if (huntingDurationTimer > 0f)
+                {
+                    huntingDurationTimer = 0f;
+                }
                 Debug.Log("IDLE sate");
             }
         ));
@@ -146,7 +155,8 @@ public class MisterFish : MonoBehaviour
         stateMachine.AddState(MisterFishStates.HUNTING, new State<MisterFishStates>(
             onLogic: state =>
             {
-                Debug.Log("Dans HUNTING state + dist = " + Vector3.Distance(transform.position, player.transform.position));
+                // Debug.Log("Dans HUNTING state + dist = " + Vector3.Distance(transform.position, player.transform.position));
+                Debug.Log("Dans HUNTING state");
                 animator.SetBool("isScreaming", false);
                 ChasePlayer();
             },
@@ -166,20 +176,29 @@ public class MisterFish : MonoBehaviour
 
         stateMachine.AddState(MisterFishStates.RUSH, new State<MisterFishStates>(
             onLogic: state => RushPlayer(),
-            canExit: state => Vector3.Distance(transform.position, lastPlayerPos) <= 2f,
+            canExit: state => state.timer.Elapsed > 5f,
             needsExitTime: true
         ));
 
         stateMachine.AddTransition(new Transition<MisterFishStates>(
             MisterFishStates.KINEMATIC,
             MisterFishStates.HUNTING,
-            transition => !kinematicData.isTriggered && !audioSource.isPlaying
+            transition =>
+            {
+                huntingDurationTimer = Time.time;
+                return !kinematicData.isTriggered && !audioSource.isPlaying;
+            }
         ));
 
         stateMachine.AddTransition(new Transition<MisterFishStates>(
             MisterFishStates.HUNTING,
             MisterFishStates.CHARGE,
-            transition => Vector3.Distance(transform.position, player.transform.position) <= 5f
+            transition =>
+            {
+                var randNum = Random.Range(1, 101);
+                Debug.Log("randNum = " + randNum);
+                return Vector3.Distance(transform.position, player.transform.position) <= 5f && randNum % 25 == 0;
+            }
         ));
 
         stateMachine.AddTransition(new Transition<MisterFishStates>(
@@ -191,7 +210,11 @@ public class MisterFish : MonoBehaviour
         stateMachine.AddTransition(new Transition<MisterFishStates>(
             MisterFishStates.RUSH,
             MisterFishStates.HUNTING,
-            transition => true
+            transition =>
+            {
+                waitNextCharge = false;
+                return Vector3.Distance(transform.position, lastPlayerPos) <= 2f;
+            }
         ));
 
         stateMachine.AddTransition(new Transition<MisterFishStates>(
@@ -200,6 +223,11 @@ public class MisterFish : MonoBehaviour
             transition => kinematicData.isTriggered
         ));
 
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.HUNTING,
+            MisterFishStates.IDLE,
+            transition => (Time.time - huntingDurationTimer) >= huntingMaxDuration
+        ));
 
         stateMachine.SetStartState(MisterFishStates.IDLE);
         stateMachine.Init();
@@ -243,7 +271,14 @@ public class MisterFish : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
+        if (waitNextCharge)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * speed;
+        }
     }
 
     private void ChasePlayer()
@@ -300,11 +335,16 @@ public class MisterFish : MonoBehaviour
     private void RushPlayer()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
-        Debug.Log("distanceToPlayer = " + distanceToPlayer);
+        // Debug.Log("distanceToPlayer = " + distanceToPlayer);
+        Debug.Log("RUSH State");
         // Move the SwordFish towards the player if it is farther than 1 unit
         if (distanceToPlayer > 2f)
         {
-            transform.position = SwordFish.RushTowardsPlayer(player.transform.position, transform.position, 10f, speed);
+            transform.position = SwordFish.RushTowardsPlayer(lastPlayerPos, transform.position, chargeSpeedCoeff, speed);
+        }
+        else
+        {
+            waitNextCharge = true;
         }
 
     }
@@ -346,7 +386,7 @@ public class MisterFish : MonoBehaviour
     private void ChargeAttackProcess(float elapsedTime)
     {
         // saves the player's position up to a certain time
-        if (elapsedTime <= chargeTime * 0.50)
+        if (elapsedTime <= chargeTime * 0.95)
         {
             lastPlayerPos = player.transform.position;
 

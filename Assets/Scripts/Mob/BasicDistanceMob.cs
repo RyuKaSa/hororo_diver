@@ -10,8 +10,14 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
     private Mob mob;
     private Vector3 spawnPoint;
 
+    [SerializeField]
+    private ColoredFlash coloredFlash;
+
+
+    [SerializeField]
     private float speed;
 
+    [SerializeField]
     private float health;
 
     [SerializeField]
@@ -118,6 +124,7 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
 
     void Update()
     {
+
         var player = GameObject.Find("Player");
         if (player == null)
         {
@@ -130,6 +137,15 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Knife") || other.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+        {
+            Debug.Log("Receive damage");
+            coloredFlash.Flash(Color.red);
+        }
+
+    }
 
     void OnDrawGizmos()
     {

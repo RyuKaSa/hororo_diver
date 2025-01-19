@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1482224399566716511}
   - component: {fileID: 1988437518202051346}
   - component: {fileID: 2426841422285797574}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MisterFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +300,10 @@ MonoBehaviour:
   maxRadius: 10
   speed: 1
   radiusChangeInterval: 3
-  huntingDuration: 20
+  huntingMaxDuration: 20
+  chargeTime: 1.5
+  chargeSpeedCoeff: 10
+  exitHunting: 20
   kinematicData:
     begin: {fileID: 3577336478888337868}
     end: {fileID: 2912642891472256071}

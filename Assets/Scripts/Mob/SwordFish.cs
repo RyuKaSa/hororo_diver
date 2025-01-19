@@ -20,6 +20,9 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
     private Vector3 spawnPoint;
 
     [SerializeField]
+    private ColoredFlash coloredFlash;
+
+    [SerializeField]
     private float speed;
 
     [SerializeField]
@@ -156,29 +159,6 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
 
 
     /// <summary>
-    /// Moves the SwordFish towards the player's last known position at a certain charge speed.
-    /// The SwordFish will continue moving towards the player until it is close enough.
-    /// </summary>
-    /// <param name="chargeSpeedCoeff">A coefficient that scales the base speed of the SwordFish's charge.</param>
-    /// <param name="speed">The base speed of the SwordFish (before applying the charge speed coefficient).</param>
-    // private void RushTowardsPlayer()
-    // {
-    //     // Calculate the direction from the SwordFish to the player's last known position
-    //     Vector3 directionToPlayer = lastPlayerPos - transform.position;
-    //     directionToPlayer.z = 0; // Ignore Z-axis
-    //     directionToPlayer.Normalize();
-
-    //     float chargeSpeed = chargeSpeedCoeff * speed;
-    //     float distanceToPlayer = Vector3.Distance(transform.position, lastPlayerPos);
-
-    //     // Move the SwordFish towards the player if it is farther than 1 unit
-    //     if (distanceToPlayer > 1.5)
-    //     {
-    //         transform.position += directionToPlayer * chargeSpeed * Time.deltaTime;
-    //     }
-    // }
-
-    /// <summary>
     /// Moves a mob towards the player's last known position at a certain charge speed.
     /// </summary>
     public static Vector3 RushTowardsPlayer(Vector3 targetPos, Vector3 sourcePos, float coeff, float speed)
@@ -211,7 +191,7 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Collide with other obj");
+        Debug.Log("Collide with other obj layer = " + other.gameObject.layer + " gameObject name = " + transform.name);
         var damageable = other.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
@@ -222,12 +202,17 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
         {
             Debug.Log("Interface IDamageable not found");
         }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Knife") || other.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+        {
+            Debug.Log("Receive damage");
+            coloredFlash.Flash(Color.red);
+        }
     }
 
 
     void Update()
     {
         stateMachine.OnLogic();
-
     }
 }
