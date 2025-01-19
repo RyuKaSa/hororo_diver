@@ -3,55 +3,80 @@
 [System.Serializable]
 public struct Item
 {
-    [SerializeField] private int count;
-    [SerializeField] private ItemData data;
+    public ItemData Data { get; private set; }
+    public int count;
 
-
-    /// <summary>
-    /// Constructor to create an Item with specified ItemData and count.
-    /// </summary>
-    /// <param name="data">The ItemData associated with the item.</param>
-    /// <param name="count">The initial count of the item.</param>
-    public Item(ItemData data, int count)
+    public int Count
     {
-        if (data == null)
-            throw new System.ArgumentNullException(nameof(data), "ItemData cannot be null.");
+        get => count;
+        private set => count = value;
+    }
 
-        if (count < 0 || count > data.stackMaxCount)
-            throw new System.ArgumentOutOfRangeException(nameof(count), $"Count must be between 0 and {data.stackMaxCount}.");
+    public string Name => Data?.name ?? "";
+    public int Quantity => Count;
 
-        this.data = data;
+    // Constructeur par défaut
+    public Item(ItemData data = null, int count = 0)
+    {
+        Data = data;
         this.count = count;
     }
 
-    public void Merge(ref Item other)
+    public Item ModifyCount(int amount)
     {
-        if (Full) return;
+        return new Item(Data, Mathf.Max(0, count + amount));
+    }
+
+    // Propriété pour vérifier si l'item est vide
+    public bool Empty => Data == null || Count <= 0;
+
+    // Vérifie si l'emplacement peut accueillir l'item
+    public bool AvailableFor(Item itemToAdd)
+    {
+        if (Empty) return true;
+        if (Data != itemToAdd.Data) return false;
+        return Count + itemToAdd.Count <= Data.stackMaxCount;
+    }
+
+    // Fusionne avec un autre item
+    public void Merge(ref Item itemToAdd)
+    {
+        if (!AvailableFor(itemToAdd)) return;
 
         if (Empty)
-            data = other.data;
-
-        if (other.Data != data)
-            throw new System.Exception("Cannot merge different item types.");
-
-        int total = other.Count + count;
-
-        if (total <= data.stackMaxCount)
         {
-            count = total;
-            other.count = 0;
+            Data = itemToAdd.Data;
+            Count = itemToAdd.Count;
+            itemToAdd = new Item();
             return;
         }
 
-        count = data.stackMaxCount;
-        other.count = total - count;
+        int spaceAvailable = Data.stackMaxCount - Count;
+        int amountToAdd = Mathf.Min(spaceAvailable, itemToAdd.Count);
+
+        Count += amountToAdd;
+        itemToAdd = new Item(itemToAdd.Data, itemToAdd.Count - amountToAdd);
+    }
+}
+
+public class AmmunitionManager : MonoBehaviour
+{
+    private Item[] inventoryItems;
+    private AmmunitionCrafter crafter;
+
+    private void Awake()
+    {
+        inventoryItems = GetComponent<Inventory>().Data;
+        crafter = new AmmunitionCrafter(inventoryItems);
     }
 
-    public bool AvailableFor(Item other) =>
-        Empty || (Data == other.Data && !Full);
+    public bool CraftAmmunition(AmmunitionData ammoData, int batchIndex)
+    {
+        return crafter.CraftAmmunition(ammoData, batchIndex);
+    }
 
-    public ItemData Data => data;
-    public bool Full => data != null && count >= data.stackMaxCount;
-    public bool Empty => count == 0 || data == null;
-    public int Count => count;
+    public bool CanCraftAmmunition(AmmunitionData ammoData, int batchIndex)
+    {
+        return crafter.CanCraftAmmunition(ammoData, batchIndex);
+    }
 }

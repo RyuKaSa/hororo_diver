@@ -10,6 +10,11 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
 {
     public Animator animator;
 
+    [SerializeField] private Sprite icon;
+
+    [SerializeField] private ItemData.ItemType itemType;
+    [SerializeField] private int stackMaxCount = 1;
+
     [SerializeField]
     private float attackRange = 0.5f;
 
@@ -44,6 +49,21 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         }
     }
 
+    public void ApplyUpgrade(string attribute, float percentage)
+    {
+        switch (attribute.ToLower())
+        {
+            case "attack":
+                attack *= (1 + percentage / 100f);
+                Debug.Log($"MeleeWeapon damage upgraded to: {attack}");
+                break;
+            case "range":
+                attackRange *= (1 + percentage / 100f);
+                Debug.Log($"MeleeWeapon range upgraded to: {attackRange}");
+                break;
+        }
+    }
+
     public bool WeaponAnimationIsPlaying()
     {
         if (animator == null)
@@ -63,6 +83,21 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         // equippedWeapon = this;
         Debug.Log("Info: equip " + transform.name);
         _ctx.EquipWeapon(this);
+    }
+
+    public Sprite Icon()
+    {
+        return icon;
+    }
+
+    public ItemData.ItemType ItemType()
+    {
+        return itemType;
+    }
+
+    public int StackMaxCount()
+    {
+        return stackMaxCount;
     }
 
 

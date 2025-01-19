@@ -1,11 +1,12 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scenes/oreTestScene.unity.meta
-guid: 29f962893413f804d91871e12d456cd2
-DefaultImporter:
-========
+<<<<<<<< HEAD:Assets/UI/Silkscreen-Bold SDF.asset.meta
 guid: 67cf474ae5216654480f9d25573056a9
 NativeFormatImporter:
->>>>>>>> origin/UI:Assets/UI/Silkscreen-Bold SDF.asset.meta
+========
+guid: ed340b04dc77bff47834e601e0fc55fb
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> origin/feat/mob_player_interaction:Assets/Animations.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

@@ -10,6 +10,11 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 {
     public Animator animator;
 
+    [SerializeField] private Sprite icon;
+
+    [SerializeField] private ItemData.ItemType itemType;
+    [SerializeField] private int stackMaxCount = 1;
+
     public GameObject projectilePrefab;
 
     [SerializeField]
@@ -76,5 +81,36 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         _ctx.EquipWeapon(this);
         Debug.Log("Info: equip " + transform.name);
     }
+
+    public void ApplyUpgrade(string attribute, float percentage)
+    {
+        switch (attribute.ToLower())
+        {
+            case "attack":
+                attack *= (1 + percentage / 100f);
+                Debug.Log($"LongRangeWeapon damage upgraded to: {attack}");
+                break;
+            case "range":
+                attackRange *= (1 + percentage / 100f);
+                Debug.Log($"LongRangeWeapon range upgraded to: {attackRange}");
+                break;
+        }
+    }
+
+    public Sprite Icon()
+    {
+        return icon;
+    }
+
+    public ItemData.ItemType ItemType()
+    {
+        return itemType;
+    }
+
+    public int StackMaxCount()
+    {
+        return stackMaxCount;
+    }
+
 
 }
