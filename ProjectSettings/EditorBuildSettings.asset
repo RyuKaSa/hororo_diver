@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/William_Menus/Main_Menu.unity
     guid: 6eccb1f3e0aa05d428c38b669a4701a6
   - enabled: 1
-    path: Assets/Scenes/final_Levels/Level_1.unity
+    path: Assets/Scenes/final_Levels/Level_1_tempo.unity
     guid: 9f13ce97d2a0cff48a6840c0c8f7589b
   - enabled: 1
     path: Assets/Scenes/final_Levels/Level_2.unity
