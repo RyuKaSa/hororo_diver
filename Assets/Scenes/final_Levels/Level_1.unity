@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0.028301908, b: 0.084905684, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0.06303601, b: 0.1981132, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -1079,6 +1079,46 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 793857519464760962, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 793857519464760962, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 1796366615450296437, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462817322624057557, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_Range
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462817322624057557, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_SpotAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418595420559336670, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418595420559336670, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418595420559336670, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418595420559336670, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368280480080411833, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: depthOffsetRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4626432991129228070, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
       propertyPath: m_Name
       value: player_camera 1
@@ -1134,6 +1174,54 @@ PrefabInstance:
     - target: {fileID: 5322542099540050383, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: color.b
+      value: 0.6698113
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: color.g
+      value: 0.11594227
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: color.r
+      value: 0.06003024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: spotAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: fallOffEnd
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: _FadeOutEnd
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: fallOffStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: _FadeOutBegin
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723557741918741162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: noiseScaleLocal
+      value: 0.106
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918833550502044479, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_SpotAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918833550502044479, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 73.14501
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222942795539734162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: field of view
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2495,10 +2583,22 @@ PrefabInstance:
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
       value: 
       objectReference: {fileID: 241013627}
+    - target: {fileID: 3697152957071942328, guid: 566f4c0d105c954499fc795682d62fa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542808790917286490, guid: 566f4c0d105c954499fc795682d62fa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5438628750361933523, guid: 566f4c0d105c954499fc795682d62fa4, type: 3}
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
       value: 
       objectReference: {fileID: 1016405415}
+    - target: {fileID: 5760170040892837395, guid: 566f4c0d105c954499fc795682d62fa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6515875930986175671, guid: 566f4c0d105c954499fc795682d62fa4, type: 3}
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
       value: 
@@ -2507,6 +2607,10 @@ PrefabInstance:
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
       value: 
       objectReference: {fileID: 1677442951}
+    - target: {fileID: 9098684044999492304, guid: 566f4c0d105c954499fc795682d62fa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

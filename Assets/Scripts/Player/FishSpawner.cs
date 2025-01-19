@@ -97,19 +97,27 @@ public class FishSpawner : MonoBehaviour
 
     private string GetSortingLayerForDepth(float depth)
     {
-        if (depth == -10f) return sortLayerMinus10;
-        if (depth == 2.5f) return sortLayer2_5;
-        if (depth == 7.5f) return sortLayer7_5;
-        if (depth == 12.5f) return sortLayer12_5;
+        if (depth == -5f) return sortLayerMinus10;
+        if (depth == 1.25f) return sortLayer2_5;
+        if (depth == 3.75f) return sortLayer7_5;
+        if (depth == 6.25f) return sortLayer12_5;
         return sortLayer2_5; // Default to Background
     }
 
     private Vector2 GetRandomPointInSquare()
     {
-        float x = transform.position.x + Random.Range(-spawnWidth / 2f, spawnWidth / 2f);
+        // Determine whether to spawn on the left or right edge
+        bool spawnOnLeft = Random.value < 0.5f;
+
+        // X position: If left, place at left edge; If right, place at right edge
+        float x = spawnOnLeft ? transform.position.x - (spawnWidth / 2f) : transform.position.x + (spawnWidth / 2f);
+
+        // Y position: Randomly within the spawn height
         float y = transform.position.y + Random.Range(-spawnHeight / 2f, spawnHeight / 2f);
+
         return new Vector2(x, y);
     }
+
 
     private Vector2 GetRandomPointInsideCluster(Vector2 groupCenter)
     {
