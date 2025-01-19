@@ -63,14 +63,29 @@ public sealed class BoidBehavior : MonoBehaviour, IDamageable
         health -= damage;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     Debug.Log("Collide with other obj");
+    //     var damageable = other.gameObject.GetComponent<IDamageable>();
+    //     if (damageable != null)
+    //     {
+    //         Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
+    //         damageable.Damage(damage);
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Interface IDamageable not found");
+    //     }
+    // }
+
+    private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Collide with other obj");
+        Debug.Log("trigger stay");
         var damageable = other.gameObject.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            Debug.Log(transform.name + " inflicts damage to " + other.gameObject.name);
-            damageable.Damage(damage);
+            Debug.Log(transform.name + " is damaging " + other.gameObject.name);
+            damageable.Damage(damage * Time.deltaTime); // Apply damage over time
         }
         else
         {

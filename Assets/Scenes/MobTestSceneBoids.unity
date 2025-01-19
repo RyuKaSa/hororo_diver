@@ -10523,6 +10523,10 @@ PrefabInstance:
       propertyPath: targetRadius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4804488290997455332, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
+      propertyPath: speedRotation
+      value: 49.66
+      objectReference: {fileID: 0}
     - target: {fileID: 4850790974047794142, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.82
