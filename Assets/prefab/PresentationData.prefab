@@ -5901,6 +5901,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3503024802070950239, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: projectileSpeed
+      value: 4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503024802070950239, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 4750483038256637806, guid: f17bec5091981994b9dbdd6d48b352e3, type: 3}
     - target: {fileID: 4368280480080411833, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
       propertyPath: depthOffsetRange
       value: 0.5
@@ -6004,6 +6012,18 @@ PrefabInstance:
     - target: {fileID: 5918833550502044479, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
       propertyPath: m_InnerSpotAngle
       value: 73.14501
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309948226450644902, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309948226450644902, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309948226450644902, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -683659791
       objectReference: {fileID: 0}
     - target: {fileID: 7222942795539734162, guid: 2e25e1731089ae442bf836144853c9cc, type: 3}
       propertyPath: field of view

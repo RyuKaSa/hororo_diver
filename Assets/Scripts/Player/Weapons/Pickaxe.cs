@@ -133,4 +133,10 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
     {
         return stackMaxCount;
     }
+
+    public float TimeBetween2Attack()
+    {
+        return 0.5f;
+    }
+
 }

@@ -27,6 +27,9 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private string weaponName;
 
+    [SerializeField]
+    private float timeBetween2Attack;
+
     public string WeaponName()
     {
         return weaponName;
@@ -100,5 +103,8 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         return stackMaxCount;
     }
 
-
+    public float TimeBetween2Attack()
+    {
+        return timeBetween2Attack;
+    }
 }

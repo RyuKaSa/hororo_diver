@@ -52,7 +52,12 @@ public sealed class Player : MonoBehaviour, IDamageable
     private float oxygenAmount = 100f;
 
     private float oxygenLossPerFrame = 0.05f;
+
     private float oxygenGainPerFrame = 0.1f;
+
+    private bool attackTrigger = false;
+
+    private float timeBetween2AttackInput = 0f;
 
 
     public void Start()
@@ -137,7 +142,17 @@ public sealed class Player : MonoBehaviour, IDamageable
         stateMachine.AddTransition(new Transition<PlayerStates>(
             PlayerStates.IDLE,
             PlayerStates.ATTACK,
-            transition => playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION
+            transition =>
+            {
+                bool cond = playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION;
+                Debug.Log("Cond = " + cond + " timeBetween2AttackInput = " + timeBetween2AttackInput);
+                if (cond && timeBetween2AttackInput >= currentWeapon.TimeBetween2Attack())
+                {
+                    timeBetween2AttackInput = Time.deltaTime;
+                    return true;
+                }
+                return false;
+            }
         ));
 
         stateMachine.AddTransition(new Transition<PlayerStates>(
@@ -245,6 +260,7 @@ public sealed class Player : MonoBehaviour, IDamageable
             }
         }
 
+        timeBetween2AttackInput += Time.deltaTime;
         var action = playerInput.GetPlayerActionByKey();
 
         // Avoid multiple swapping by stay in SWAP state during weaponSwappingTime

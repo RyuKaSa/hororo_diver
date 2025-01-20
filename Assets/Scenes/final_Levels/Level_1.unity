@@ -411,6 +411,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 632481411}
+    - target: {fileID: 4162638914578758321, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: projectileSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5256391277428963843, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_SortingLayer
       value: 4
@@ -485,6 +489,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6663891788354135926, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829959576671949896, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7094047141482399637, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}

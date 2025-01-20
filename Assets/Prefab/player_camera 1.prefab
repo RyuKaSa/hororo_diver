@@ -1266,7 +1266,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4187539111065990531}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1336,6 +1336,7 @@ MonoBehaviour:
   attack: 0.75
   projectileSpeed: 1
   weaponName: Harpoon
+  timeBetween2Attack: 1.6
 --- !u!1 &4626432991129228070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1714,7 @@ MonoBehaviour:
     m_Bits: 128
   attack: 0.75
   weaponName: Knife
+  timeBetween2Attack: 1
 --- !u!1 &5663496572163201102
 GameObject:
   m_ObjectHideFlags: 0
