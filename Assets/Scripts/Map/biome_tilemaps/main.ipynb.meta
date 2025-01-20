@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Player.meta
+guid: 87edc80c3c0648d4e8d1f24d793d270c
+folderAsset: yes
+========
 guid: 22d734642da272441b2d7bd1858ed769
+>>>>>>>> 0b7193474e1be14e07dd8a3e837307522c9c022b:Assets/Scripts/Map/biome_tilemaps/main.ipynb.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/End Scene.unity.meta
 guid: 1307bd737a2b1b64083822370ce606c1
+========
+guid: 6a9dbfc155ecbc84b862cca06882a6ff
+>>>>>>>> 135276c9642b4594535cdd02a35d505cf21294c1:Assets/Scenes/MobTestScene 2.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
