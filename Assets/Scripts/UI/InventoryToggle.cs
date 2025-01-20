@@ -6,12 +6,16 @@ public class InventoryToggle : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private InventoryDisplay inventoryDisplay;
-    private Inventory inventory;
+    [SerializeField] private Inventory inventory;
     private bool isInventoryOpen = false;
 
     private void Start()
     {
-        inventory = GetComponent<Inventory>();
+        if (inventory == null)
+        {
+            inventory = GetComponent<Inventory>();
+        }
+        inventoryPanel.SetActive(false);
     }
 
     void Update()

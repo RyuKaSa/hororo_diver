@@ -442,8 +442,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -619,7 +619,6 @@ GameObject:
   - component: {fileID: 7302014616390096234}
   - component: {fileID: 4549583918828932310}
   - component: {fileID: 7422794024231373145}
-  - component: {fileID: 8809406294766971323}
   - component: {fileID: 3363680841261620138}
   - component: {fileID: 2448892023595070183}
   - component: {fileID: 5212310724445665431}
@@ -746,20 +745,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8809406294766971323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3147136924029413611}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5636edc56ecebe40adeab071dcab0a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  display: {fileID: 0}
-  ammoData: {fileID: 0}
 --- !u!114 &3363680841261620138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,10 +765,7 @@ MonoBehaviour:
   resistance: 0
   speed: 5
   nbLife: 3
-  weapons:
-  - {fileID: 5479128706652548577}
-  - {fileID: 4187539111065990531}
-  inventory: {fileID: 8809406294766971323}
+  inventory: {fileID: 0}
   weaponSwappingTime: 0.5
 --- !u!114 &2448892023595070183
 MonoBehaviour:
@@ -1075,8 +1057,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

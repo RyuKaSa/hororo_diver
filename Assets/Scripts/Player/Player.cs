@@ -28,9 +28,6 @@ public sealed class Player : MonoBehaviour, IDamageable
     private int nbLife = 3;
 
     [SerializeField]
-    private GameObject[] weapons; // Array of 3 elements which is 3 slots of Player's weapons (Pickaxe include)
-
-    [SerializeField]
     private Inventory inventory;
 
     [SerializeField]
@@ -52,24 +49,55 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private int debugCmpt = 0;
 
+    private float oxygenAmount = 100f;
+
+    private float oxygenLossPerFrame = 0.05f;
+    private float oxygenGainPerFrame = 0.1f;
+
+
     public void Start()
     {
         // Set state machine states
         stateMachine.AddState(PlayerStates.IDLE, new State<PlayerStates>(
-            onLogic: state => { playerInput.IdleState(); Debug.Log("IDLE STATE"); }
+            onLogic: state =>
+            {
+                playerInput.UpdateMovement();
+                oxygenAmount += oxygenGainPerFrame;
+
+                // fix limit to 100
+                if (oxygenAmount > 100f)
+                {
+                    oxygenAmount = 100f;
+                }
+                Debug.Log("IDLE STATE");
+            }
         ));
 
         stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
-            onLogic: state => playerInput.UpdateMovement()
+            onLogic: state =>
+            {
+                playerInput.UpdateMovement();
+                oxygenAmount -= oxygenLossPerFrame;
+                if (oxygenAmount < 0f)
+                {
+                    oxygenAmount = 0f;
+                }
+                Debug.Log("oxygenAmount = " + oxygenAmount);
+            }
         ));
 
         stateMachine.AddState(PlayerStates.ATTACK, new State<PlayerStates>(
-            onLogic: state => currentWeapon.AttackProcessing()
+            onLogic: state =>
+            {
+                playerInput.UpdateMovement();
+                currentWeapon.AttackProcessing();
+            }
         ));
 
         stateMachine.AddState(PlayerStates.SWAP, new State<PlayerStates>(
             onLogic: state =>
             {
+                playerInput.UpdateMovement(); // Keep rotation
                 Debug.Log("Weapon name = " + currentWeapon.WeaponName());
                 var go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
 
@@ -170,8 +198,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         stateMachine.SetStartState(PlayerStates.IDLE);
 
-        DisabledWeaponNotHolding();
-
         // Init Attribute map based on field
         attributes.Add("damage", new Attribute(damage));
         attributes.Add("miningSpeed", new Attribute(miningSpeed));
@@ -238,17 +264,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     }
 
-    private void DisabledWeaponNotHolding()
-    {
-        var otherWeapon = weapons[(weaponId + 1) % 2].GetComponent<Renderer>();
-        if (otherWeapon == null)
-        {
-            Debug.Log("Renderer for " + weapons[(weaponId + 1) % 2].transform.name + " not found");
-            return;
-        }
-        otherWeapon.enabled = false;
-    }
-
     public void Damage(float damage)
     {
         Debug.Log(transform.name + " takes " + damage + " damage");
@@ -288,6 +303,11 @@ public sealed class Player : MonoBehaviour, IDamageable
     public float GetHealth()
     {
         return health;
+    }
+
+    public float GetOxygen()
+    {
+        return oxygenAmount;
     }
 
 }

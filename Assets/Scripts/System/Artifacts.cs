@@ -19,10 +19,10 @@ public sealed class Artifact : MonoBehaviour
 
     void Start()
     {
-        var go = GameObject.Find("InventoryUI");
+        var go = GameObject.Find("Inventory UI");
         if (go == null)
         {
-            Debug.Log("InventoryUI not found");
+            Debug.Log("Inventory UI not found");
             go = GameObject.Find("Player");
             if (go == null)
             {

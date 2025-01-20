@@ -12,7 +12,12 @@ public class HealthDisplay : MonoBehaviour
     [SerializeField]
     private Image HealthBar;
 
+    [SerializeField]
+    private Image oxygenBar;
+
     private float healthAmount = 100f;
+
+    private float oxygenAmount = 100f;
 
     [SerializeField]
     private HealthIcon[] healthIcons;
@@ -63,6 +68,7 @@ public class HealthDisplay : MonoBehaviour
     public void UpdateHealthDisplay()
     {
         float currentHealth = player.GetHealth();
+        float currentOxygen = player.GetOxygen();
 
         // Limiter l'affichage au maximum de vies configur�
         int iconCount = Mathf.Min(healthIcons.Length, maxHealth);
@@ -86,5 +92,6 @@ public class HealthDisplay : MonoBehaviour
 
         // Update HealthBar
         HealthBar.fillAmount = currentHealth / 15f;
+        oxygenBar.fillAmount = currentOxygen / 100f;
     }
 }

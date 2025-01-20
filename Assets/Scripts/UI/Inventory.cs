@@ -49,6 +49,10 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Awake called on " + gameObject.name);
+        if (display == null)
+        {
+            Debug.Log("Display == null");
+        }
 
         upgradeMap = GenerateRandomUpgrades();
         data = new InventoryData(nbSlots);
@@ -61,7 +65,7 @@ public class Inventory : MonoBehaviour
         if (display != null)
         {
             display.UpdateDisplay(data.items);
-            display.DisplayUpgrades(upgradeMap.Values.ToList(), this);
+            // display.DisplayUpgrades(upgradeMap.Values.ToList(), this);
         }
 
         var pickaxeGameObject = GameObject.FindGameObjectWithTag("Pickaxe");
