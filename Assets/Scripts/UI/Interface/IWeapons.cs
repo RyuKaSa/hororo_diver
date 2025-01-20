@@ -16,4 +16,5 @@ public interface IWeapons : IEquipable
     void ApplyUpgrade(string attribute, float percentage);
 
     public float TimeBetween2Attack();
+
 }

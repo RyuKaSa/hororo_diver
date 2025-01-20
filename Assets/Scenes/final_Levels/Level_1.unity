@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2879952532947521604, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: coloredFlash
+      value: 
+      objectReference: {fileID: 990574326}
     - target: {fileID: 3141829337263278570, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -550,6 +554,10 @@ PrefabInstance:
     - target: {fileID: 7383592443315626569, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8198266042721230553, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: duration
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8308860702024079903, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2325,6 +2333,17 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
+--- !u!114 &990574326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8198266042721230553, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+  m_PrefabInstance: {fileID: 39759092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ec5487f18b6804990b02a5f8f6f28b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &994927046
 PrefabInstance:
   m_ObjectHideFlags: 0

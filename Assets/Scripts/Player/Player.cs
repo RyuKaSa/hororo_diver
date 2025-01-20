@@ -33,6 +33,9 @@ public sealed class Player : MonoBehaviour, IDamageable
     [SerializeField]
     private float weaponSwappingTime = 0.5f;
 
+    [SerializeField]
+    private ColoredFlash coloredFlash;
+
     private int weaponId = 0;
 
     private IWeapons currentWeapon;
@@ -74,6 +77,13 @@ public sealed class Player : MonoBehaviour, IDamageable
                 {
                     oxygenAmount = 100f;
                 }
+
+                // Weapon follow Player's hand
+                var isFlipped = GetComponent<SpriteRenderer>().flipX;
+                var hand = isFlipped ? transform.Find("HandPointFlip") : transform.Find("HandPoint");
+
+                var weaponGO = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
+                weaponGO.transform.position = hand.transform.position;
                 Debug.Log("IDLE STATE");
             }
         ));
@@ -81,6 +91,9 @@ public sealed class Player : MonoBehaviour, IDamageable
         stateMachine.AddState(PlayerStates.MOVE, new State<PlayerStates>(
             onLogic: state =>
             {
+                var weaponGO = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
+                weaponGO.transform.position = new Vector3(-1000f, -1000f, 0f);
+
                 playerInput.UpdateMovement();
                 oxygenAmount -= oxygenLossPerFrame;
                 if (oxygenAmount < 0f)
@@ -269,14 +282,10 @@ public sealed class Player : MonoBehaviour, IDamageable
             Debug.Log("Player swap weapon");
             weaponId += 1;
             health -= 1;
+            coloredFlash.Flash(Color.red);
         }
 
         stateMachine.OnLogic();
-
-        // Weapon follow Player's hand
-        var hand = transform.Find("HandPoint");
-        var weaponGO = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
-        weaponGO.transform.position = hand.transform.position;
 
 
     }
@@ -309,6 +318,15 @@ public sealed class Player : MonoBehaviour, IDamageable
         OnStatsChanged?.Invoke();
 
         return true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("BasicMob") || other.gameObject.layer == LayerMask.NameToLayer("MisterFish"))
+        {
+            Debug.Log("Receive damage");
+            coloredFlash.Flash(Color.red);
+        }
     }
 
 

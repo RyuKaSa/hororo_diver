@@ -626,6 +626,7 @@ GameObject:
   - component: {fileID: 793857519464760962}
   - component: {fileID: 4368280480080411833}
   - component: {fileID: 9156691825692807045}
+  - component: {fileID: 8691810877830501687}
   m_Layer: 6
   m_Name: Player with fishes
   m_TagString: Player
@@ -649,6 +650,7 @@ Transform:
   - {fileID: 5322542099540050383}
   - {fileID: 6400589039655556379}
   - {fileID: 4638628331169293977}
+  - {fileID: 6535637650545264284}
   - {fileID: 554902010528160369}
   m_Father: {fileID: 4646584095660954423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -767,6 +769,7 @@ MonoBehaviour:
   nbLife: 3
   inventory: {fileID: 0}
   weaponSwappingTime: 0.5
+  coloredFlash: {fileID: 0}
 --- !u!114 &2448892023595070183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,6 +990,20 @@ MonoBehaviour:
   breathSpeed: 1
   spawnProbabilityScale: 0.15
   spawnThreshold: 0.6
+--- !u!114 &8691810877830501687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3147136924029413611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ec5487f18b6804990b02a5f8f6f28b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 15578e8f29298ba4aa95895367e74128, type: 2}
+  duration: 0.4
 --- !u!1 &3516039936725712791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,3 +1785,34 @@ MonoBehaviour:
   breathSpeed: 1
   spawnProbabilityScale: 0.15
   spawnThreshold: 0.6
+--- !u!1 &7023400688188633084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6535637650545264284}
+  m_Layer: 0
+  m_Name: HandPointFlip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6535637650545264284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7023400688188633084}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.4482351, y: 0.15447149, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3418595420559336670}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

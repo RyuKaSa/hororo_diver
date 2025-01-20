@@ -139,4 +139,10 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
         return 0.5f;
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
+
 }
