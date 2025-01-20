@@ -212,6 +212,7 @@ public sealed class Player : MonoBehaviour, IDamageable
     private void Awake()
     {
         Debug.Log("Creates Player");
+
         currentWeapon = inventory.Context.EquippedWeapon;
         if (currentWeapon == null)
         {
