@@ -41,7 +41,7 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
             if (ore != null)
             {
-                Debug.Log("Hit ore");
+                Debug.Log("Hit ore gameObject name = " + gameObject.name);
                 var pickOre = ore.HitOre();
                 if (pickOre)
                 {
@@ -55,7 +55,7 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
     private void AddOre(string name)
     {
         var item = OreData.FromOreName(name);
-        var inventory = Utils.GetComponentFromGameObjectTag<Inventory>("Player");
+        var inventory = GameObject.Find("Inventory UI").GetComponent<Inventory>();
         inventory.AddItem(item);
 
     }

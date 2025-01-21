@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 
 /// <summary>
@@ -43,8 +44,23 @@ public sealed class Ore : MonoBehaviour
     {
         if (currentHit == hitRequired)
         {
-            Destroy(gameObject);
+            Debug.Log("DESTROY ORE " + gameObject.name);
+            DestroyInMap();
         }
+    }
+
+    private void DestroyInMap()
+    {
+        GridLayout gridLayout = transform.parent.GetComponentInParent<GridLayout>();
+        if (gridLayout == null)
+        {
+            Debug.Log("GridLayout is null");
+            return;
+        }
+        Vector3Int cellPosition = gridLayout.WorldToCell(transform.position);
+
+        var tilemap = transform.parent.GetComponentInParent<Tilemap>();
+        tilemap.SetTile(cellPosition, null);
     }
 
 }

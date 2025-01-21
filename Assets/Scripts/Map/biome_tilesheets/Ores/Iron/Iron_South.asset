@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron_South
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -1892124242, guid: f2c6ccd93f5fb8a488163ece4dfb5b13, type: 3}
-  m_DefaultGameObject: {fileID: 2631354462731072438, guid: fb0f3b2023ce2c54b89e855f0ac63128, type: 3}
+  m_DefaultGameObject: {fileID: 2631354462731072438, guid: 533ee7867c0151f4ab710c6bde13a924, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: c90c55bc90ad6574bb32a00e9a127d76, type: 3}
     - {fileID: 0}
     - {fileID: 0}
-    m_GameObject: {fileID: 2631354462731072438, guid: fb0f3b2023ce2c54b89e855f0ac63128, type: 3}
+    m_GameObject: {fileID: 2631354462731072438, guid: 533ee7867c0151f4ab710c6bde13a924, type: 3}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5

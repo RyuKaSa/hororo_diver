@@ -100,7 +100,6 @@ public sealed class Player : MonoBehaviour, IDamageable
                 {
                     oxygenAmount = 0f;
                 }
-                Debug.Log("oxygenAmount = " + oxygenAmount);
             }
         ));
 
@@ -122,7 +121,6 @@ public sealed class Player : MonoBehaviour, IDamageable
                 go.transform.position = new Vector3(-1000, -1000, -1000);
                 inventory.SwapWeapon(weaponId);
                 currentWeapon = inventory.Context.GetEquippedWeapon();
-                Debug.Log("Weapon name 2 = " + currentWeapon.WeaponName());
 
                 go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
                 go.transform.position = transform.Find("HandPoint").position;
@@ -158,7 +156,6 @@ public sealed class Player : MonoBehaviour, IDamageable
             transition =>
             {
                 bool cond = playerInput.GetPlayerActionByKey() == Player_Input.INPUT_ACTION.ATTACK_ACTION;
-                Debug.Log("Cond = " + cond + " timeBetween2AttackInput = " + timeBetween2AttackInput);
                 if (cond && timeBetween2AttackInput >= currentWeapon.TimeBetween2Attack())
                 {
                     timeBetween2AttackInput = Time.deltaTime;
