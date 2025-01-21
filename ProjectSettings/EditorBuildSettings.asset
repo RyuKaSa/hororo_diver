@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/William_Menus/Main_Menu.unity
     guid: 6eccb1f3e0aa05d428c38b669a4701a6
   - enabled: 1
+    path: Assets/Scenes/final_Levels/Level_1.unity
+    guid: 58f4de5f02016df4da0d277ac3f43070
+  - enabled: 0
     path: Assets/Scenes/final_Levels/Level_1_tempo.unity
     guid: 9f13ce97d2a0cff48a6840c0c8f7589b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/final_Levels/Level_2.unity
     guid: f0e03ad9d58035e4ea1ce96d7d9808b7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/final_Levels/Level_3.unity
     guid: 125e0cd0f1cd1e447ae540712f3bda92
   m_configObjects:
