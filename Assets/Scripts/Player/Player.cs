@@ -83,8 +83,12 @@ public sealed class Player : MonoBehaviour, IDamageable
                 var hand = isFlipped ? transform.Find("HandPointFlip") : transform.Find("HandPoint");
 
                 var weaponGO = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
+                var spriteRenderer = weaponGO.GetComponent<SpriteRenderer>();
+
+                spriteRenderer.flipX = isFlipped ? true : false;
                 weaponGO.transform.position = hand.transform.position;
-                Debug.Log("IDLE STATE");
+
+
             }
         ));
 

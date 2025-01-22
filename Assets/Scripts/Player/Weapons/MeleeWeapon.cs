@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 
 /// <summary>
@@ -30,6 +31,12 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private float timeBetween2Attack;
 
+    [SerializeField]
+    private UnityEvent onTriggerEnter;
+
+    [SerializeField]
+    private string animationTriggerName;
+
     public string WeaponName()
     {
         return weaponName;
@@ -37,6 +44,10 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
 
     public void AttackProcessing()
     {
+        if (onTriggerEnter != null)
+        {
+            onTriggerEnter.Invoke(); // Trigger animation
+        }
         Debug.Log("Player attack with " + transform.name);
         // Detects ennemies in range of attack
         var hitEnnemiesArray = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
@@ -75,9 +86,10 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         }
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        bool isPlaying = stateInfo.IsName(animationTriggerName);
 
-        // Check if "Mining" is in progress
-        return stateInfo.IsName("MiningAnimation");
+
+        return isPlaying;
     }
 
     public void OnEquiped(InventoryContext _ctx)
