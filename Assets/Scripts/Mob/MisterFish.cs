@@ -45,8 +45,8 @@ public class MisterFish : MonoBehaviour
         IDLE,
         MOVE_AROUND,
         SPAWN_AND_RUSH,
-        KINEMATIC,
         HUNTING,
+        KINEMATIC,
         CHARGE,
         RUSH
     }
@@ -114,9 +114,20 @@ public class MisterFish : MonoBehaviour
 
     private float huntingDurationTimer = 0f;
 
+    private float randomBehaviorTimer = 0f;
+
+    private float spawnDelay;
+
+    private float minSpawnTime = 120f;
+
+    private float maxSpawnTime = 180f;
+
 
     void Start()
     {
+        spawnDelay = Random.Range(minSpawnTime, maxSpawnTime);
+        randomBehaviorTimer = Time.time;
+
         radius = initialRadius;
         // kinematicData.isTriggered = true;
         kinematicData.startTime = Time.time;
@@ -253,6 +264,14 @@ public class MisterFish : MonoBehaviour
 
     void Update()
     {
+        if (Time.time - randomBehaviorTimer >= spawnDelay)
+        {
+            Debug.Log("Random behavior");
+            stateMachine.RequestStateChange((MisterFishStates)Random.Range((int)MisterFishStates.MOVE_AROUND, (int)MisterFishStates.HUNTING), true);
+            spawnDelay = Random.Range(minSpawnTime, maxSpawnTime);
+            randomBehaviorTimer = Time.time;
+        }
+
         stateMachine.OnLogic();
 
         // radiusChangeTimer += Time.deltaTime;
