@@ -69,6 +69,7 @@ public class HealthDisplay : MonoBehaviour
     {
         float currentHealth = player.GetHealth();
         float currentOxygen = player.GetOxygen();
+        int currentLife = player.GetLife();
 
         // Limiter l'affichage au maximum de vies configur�
         int iconCount = Mathf.Min(healthIcons.Length, maxHealth);
@@ -77,7 +78,7 @@ public class HealthDisplay : MonoBehaviour
         {
             if (healthIcons[i].healthImage != null)
             {
-                healthIcons[i].healthImage.sprite = i < currentHealth ? fullHeartSprite : emptyHeartSprite;
+                healthIcons[i].healthImage.sprite = i < currentLife ? fullHeartSprite : emptyHeartSprite;
             }
         }
 

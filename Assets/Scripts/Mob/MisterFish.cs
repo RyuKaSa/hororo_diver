@@ -106,21 +106,23 @@ public class MisterFish : MonoBehaviour
 
     private float startTime;
 
-    private float timeToReachPlayer;
+    private float timeToReachPlayer; // Approximative required time for mister Fish to reach player
 
     private Vector3 lastPlayerPos;
 
-    private bool waitNextCharge = false;
+    private bool waitNextCharge = false; // Flag which allow mister Fish to charge the player
 
-    private float huntingDurationTimer = 0f;
+    private float huntingDurationTimer = 0f; // Timer that measures Mister Fish's hunting time
 
-    private float randomBehaviorTimer = 0f;
+    private float randomBehaviorTimer = 0f; // Delay between 2 appearance of Mister Fish
 
-    private float spawnDelay;
+    private float spawnDelay; // Delay for first spawn of Mister Fish
 
-    private float minSpawnTime = 120f;
+    private float minSpawnTime = 120f; // Minimum time before Mister Fish can reappear
 
-    private float maxSpawnTime = 180f;
+    private float maxSpawnTime = 180f; // Maximum time before Mister Fish can reappear
+
+    private float moveAroundDuration = 23f; // Duration of Move Around state
 
 
     void Start()
@@ -137,19 +139,27 @@ public class MisterFish : MonoBehaviour
             {
                 if (huntingDurationTimer > 0f)
                 {
-                    huntingDurationTimer = 0f;
+                    huntingDurationTimer = 0f; // Reset timer for the next time where Mister Fish chase player 
                 }
                 Debug.Log("IDLE sate");
             }
         ));
 
         stateMachine.AddState(MisterFishStates.MOVE_AROUND, new State<MisterFishStates>(
-            onLogic: state => erraticMovement()
+            onLogic: state => MoveAround(),
+            canExit: state => state.timer.Elapsed >= moveAroundDuration,
+            needsExitTime: true
+
         ));
 
-        stateMachine.AddState(MisterFishStates.SPAWN_AND_RUSH, new State<MisterFishStates>(
-            onLogic: state => SpawnAndMoveTowardsPlayer()
+        stateMachine.AddState(MisterFishStates.SPAWN_AND_RUSH, new CoState<MisterFishStates>(
+            this,
+            MoveTowardsPlayer,
+            onEnter: action => SpawnAndMoveTowardsPlayer(),
+            loop: true,
+            needsExitTime: true
         ));
+
 
         stateMachine.AddState(MisterFishStates.KINEMATIC, new State<MisterFishStates>(
             onLogic: state =>
@@ -170,9 +180,7 @@ public class MisterFish : MonoBehaviour
                 Debug.Log("Dans HUNTING state");
                 animator.SetBool("isScreaming", false);
                 ChasePlayer();
-            },
-            canExit: state => true,
-            needsExitTime: true
+            }
         ));
 
         stateMachine.AddState(MisterFishStates.CHARGE, new State<MisterFishStates>(
@@ -240,33 +248,55 @@ public class MisterFish : MonoBehaviour
             transition => (Time.time - huntingDurationTimer) >= huntingMaxDuration
         ));
 
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.SPAWN_AND_RUSH,
+            MisterFishStates.HUNTING
+        ));
+
+        stateMachine.AddTransition(new Transition<MisterFishStates>(
+            MisterFishStates.MOVE_AROUND,
+            MisterFishStates.HUNTING,
+            transition =>
+            {
+                var randNum = Random.Range(1, 101);
+                return randNum % 25 == 0;
+            }
+        ));
+
+
         stateMachine.SetStartState(MisterFishStates.IDLE);
         stateMachine.Init();
 
     }
 
-    private void erraticMovement()
+    private void MoveAround()
     {
 
-        Camera cam = Camera.main;
-        var box = GetComponent<BoxCollider2D>();
-        var hitBox = new Vector2(box.size.x, box.size.y);
+        Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         float camWidth = cam.orthographicSize * cam.aspect;
         float camHeight = cam.orthographicSize;
-        angle += (speed / 5f) * Time.deltaTime;
+        angle += (speed / 15f) * Time.deltaTime;
 
-        float x = Mathf.Cos(angle) * (camWidth + 2f);
-        float y = Mathf.Sin(angle) * (camHeight + 2f);
+        float x = Mathf.Cos(angle) * (22f);
+        float y = Mathf.Sin(angle) * (22f);
 
         transform.position = player.transform.position + new Vector3(x, y, 0);
+
+        // Face Player
+        Vector3 directionToPlayer = player.transform.position - transform.position;
+        directionToPlayer.z = 0; // Ensure we remain on the 2D plane
+
+        float teta = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, teta));
+
     }
 
     void Update()
     {
-        if (Time.time - randomBehaviorTimer >= spawnDelay)
+        if (Time.time - randomBehaviorTimer >= spawnDelay && stateMachine.ActiveState.name == MisterFishStates.IDLE)
         {
-            Debug.Log("Random behavior");
             stateMachine.RequestStateChange((MisterFishStates)Random.Range((int)MisterFishStates.MOVE_AROUND, (int)MisterFishStates.HUNTING), true);
             spawnDelay = Random.Range(minSpawnTime, maxSpawnTime);
             randomBehaviorTimer = Time.time;
@@ -283,7 +313,8 @@ public class MisterFish : MonoBehaviour
         //     radius = Random.Range(minRadius, maxRadius);
         // }
 
-        // erraticMovement();
+        // MoveAround();
+
         // ChasePlayer();
         // RushPlayer();
     }
@@ -313,6 +344,8 @@ public class MisterFish : MonoBehaviour
         Camera cam = Camera.main;
         float camWidth = cam.orthographicSize * cam.aspect;
         float camHeight = cam.orthographicSize;
+        float[] boundX = { player.transform.position.x - 22f, player.transform.position.x + 22f };
+        float[] boundY = { player.transform.position.y - 22f, player.transform.position.y + 22f };
 
         // Choose random side
         Vector3 spawnPosition = Vector3.zero;
@@ -321,34 +354,42 @@ public class MisterFish : MonoBehaviour
         switch (side)
         {
             case 0:
-                spawnPosition = new Vector3(-camWidth - 1f, Random.Range(-camHeight, camHeight), 0);
+                spawnPosition = new Vector3(boundX[0] - 1f, Random.Range(boundY[0], boundY[1]), 0);
                 break;
             case 1:
-                spawnPosition = new Vector3(camWidth + 1f, Random.Range(-camHeight, camHeight), 0);
+                spawnPosition = new Vector3(boundX[1] + 1f, Random.Range(boundY[0], boundY[1]), 0);
                 break;
             case 2:
-                spawnPosition = new Vector3(Random.Range(-camWidth, camWidth), camHeight + 1f, 0);
+                spawnPosition = new Vector3(Random.Range(boundX[0], boundX[1]), boundY[1] + 1f, 0);
                 break;
             case 3:
-                spawnPosition = new Vector3(Random.Range(-camWidth, camWidth), -camHeight - 1f, 0);
+                spawnPosition = new Vector3(Random.Range(boundX[0], boundX[1]), boundY[0] - 1f, 0);
                 break;
         }
 
         transform.position = spawnPosition;
-
-        // Start Move 
-        StartCoroutine(MoveTowardsPlayer());
     }
 
-    private IEnumerator MoveTowardsPlayer()
+    IEnumerator MoveTowardsPlayer()
     {
-        float step = speed * Time.deltaTime;
+        float step = (speed * 2) * Time.deltaTime;
 
-        while (Vector3.Distance(transform.position, player.transform.position) > 0.1f)
+        while (Vector3.Distance(transform.position, player.transform.position) > 5f)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+            Vector3 directionToPlayer = player.transform.position - transform.position;
+            directionToPlayer.z = 0; // Ensure we remain on the 2D plane
+
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
             yield return null; // Wait next frame
         }
+
+        // Because needsExitTime is true, we have to tell the FSM when it can
+        // safely exit the state.
+        stateMachine.StateCanExit();
     }
 
     private void RushPlayer()

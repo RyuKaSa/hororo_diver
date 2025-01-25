@@ -270,6 +270,7 @@ public sealed class Player : MonoBehaviour, IDamageable
                 transform.position = GameObject.Find("MapMetaData").GetComponent<MapMetaData>().PositionToRespawnPoint(transform.position);
                 Debug.Log("Info in Player: player respawn to " + transform.position);
                 health = baseHealth;
+                oxygenAmount = 100f;
 
             }
         }
@@ -344,6 +345,11 @@ public sealed class Player : MonoBehaviour, IDamageable
     public float GetOxygen()
     {
         return oxygenAmount;
+    }
+
+    public int GetLife()
+    {
+        return nbLife;
     }
 
 }
