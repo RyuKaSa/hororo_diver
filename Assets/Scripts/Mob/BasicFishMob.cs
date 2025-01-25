@@ -254,6 +254,15 @@ public sealed class BasicFishMob : MonoBehaviour, IDamageable
         }
         else
         {
+
+            if (Vector3.Distance(transform.position, player.transform.position) >= 30f)
+            {
+                agent.enabled = false;
+            }
+            else
+            {
+                agent.enabled = true;
+            }
             var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             BehaviorProcessBasedOnState(player, state); // Determines which behavior algo choose according to mob's state
         }

@@ -69,7 +69,7 @@ public sealed class Mob : MonoBehaviour
     public void PassiveMobMovement()
     {
         Vector3 point;
-        if (state == State.PASSIVE && agent.remainingDistance <= 1f && RandomPoint(out point))
+        if (agent.enabled && state == State.PASSIVE && agent.remainingDistance <= 1f && RandomPoint(out point))
         {
             Debug.Log("Find random point");
             agent.destination = point;
@@ -155,13 +155,15 @@ public sealed class Mob : MonoBehaviour
 
     public void Start()
     {
-        // Vector3 point;
-        // while (!RandomPoint(out point))
-        // {
-        //     ;
-        // }
-        // agent.destination = point;
-
+        if (agent != null)
+        {
+            Vector3 point;
+            if (RandomPoint(out point))
+            {
+                agent.destination = point;
+            }
+        }
     }
+
 
 }
