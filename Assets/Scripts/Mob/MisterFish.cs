@@ -8,7 +8,7 @@ public class MisterFish : MonoBehaviour
 {
 
     [System.Serializable]
-    struct KinematicData
+    public struct KinematicData
     {
         public Transform begin;
 
@@ -51,6 +51,8 @@ public class MisterFish : MonoBehaviour
         RUSH
     }
 
+    public KinematicData kinematicData;
+
     [SerializeField]
     private GameObject player;
 
@@ -92,9 +94,6 @@ public class MisterFish : MonoBehaviour
 
     [SerializeField]
     private float exitHunting = 20f;
-
-    [SerializeField]
-    private KinematicData kinematicData;
 
     private StateMachine<MisterFishStates> stateMachine = new StateMachine<MisterFishStates>();
 
@@ -215,7 +214,6 @@ public class MisterFish : MonoBehaviour
             transition =>
             {
                 var randNum = Random.Range(1, 101);
-                Debug.Log("randNum = " + randNum);
                 return Vector3.Distance(transform.position, player.transform.position) <= 5f && randNum % 25 == 0;
             }
         ));
@@ -422,18 +420,16 @@ public class MisterFish : MonoBehaviour
     public void KinematicProcess()
     {
         var pos = kinematicData.MoveStraightLine();
-        transform.position = pos;
+        transform.position = new Vector3(pos.x, pos.y, 0f);
 
         if (Vector3.Distance(transform.position, kinematicData.end.position) <= 1f)
         {
-            Debug.Log("Dans le premier IF");
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
                 kinematicData.isTriggered = false; // Kinematic is finished
                 // CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
                 animator.SetBool("isScreaming", true);
-                Debug.Log("Joue le son");
             }
             else
             {

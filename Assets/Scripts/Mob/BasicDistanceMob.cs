@@ -125,7 +125,7 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
     void Update()
     {
 
-        var player = GameObject.Find("Player");
+        var player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
             Debug.Log("PLAYER NULL");
