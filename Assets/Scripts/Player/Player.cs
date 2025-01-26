@@ -111,7 +111,15 @@ public sealed class Player : MonoBehaviour, IDamageable
             onLogic: state =>
             {
                 playerInput.UpdateMovement();
-                currentWeapon.AttackProcessing();
+                if (currentWeapon.WeaponName() != "Harpoon")
+                {
+                    currentWeapon.AttackProcessing(attributes["damage"].FinalValue());
+                }
+                else if (inventory.GetAmmo() > 0)
+                {
+                    currentWeapon.AttackProcessing(attributes["damage"].FinalValue());
+                    inventory.UpdateAmmo();
+                }
             }
         ));
 
@@ -119,7 +127,6 @@ public sealed class Player : MonoBehaviour, IDamageable
             onLogic: state =>
             {
                 playerInput.UpdateMovement(); // Keep rotation
-                Debug.Log("Weapon name = " + currentWeapon.WeaponName());
                 var go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
 
                 go.transform.position = new Vector3(-1000, -1000, -1000);
@@ -128,8 +135,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
                 go = GameObject.FindGameObjectWithTag(currentWeapon.WeaponName());
                 go.transform.position = transform.Find("HandPoint").position;
-
-                Debug.Log("Info: in swap state and currentWeapon = " + currentWeapon + " get context weapon = " + inventory.Context.GetEquippedWeapon());
 
             },
             canExit: state => state.timer.Elapsed > weaponSwappingTime,
@@ -295,7 +300,7 @@ public sealed class Player : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
         Debug.Log(transform.name + " takes " + damage + " damage");
-        health -= damage;
+        health = (health + attributes["resistance"].FinalValue()) - damage;
         OnHealthChanged?.Invoke();
     }
 

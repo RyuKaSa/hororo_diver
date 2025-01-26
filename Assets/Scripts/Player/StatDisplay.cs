@@ -51,10 +51,9 @@ public class StatsDisplay : MonoBehaviour
 
         foreach (var statUI in statDisplays)
         {
-            var lowerAtrribute = statUI.attributeName.ToLower();
-            if (attributes.ContainsKey(lowerAtrribute) && !statUI.isInitialized)
+            if (attributes.ContainsKey(statUI.attributeName) && !statUI.isInitialized)
             {
-                var attr = attributes[lowerAtrribute];
+                var attr = attributes[statUI.attributeName];
                 statUI.initialValue = attr.FinalValue();
                 statUI.isInitialized = true;
             }
@@ -73,6 +72,8 @@ public class StatsDisplay : MonoBehaviour
                 float currentValue = attr.FinalValue();
 
                 float percentage = ((currentValue - statUI.initialValue) / statUI.initialValue) * 100f;
+                Debug.Log("statUI.attributeName = " + statUI.attributeName + " currentValue = " + currentValue + " percentage = " + percentage + " statUI.initialValue = " + statUI.initialValue);
+
 
                 string sign = percentage >= 0 ? "+" : "";
                 statUI.valueText.text = $"{sign}{percentage:F1}%";

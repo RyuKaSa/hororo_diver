@@ -21,7 +21,7 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
     private float health;
 
     [SerializeField]
-    private float damage = 1f;
+    private float damage = 12f;
 
     [SerializeField]
     private float visionRange = 20f;
@@ -41,6 +41,8 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
     private float explosionStartTime = 0f;
 
     private float currentTime = 0f;
+
+    private float explosionRadius = 2f;
 
     public void Start()
     {
@@ -83,11 +85,11 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
 
         if (timer >= delay && !explosionParticle.isPlaying)
         {
-            Debug.Log("Explosion");
             explosionParticle.transform.position = transform.position;
             explosionParticle.Play();
             explosionStartTime = Time.deltaTime;
             currentTime = explosionStartTime;
+            ManageExplosion(player);
             Destroy(GetComponent<Renderer>());
             Destroy(GetComponent<Rigidbody2D>());
             Destroy(GetComponent<BoxCollider2D>());
@@ -95,6 +97,15 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
             // Destroy(GetComponent<UnityEngine.AI.NavMeshAgent>());
             // Destroy(gameObject);
         }
+    }
+
+    private void ManageExplosion(GameObject player)
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) <= explosionRadius)
+        {
+            player.GetComponent<Player>().Damage(damage);
+        }
+
     }
 
     public void Damage(float damage)

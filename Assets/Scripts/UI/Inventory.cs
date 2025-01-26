@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
     private InventoryContext context;
     private AmmunitionCrafter crafter;
 
+    private int ammoId;
     private Dictionary<string, Upgrade> upgradeMap;
 
     /// <summary>
@@ -43,6 +44,7 @@ public class Inventory : MonoBehaviour
         AddItem(new Item(itemDB.pickaxe, 1));
         AddItem(new Item(itemDB.knife, 1));
         AddItem(new Item(itemDB.harpoonHandgun, 1));
+        AddItem(new Item(itemDB.ammoData, 15));
 
     }
 
@@ -239,6 +241,35 @@ public class Inventory : MonoBehaviour
         context.EquipWeapon(weapon);
 
     }
+
+    public int GetAmmo()
+    {
+        foreach (var item in data.items)
+        {
+            if (item.Data.itemName == "harpoonAmmo")
+            {
+                Debug.Log(" item.Data.itemName = " + item.Data.itemName + " item.Count = " + item.Count);
+                return item.Count;
+            }
+        }
+        return 0;
+    }
+
+    public int UpdateAmmo()
+    {
+        for (int i = 0; i < data.items.Length; i++)
+        {
+            if (data.items[i].Data.itemName == "harpoonAmmo")
+            {
+                if (data.items[i].count > 0)
+                {
+                    data.items[i].count -= 1;
+                }
+            }
+        }
+        return 0;
+    }
+
 
     // Getter for upgradeMap
     public Dictionary<string, Upgrade> GetUpgradeMap()

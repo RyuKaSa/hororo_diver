@@ -428,7 +428,7 @@ public class MisterFish : MonoBehaviour
             {
                 audioSource.Play();
                 kinematicData.isTriggered = false; // Kinematic is finished
-                // CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
+                CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
                 animator.SetBool("isScreaming", true);
             }
             else

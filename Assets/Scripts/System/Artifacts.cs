@@ -39,11 +39,10 @@ public sealed class Artifact : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("COLLISION !");
         // Check collision with Player Layer
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            // inventory.AddItem(FromArtifactName());
+            inventory.AddItem(FromArtifactName());
             var component = GameObject.Find("MisterFish").GetComponent<MisterFish>();
             component.TriggerKinematic();
             Destroy(gameObject);

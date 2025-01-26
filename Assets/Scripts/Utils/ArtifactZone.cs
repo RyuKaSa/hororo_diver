@@ -25,7 +25,6 @@ public class ArtifactZone : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("ArtifactZone Collision");
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             onTriggerEnter.Invoke();
@@ -36,7 +35,6 @@ public class ArtifactZone : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("ArtifactZone Collision EXIT");
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             onTriggerExit.Invoke();

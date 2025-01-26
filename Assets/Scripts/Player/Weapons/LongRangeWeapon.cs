@@ -46,7 +46,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     }
 
 
-    public void AttackProcessing()
+    public void AttackProcessing(float attackBonus)
     {
         Debug.Log("Player attack with " + transform.name);
 
@@ -61,7 +61,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
 
         var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
         var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(projectileSpeed, 1f, false);
+        projectile.Initialize(projectileSpeed, attack + (attack * attackBonus), false);
     }
 
     public bool WeaponAnimationIsPlaying()

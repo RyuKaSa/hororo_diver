@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 3615684}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &3615683
 Rigidbody2D:
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 182352111}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &182352110
 Rigidbody2D:
@@ -3908,6 +3908,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2879952532947521604, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: coloredFlash
+      value: 
+      objectReference: {fileID: 1035545684}
     - target: {fileID: 3141829337263278570, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3964,6 +3968,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6019717733157513602, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: ammoData
+      value: 
+      objectReference: {fileID: 11400000, guid: 16d7511acc7a76f42b474adb89116f89, type: 2}
+    - target: {fileID: 6019717733157513602, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: artifacts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6019717733157513602, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: artifacts.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 055f5ebe234cad0499d4060c61aec6ca, type: 2}
     - target: {fileID: 6128457691062949087, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_Name
       value: PresentationData
@@ -4047,6 +4063,10 @@ PrefabInstance:
     - target: {fileID: 7383592443315626569, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8198266042721230553, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+      propertyPath: duration
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8308860702024079903, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4141,6 +4161,7 @@ PrefabInstance:
     - {fileID: 6047211017135027986, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
     - {fileID: 3007759449884716127, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
     - {fileID: 6477077952815521219, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+    - {fileID: 5918813259636418303, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8308860702024079903, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
       insertIndex: 2
@@ -6857,7 +6878,7 @@ MonoBehaviour:
   - {fileID: 3082173425823050043, guid: 3e4270026917dfa49896e88ba9496ab3, type: 3}
   - {fileID: 8674406001001079430, guid: 1f534d0981cf5a0429be57942cb1f4dc, type: 3}
   - {fileID: 4446811495067978763, guid: 4e100aba14780cc4984bb322af413dde, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 1035545695}
   mainCamera: {fileID: 729654473}
   minSpawnTime: 40
   maxSpawnTime: 90
@@ -8022,7 +8043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 868244053}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &868244052
 Rigidbody2D:
@@ -9005,8 +9026,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14677,6 +14698,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2519047303494673157, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
   m_PrefabInstance: {fileID: 354926346}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1035545684 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8198266042721230553, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+  m_PrefabInstance: {fileID: 354926346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035545683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ec5487f18b6804990b02a5f8f6f28b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1035545695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2749691778046766896, guid: ca37cfd867bee424b885e58ee187f1b4, type: 3}
+  m_PrefabInstance: {fileID: 354926346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044347674
 GameObject:
   m_ObjectHideFlags: 0
@@ -14725,7 +14762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 1044347678}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &1044347677
 Rigidbody2D:
@@ -14930,7 +14967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 1085327321}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &1085327320
 Rigidbody2D:
@@ -17215,8 +17252,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -22368,8 +22405,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -27232,7 +27269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 1367672074}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &1367672073
 Rigidbody2D:
@@ -27430,8 +27467,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -32853,7 +32890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 1407560712}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &1407560711
 Rigidbody2D:
@@ -33457,7 +33494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 1531313233}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &1531313232
 Rigidbody2D:
@@ -33655,8 +33692,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -39956,8 +39993,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -45954,8 +45991,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -51291,7 +51328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 1826405197}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &1826405196
 Rigidbody2D:
@@ -52783,67 +52820,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1996190398
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -206.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 19.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6859734514111839623, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9098371566595620577, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_Name
-      value: Main Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 9098371566595620577, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d755c2f0adb7fde4bbee664410c27b52, type: 3}
 --- !u!1 &2005412798
 GameObject:
   m_ObjectHideFlags: 0
@@ -53169,8 +53145,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683659791
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -58066,7 +58042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 2045881476}
-  name: 
+  name: artifact
   inventory: {fileID: 0}
 --- !u!50 &2045881475
 Rigidbody2D:
@@ -64203,6 +64179,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 884210553}
   - {fileID: 4803539674361026950}
-  - {fileID: 1996190398}
   - {fileID: 1726719844}
   - {fileID: 354926346}

@@ -42,7 +42,7 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
         return weaponName;
     }
 
-    public void AttackProcessing()
+    public void AttackProcessing(float attackBonus)
     {
         if (onTriggerEnter != null)
         {
@@ -58,7 +58,7 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
             if (damageable != null)
             {
                 Debug.Log("Interface was found for " + collider.gameObject.transform.name);
-                damageable.Damage(attack);
+                damageable.Damage(attack + (attack * attackBonus));
             }
         }
     }

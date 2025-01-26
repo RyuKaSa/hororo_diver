@@ -60,7 +60,7 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     }
 
-    public void AttackProcessing()
+    public void AttackProcessing(float attackBonus)
     {
         Debug.Log("Tigger mining anim");
         animator.SetBool("isMining", true);

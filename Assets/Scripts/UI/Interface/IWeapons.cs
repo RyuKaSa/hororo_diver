@@ -7,7 +7,7 @@ public interface IWeapons : IEquipable
     ItemData.ItemType ItemType();
     int StackMaxCount();
 
-    public void AttackProcessing();
+    public void AttackProcessing(float attackBonus);
 
     public bool WeaponAnimationIsPlaying();
 

@@ -18,6 +18,8 @@ public class ItemDatabase : MonoBehaviour
     public WeaponData whalingHarpoonCannon;
     public WeaponData knife;
     public WeaponData pickaxe;
+    public AmmunitionData ammoData;
+
 
     [Header("Artifacts")]
     public ItemData[] artifacts;
@@ -41,7 +43,7 @@ public class ItemDatabase : MonoBehaviour
         ItemData[] allItems = new ItemData[]
         {
         manganeseOre, copperOre, cobaltOre, ironOre,
-        harpoonHandgun, whalingHarpoonCannon, knife, pickaxe
+        harpoonHandgun, whalingHarpoonCannon, knife, pickaxe, ammoData
         };
 
         // Concatenate artifacts to the array
