@@ -170,30 +170,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 117634221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bca2c86bbaeed46a159f565aea40ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bd098d2f97d5d74d80114e3361ad405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   key:
     m_Name: Key
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 8379e5b1-7c9a-4c67-8ff4-9bf059ce1a99
+    m_Id: 06a4a38b-6d2f-4d42-95d9-32cf7197cc00
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: c8bd9f4d-fd23-410c-af5a-3b8a51fbb3cd
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Key
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
   speed: 100
   accelerationFactor: 10
-  maxHeight: 6750
-  nextSceneId: 5
+  maxHeight: 6500
+  nextSceneId: 1
 --- !u!114 &117634224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,30 +892,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1225691713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bca2c86bbaeed46a159f565aea40ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bd098d2f97d5d74d80114e3361ad405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   key:
     m_Name: Key
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 9d775a72-a21c-4167-85d9-32a40305f23b
+    m_Id: 0ff8c56d-f1cc-4466-9d8d-f9ba7f71f55a
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: ad43de30-dcf3-497e-b3dd-1be698a8591a
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Key
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
-  speed: 2
+  speed: 10
   accelerationFactor: 10
-  maxHeight: 10000000
-  nextSceneId: 4
+  maxHeight: 650000
+  nextSceneId: 0
 --- !u!1 &1715449888
 GameObject:
   m_ObjectHideFlags: 0

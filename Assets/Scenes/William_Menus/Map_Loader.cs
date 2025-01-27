@@ -9,7 +9,7 @@ public class Map_Loader : MonoBehaviour
     {
         // 0 is menu
         // 1 is game test
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(2);
     }
 
     public void QuitGame()
