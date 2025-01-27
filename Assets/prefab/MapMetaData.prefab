@@ -237,6 +237,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPointList:
-  - {fileID: 1869857282328794346}
-  - {fileID: 7139811780682290444}
   - {fileID: 7254670061749166806}

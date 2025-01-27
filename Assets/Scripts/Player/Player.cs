@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityHFSM;
 
 public sealed class Player : MonoBehaviour, IDamageable
@@ -61,6 +62,11 @@ public sealed class Player : MonoBehaviour, IDamageable
     private bool attackTrigger = false;
 
     private float timeBetween2AttackInput = 0f;
+
+    public float invincibilityDuration = 1f;
+    private float invincibilityTimer = 0f;
+    private bool isInvincible = false;
+
 
 
     public void Start()
@@ -266,20 +272,33 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
+        if (isInvincible)
+        {
+            invincibilityTimer -= Time.deltaTime;
+            if (invincibilityTimer <= 0f)
+            {
+                isInvincible = false;
+            }
+        }
+
         if (health <= 0)
         {
             Debug.Log("Player is dead");
             nbLife -= 1;
             if (nbLife > 0)
             {
-                transform.position = GameObject.Find("MapMetaData").GetComponent<MapMetaData>().PositionToRespawnPoint(transform.position);
-                Debug.Log("Info in Player: player respawn to " + transform.position);
+                transform.position = new Vector3(220.7f, 218.3f, 0f);
+                Debug.Log("Info in Player: player respawn to " + transform.position + " Safezone" + GameObject.Find("SafeZone").transform.position);
                 health = baseHealth;
                 oxygenAmount = 100f;
 
             }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
         }
-
+        Debug.Log("Player pos " + transform.position);
         timeBetween2AttackInput += Time.deltaTime;
         var action = playerInput.GetPlayerActionByKey();
 
@@ -293,15 +312,23 @@ public sealed class Player : MonoBehaviour, IDamageable
         }
 
         stateMachine.OnLogic();
-
-
     }
 
     public void Damage(float damage)
     {
+
+        if (isInvincible)
+        {
+            Debug.Log(transform.name + " is invincible and takes no damage.");
+            return;
+        }
+
         Debug.Log(transform.name + " takes " + damage + " damage");
         health = (health + attributes["resistance"].FinalValue()) - damage;
         OnHealthChanged?.Invoke();
+
+        isInvincible = true;
+        invincibilityTimer = invincibilityDuration;
     }
 
     public bool AddStatModifierToAttribute(string attribute, StatModifier statModifier)

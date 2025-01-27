@@ -62,8 +62,14 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     public void AttackProcessing(float attackBonus)
     {
-        Debug.Log("Tigger mining anim");
-        animator.SetBool("isMining", true);
+        if (GetComponent<SpriteRenderer>().flipX)
+        {
+            animator.SetBool("isMiningRev", true);
+        }
+        else
+        {
+            animator.SetBool("isMining", true);
+        }
 
         Debug.Log("Player use Pickaxe ");
 
@@ -83,6 +89,8 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
     public void ResetAnimationFlag()
     {
         animator.SetBool("isMining", false);
+        animator.SetBool("isMiningRev", false);
+
         Debug.Log("Mining animation end");
     }
 
