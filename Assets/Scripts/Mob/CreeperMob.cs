@@ -112,6 +112,8 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
     {
         Debug.Log(transform.name + " takes " + damage + " damage");
         health -= damage;
+        coloredFlash.Flash(Color.red);
+
     }
 
 
@@ -146,6 +148,12 @@ public sealed class CreeperMob : MonoBehaviour, IDamageable
             var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             BehaviorProcessBasedOnState(player, state); // Determines which behavior algo choose according to mob's state
         }
+
+        if (health <= 0f)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)

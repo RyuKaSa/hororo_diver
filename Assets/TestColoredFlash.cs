@@ -19,7 +19,7 @@ public class TestColoredFlash : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Active flash light");
+            // Debug.Log("Active flash light");
             coloredFlash.Flash(Color.red);
         }
 

@@ -144,7 +144,6 @@ public class MisterFish : MonoBehaviour
                 {
                     huntingDurationTimer = 0f; // Reset timer for the next time where Mister Fish chase player 
                 }
-                Debug.Log("IDLE sate");
             }
         ));
 
