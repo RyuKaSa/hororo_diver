@@ -273,23 +273,22 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        if (isInvincible)
-        {
-            invincibilityTimer -= Time.deltaTime;
-            if (invincibilityTimer <= 0f)
-            {
-                isInvincible = false;
-            }
-        }
+        // if (isInvincible)
+        // {
+        //     invincibilityTimer -= Time.deltaTime;
+        //     if (invincibilityTimer <= 0f)
+        //     {
+        //         isInvincible = false;
+        //     }
+        // }
 
         if (health <= 0)
         {
             nbLife -= 1;
             if (nbLife > 0)
             {
-                // transform.position = new Vector3(220.7f, 218.3f, 0f);
                 transform.position = spawnPoint.position;
-                Debug.Log("Info in Player: player respawn to " + transform.position + " Safezone" + GameObject.Find("SafeZone").transform.position);
+                // Debug.Log("Info in Player: player respawn to " + transform.position + " Safezone" + GameObject.Find("SafeZone").transform.position);
                 health = baseHealth;
                 oxygenAmount = 100f;
 
@@ -299,6 +298,12 @@ public sealed class Player : MonoBehaviour, IDamageable
                 SceneManager.LoadScene(0);
             }
         }
+
+        if (oxygenAmount <= 0f)
+        {
+            health -= 0.3f;
+        }
+
         timeBetween2AttackInput += Time.deltaTime;
         var action = playerInput.GetPlayerActionByKey();
 
@@ -307,8 +312,6 @@ public sealed class Player : MonoBehaviour, IDamageable
         {
             Debug.Log("Player swap weapon");
             weaponId += 1;
-            // health -= 1;
-            coloredFlash.Flash(Color.red);
         }
 
         stateMachine.OnLogic();

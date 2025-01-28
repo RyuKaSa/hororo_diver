@@ -262,6 +262,8 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < data.items.Length; i++)
         {
+            Debug.Log("Item = " + data.items[i]);
+            Debug.Log("Item Data = " + data.items[i].Data);
             if (data.items[i].Data.itemName == "harpoonAmmo")
             {
                 if (data.items[i].count > 0)
