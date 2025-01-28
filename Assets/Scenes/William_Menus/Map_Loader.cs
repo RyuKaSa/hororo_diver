@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Map_Loader : MonoBehaviour
 {
+    public int levelID;
     public void PlayGame()
     {
         // 0 is menu
         // 1 is game test
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(levelID);
     }
 
     public void QuitGame()

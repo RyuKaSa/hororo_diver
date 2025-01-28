@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
-public class ScrollText : MonoBehaviour
+public class SmoothScroll : MonoBehaviour
 {
     public InputAction key;
     // Start is called before the first frame update
@@ -12,9 +11,6 @@ public class ScrollText : MonoBehaviour
     public float speed;
     public float accelerationFactor;
 
-    public float maxHeight;
-
-    public int nextSceneId;
     void Start()
     {
         // offset = new Vector3(0, speed, 0);
@@ -32,9 +28,5 @@ public class ScrollText : MonoBehaviour
             finalSpeed *= accelerationFactor;
         }
         transform.position += new Vector3(0, finalSpeed, 0) * Time.deltaTime;
-
-        if(transform.position.y >= maxHeight) {
-            SceneManager.LoadSceneAsync(nextSceneId);
-        }
     }
 }
