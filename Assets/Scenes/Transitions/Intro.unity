@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd098d2f97d5d74d80114e3361ad405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHeight: 6500
+  maxHeight: 6800
   nextSceneId: 1
 --- !u!114 &117634226
 MonoBehaviour:
