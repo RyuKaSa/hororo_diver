@@ -133,7 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 117634222}
   - component: {fileID: 117634224}
-  - component: {fileID: 117634223}
+  - component: {fileID: 117634226}
+  - component: {fileID: 117634225}
   m_Layer: 5
   m_Name: ScrollText
   m_TagString: Untagged
@@ -161,31 +162,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -580}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &117634223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117634221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd098d2f97d5d74d80114e3361ad405, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key:
-    m_Name: Key
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 06a4a38b-6d2f-4d42-95d9-32cf7197cc00
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  speed: 100
-  accelerationFactor: 10
-  maxHeight: 6500
-  nextSceneId: 1
 --- !u!114 &117634224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +176,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &117634225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117634221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd098d2f97d5d74d80114e3361ad405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHeight: 6800
+  nextSceneId: 1
+--- !u!114 &117634226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117634221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043beca2870cfcf46b5ee0bfadba6df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key:
+    m_Name: Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 39f1e6d3-7d38-4a4f-a64d-f536d05c7a8c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3ef5bbbc-fb47-42cc-8571-8177ff1296d3
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Key
+      m_Flags: 0
+    m_Flags: 0
+  speed: 100
+  accelerationFactor: 10
 --- !u!1 &778306423
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,13 +298,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778306423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 104.3}
   m_LocalScale: {x: 15.499999, y: 15.499999, z: 15.499999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &902201132
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,13 +382,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902201132}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 72}
   m_LocalScale: {x: 16.3, y: 16.3, z: 16.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032098518
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,13 +759,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191240809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 41}
   m_LocalScale: {x: 17.9, y: 17.9, z: 17.9}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1225691713
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,13 +853,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225691713}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: -80, z: -85.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 80, z: -85.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1225691717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -892,22 +913,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1225691713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd098d2f97d5d74d80114e3361ad405, type: 3}
+  m_Script: {fileID: 11500000, guid: 043beca2870cfcf46b5ee0bfadba6df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   key:
     m_Name: Key
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 0ff8c56d-f1cc-4466-9d8d-f9ba7f71f55a
+    m_Id: 6ec0171e-842a-4516-bf9a-ffec9ee82f7a
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6a5e4162-6443-46d8-b24e-ae55f036554b
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Key
+      m_Flags: 0
     m_Flags: 0
-  speed: 10
+  speed: -1
   accelerationFactor: 10
-  maxHeight: 650000
-  nextSceneId: 0
 --- !u!1 &1715449888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,13 +1304,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049926182}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 8}
   m_LocalScale: {x: 13.27, y: 13.27, z: 13.27}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

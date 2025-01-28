@@ -14,6 +14,7 @@ public sealed class Player : MonoBehaviour, IDamageable
         SWAP
     };
 
+    public Transform spawnPoint;
 
     public event System.Action OnStatsChanged;
 
@@ -286,7 +287,8 @@ public sealed class Player : MonoBehaviour, IDamageable
             nbLife -= 1;
             if (nbLife > 0)
             {
-                transform.position = new Vector3(220.7f, 218.3f, 0f);
+                // transform.position = new Vector3(220.7f, 218.3f, 0f);
+                transform.position = spawnPoint.position;
                 Debug.Log("Info in Player: player respawn to " + transform.position + " Safezone" + GameObject.Find("SafeZone").transform.position);
                 health = baseHealth;
                 oxygenAmount = 100f;

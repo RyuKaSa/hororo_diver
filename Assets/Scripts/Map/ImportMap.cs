@@ -19,6 +19,11 @@ public class ImportMap : MonoBehaviour
     [Tooltip("Path to the map image file.")]
     public string filePath = "Assets/Visual/Maps/processed_3_lvl.png";
 
+    [Tooltip("Left Margin")]
+    public int leftMargin = 0;
+    [Tooltip("Right Margin")]
+    public int rightMargin = 0;
+
     [Header("Color and Tile Mappings")]
     [Tooltip("Define up to 6 colors and their corresponding RuleTiles.")]
     public List<ColorTileMapping> colorTileMappings = new List<ColorTileMapping>(6);
@@ -84,7 +89,7 @@ public class ImportMap : MonoBehaviour
 
         for (int y = 0; y < mapTexture.height; y++)
         {
-            for (int x = 0; x < mapTexture.width; x++)
+            for (int x = leftMargin; x < mapTexture.width - rightMargin; x++)
             {
                 int index = x + y * mapTexture.width;
                 Vector3Int position = new Vector3Int(
