@@ -45,6 +45,9 @@ public class Inventory : MonoBehaviour
         AddItem(new Item(itemDB.knife, 1));
         AddItem(new Item(itemDB.harpoonHandgun, 1));
         AddItem(new Item(itemDB.ammoData, 15));
+        AddItem(new Item(itemDB.ironOre, 15));
+        AddItem(new Item(itemDB.cobaltOre, 15));
+
 
     }
 

@@ -21,6 +21,10 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
     private GameObject firePoint;
 
     [SerializeField]
+    private GameObject firePointFlipped;
+
+
+    [SerializeField]
     private float attackRange = 0.5f;
 
     [SerializeField]
@@ -45,7 +49,6 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         return weaponName;
     }
 
-
     public void AttackProcessing(float attackBonus)
     {
         Debug.Log("Player attack with " + transform.name);
@@ -53,15 +56,25 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         var player = GameObject.FindGameObjectWithTag("Player");
         var direction = player.transform.position - transform.position;
         direction.z = 0;
-        float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
 
-        // Calculate Linear equation with mob position and player position
-        float gradient = (player.transform.position.y - transform.position.y) / (player.transform.position.x - transform.position.x);
-        float offset = transform.position.y - (gradient * transform.position.x);
 
-        var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
-        var projectile = projectileGameObject.GetComponent<Projectile>();
-        projectile.Initialize(projectileSpeed, attack + (attack * attackBonus), false);
+        var spriteRenderer = player.GetComponent<SpriteRenderer>();
+        if (spriteRenderer.flipX)
+        {
+            var projectileGameObject = Instantiate(projectilePrefab, firePointFlipped.transform.position, transform.rotation);
+            var projectile = projectileGameObject.GetComponent<Projectile>();
+            projectile.Initialize(-projectileSpeed, attack + (attack * attackBonus), false);
+
+            var projSprite = projectile.GetComponent<SpriteRenderer>();
+            projSprite.flipX = true;
+
+        }
+        else
+        {
+            var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
+            var projectile = projectileGameObject.GetComponent<Projectile>();
+            projectile.Initialize(projectileSpeed, attack + (attack * attackBonus), false);
+        }
     }
 
     public bool WeaponAnimationIsPlaying()

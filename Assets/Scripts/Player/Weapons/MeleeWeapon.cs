@@ -37,6 +37,12 @@ public sealed class MeleeWeapon : MonoBehaviour, IWeapons
     [SerializeField]
     private string animationTriggerName;
 
+    public void Start()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = true;
+    }
+
     public string WeaponName()
     {
         return weaponName;

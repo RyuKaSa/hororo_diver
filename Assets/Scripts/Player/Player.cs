@@ -283,7 +283,6 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            Debug.Log("Player is dead");
             nbLife -= 1;
             if (nbLife > 0)
             {
@@ -298,7 +297,6 @@ public sealed class Player : MonoBehaviour, IDamageable
                 SceneManager.LoadScene(0);
             }
         }
-        Debug.Log("Player pos " + transform.position);
         timeBetween2AttackInput += Time.deltaTime;
         var action = playerInput.GetPlayerActionByKey();
 
@@ -307,7 +305,7 @@ public sealed class Player : MonoBehaviour, IDamageable
         {
             Debug.Log("Player swap weapon");
             weaponId += 1;
-            health -= 1;
+            // health -= 1;
             coloredFlash.Flash(Color.red);
         }
 
@@ -317,11 +315,11 @@ public sealed class Player : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
 
-        if (isInvincible)
-        {
-            Debug.Log(transform.name + " is invincible and takes no damage.");
-            return;
-        }
+        // if (isInvincible)
+        // {
+        //     Debug.Log(transform.name + " is invincible and takes no damage.");
+        //     return;
+        // }
 
         Debug.Log(transform.name + " takes " + damage + " damage");
         health = (health + attributes["resistance"].FinalValue()) - damage;

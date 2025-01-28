@@ -95,6 +95,9 @@ public class MisterFish : MonoBehaviour
     [SerializeField]
     private float exitHunting = 20f;
 
+    [SerializeField]
+    private float exitChargeTime = 2.5f;
+
     private StateMachine<MisterFishStates> stateMachine = new StateMachine<MisterFishStates>();
 
     private float radius; // Rayon actuel
@@ -122,6 +125,7 @@ public class MisterFish : MonoBehaviour
     private float maxSpawnTime = 180f; // Maximum time before Mister Fish can reappear
 
     private float moveAroundDuration = 23f; // Duration of Move Around state
+
 
 
     void Start()
@@ -194,7 +198,7 @@ public class MisterFish : MonoBehaviour
 
         stateMachine.AddState(MisterFishStates.RUSH, new State<MisterFishStates>(
             onLogic: state => RushPlayer(),
-            canExit: state => state.timer.Elapsed > 5f,
+            canExit: state => state.timer.Elapsed > exitChargeTime,
             needsExitTime: true
         ));
 
@@ -301,20 +305,6 @@ public class MisterFish : MonoBehaviour
         }
 
         stateMachine.OnLogic();
-
-        // radiusChangeTimer += Time.deltaTime;
-
-        // if (radiusChangeTimer >= radiusChangeInterval)
-        // {
-        //     radiusChangeTimer = 0f; // Réinitialiser le timer
-
-        //     radius = Random.Range(minRadius, maxRadius);
-        // }
-
-        // MoveAround();
-
-        // ChasePlayer();
-        // RushPlayer();
     }
 
     private void FixedUpdate()
@@ -428,7 +418,7 @@ public class MisterFish : MonoBehaviour
             {
                 audioSource.Play();
                 kinematicData.isTriggered = false; // Kinematic is finished
-                CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
+                // CameraShaker.Instance.ShakeOnce(3f, 4f, 3f, 5f);
                 animator.SetBool("isScreaming", true);
             }
             else
