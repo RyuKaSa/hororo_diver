@@ -11,10 +11,21 @@ public class AddRelicsToReactor : MonoBehaviour
     public SmoothScroll medium;
     public SmoothScroll full;
 
-    public int relicsCount = 5;
+    public int relicsCount = 0;
     // Start is called before the first frame update
     void Start()
     {
+        var itemDB = Utils.GetComponentFromGameObjectTag<ItemDatabase>("ItemDatabase");
+        if (itemDB == null)
+        {
+            Debug.Log("Error: Could not find ItemDatabase component");
+        }
+        else {
+            relicsCount = itemDB.artifacts.Length;
+            var dontDestroyComponent = itemDB.GetComponent<DontDestroy>();
+            dontDestroyComponent.remove(transform);
+            Destroy(itemDB);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
