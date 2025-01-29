@@ -6,6 +6,12 @@ public class AddRelicsToReactor : MonoBehaviour
 {
     public ReactorAnimation reactor;
     public RandomScale scaler;
+    public SmoothScroll fail;
+    public SmoothScroll little;
+    public SmoothScroll medium;
+    public SmoothScroll full;
+
+    public int relicsCount = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,23 +22,53 @@ public class AddRelicsToReactor : MonoBehaviour
         // Check collision with Player Layer
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            switch (reactor.level)
-            {
-                case 0:
-                    reactor.level = 1;
-                    scaler.maxScale = 10.5f;
-                    break;
-                case 1:
-                    reactor.level = 2;
-                    scaler.maxScale = 8.5f;
-                    break;
-                case 2:
-                    reactor.level = 3;
-                    scaler.maxScale = 8;
-                    break;
-                default:
-                    break;
-            }
+            setSpriteFromRelicsAmount(relicsCount);
+            // switch (reactor.level)
+            // {
+            //     case 0:
+            //         reactor.level = 1;
+            //         scaler.maxScale = 9.5f;
+            //         break;
+            //     case 1:
+            //         reactor.level = 2;
+            //         scaler.maxScale = 8.5f;
+            //         break;
+            //     case 2:
+            //         reactor.level = 3;
+            //         scaler.maxScale = 8;
+            //         break;
+            //     case 3:
+            //         // show text
+            //     default:
+            //         break;
+            // }
+        }
+    }
+
+    private void setSpriteFromRelicsAmount(int count) {
+        if(count == 0) {
+            reactor.level = 0;
+            scaler.maxScale = 12.0f;
+            fail.isActif = true;
+            return;
+        }
+        if(count <= 3) {
+            reactor.level = 1;
+            scaler.maxScale = 9.5f;
+            little.isActif = true;
+            return;
+        }
+        if(count <= 6) {
+            reactor.level = 2;
+            scaler.maxScale = 8.5f;
+            medium.isActif = true;
+            return;
+        }
+        if(count <= 10) {
+            reactor.level = 3;
+            scaler.maxScale = 8f;
+            full.isActif = true;
+            return;
         }
     }
 
