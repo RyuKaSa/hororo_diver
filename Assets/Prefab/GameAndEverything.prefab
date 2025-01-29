@@ -18181,6 +18181,7 @@ MonoBehaviour:
   chargeTime: 1.5
   chargeSpeedCoeff: 10
   exitHunting: 20
+  exitChargeTime: 2.5
 --- !u!1 &2619407895642590784
 GameObject:
   m_ObjectHideFlags: 0
@@ -19390,6 +19391,7 @@ MonoBehaviour:
   stackMaxCount: 1
   projectilePrefab: {fileID: 4750483038256637806, guid: f17bec5091981994b9dbdd6d48b352e3, type: 3}
   firePoint: {fileID: 3674180081692167526}
+  firePointFlipped: {fileID: 0}
   attackRange: 0.5
   enemyLayer:
     serializedVersion: 2
@@ -49442,7 +49444,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -56432,6 +56434,9 @@ MonoBehaviour:
   inventory: {fileID: 5671767082608162044}
   weaponSwappingTime: 0.5
   coloredFlash: {fileID: 6762854074736706936}
+  drowningDamage: 2.3
+  oxygenLossPerFrame: 15
+  oxygenGainPerFrame: 30
   invincibilityDuration: 1
 --- !u!114 &8109077356403069560
 MonoBehaviour:
