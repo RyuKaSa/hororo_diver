@@ -301,7 +301,7 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         if (oxygenAmount <= 0f)
         {
-            health -= 0.3f;
+            health -= 0.3f * Time.deltaTime;
         }
 
         timeBetween2AttackInput += Time.deltaTime;
