@@ -17,7 +17,8 @@ public class ImportMap : MonoBehaviour
 {
     [Header("Map Configuration")]
     [Tooltip("Path to the map image file.")]
-    public string filePath = "Assets/Visual/Maps/processed_3_lvl.png";
+    public string filePath1;
+    string filePath;
 
     [Tooltip("Left Margin")]
     public int leftMargin = 0;
@@ -33,6 +34,9 @@ public class ImportMap : MonoBehaviour
 
     void Start()
     {
+        filePath = Path.Combine(Application.streamingAssetsPath, filePath1).Replace("\\", "/");
+
+
         // Get Tilemap component
         tilemap = GetComponent<Tilemap>();
         if (tilemap == null)
@@ -51,6 +55,9 @@ public class ImportMap : MonoBehaviour
         }
 
         Debug.Log($"Texture Loaded. Width: {mapTexture.width}, Height: {mapTexture.height}");
+
+        Debug.Log($"Trying to load from: {filePath}");
+
 
         // Process the map into tiles
         GenerateTilemap();
