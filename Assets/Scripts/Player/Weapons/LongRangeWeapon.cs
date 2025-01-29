@@ -63,7 +63,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         {
             var projectileGameObject = Instantiate(projectilePrefab, firePointFlipped.transform.position, transform.rotation);
             var projectile = projectileGameObject.GetComponent<Projectile>();
-            projectile.Initialize(-projectileSpeed, attack + (attack * attackBonus), false);
+            projectile.Initialize(-projectileSpeed, attack, false);
 
             var projSprite = projectile.GetComponent<SpriteRenderer>();
             projSprite.flipX = true;
@@ -73,7 +73,7 @@ public sealed class LongRangeWeapon : MonoBehaviour, IWeapons
         {
             var projectileGameObject = Instantiate(projectilePrefab, firePoint.transform.position, transform.rotation);
             var projectile = projectileGameObject.GetComponent<Projectile>();
-            projectile.Initialize(projectileSpeed, attack + (attack * attackBonus), false);
+            projectile.Initialize(projectileSpeed, attack, false);
         }
     }
 

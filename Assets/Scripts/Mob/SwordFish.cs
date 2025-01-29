@@ -187,6 +187,8 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
     {
         Debug.Log(transform.name + " takes " + damage + " damage");
         health -= damage;
+        coloredFlash.Flash(Color.red);
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -214,5 +216,11 @@ public sealed class SwordFish : MonoBehaviour, IDamageable
     void Update()
     {
         stateMachine.OnLogic();
+
+        if (health <= 0f)
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

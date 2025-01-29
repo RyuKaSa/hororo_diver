@@ -120,6 +120,8 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
         health -= damage;
+        coloredFlash.Flash(Color.red);
+
     }
 
     void Update()
@@ -143,6 +145,12 @@ public sealed class BasicDistanceMob : MonoBehaviour, IDamageable
             var state = mob.HandleStateBasedOnSight(player, transform.position); // Update mob current state
             BehaviorProcessBasedOnState(player, state); // Determines which behavior algo choose according to mob's state
         }
+
+        if (health <= 0f)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
