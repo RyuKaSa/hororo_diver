@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2270826, g: 0.2326643, b: 0.764151, a: 1}
+  m_AmbientSkyColor: {r: 0.07320219, g: 0.07590422, b: 0.4433962, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -9046,6 +9046,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1638072248982017972, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: field of view
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1687530129707761335, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9073,6 +9077,14 @@ PrefabInstance:
     - target: {fileID: 1905994216865768458, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_Name
       value: GameAndEverything
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416887882970468664, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: drowningDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416887882970468664, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: oxygenLossPerFrame
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2618768070856303637, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9105,6 +9117,10 @@ PrefabInstance:
     - target: {fileID: 3345596749166269708, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 21.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345596749166269708, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 4314692744799365136, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9333,6 +9349,86 @@ PrefabInstance:
     - target: {fileID: 6296238580117766858, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: glareFrontal
+      value: 0.491
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: noiseIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: noiseScaleLocal
+      value: 0.087
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.atime1
+      value: 5204
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.ctime1
+      value: 9638
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key0.a
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key0.g
+      value: 0.7489065
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key0.r
+      value: 0.7216981
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key1.a
+      value: 0.17254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key1.b
+      value: 0.6698113
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key1.g
+      value: 0.04286785
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513887096318441928, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: colorGradient.m_ColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997293605171955206, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: spawnWidth
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997293605171955206, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: spawnHeight
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997293605171955206, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: maxFishSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997293605171955206, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+      propertyPath: despawnDistance
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7641687915493917348, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
       propertyPath: m_AnchorMax.y
