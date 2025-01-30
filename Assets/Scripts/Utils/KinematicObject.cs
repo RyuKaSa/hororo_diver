@@ -43,8 +43,8 @@ public class KinematicObject : MonoBehaviour
             float camWidth = mainCamera.orthographicSize * mainCamera.aspect;
             float camHeight = mainCamera.orthographicSize;
 
-            transform.position = new Vector3(mainCamera.transform.position.x + camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 10.5f);
-            destination.position = new Vector3(mainCamera.transform.position.x - camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 10.5f);
+            transform.position = new Vector3(mainCamera.transform.position.x + camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 50.5f);
+            destination.position = new Vector3(mainCamera.transform.position.x - camWidth, mainCamera.transform.position.y, mainCamera.nearClipPlane - 50.5f);
 
         }
 
