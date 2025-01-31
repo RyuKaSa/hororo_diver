@@ -9,7 +9,7 @@ public class LightFlicker : MonoBehaviour
     void Start()
     {
         pointLight = GetComponent<Light>();
-        targetIntensity = Random.Range(0f, 2f);
+        targetIntensity = Random.Range(0f, 100f);
     }
 
     void Update()
@@ -20,7 +20,7 @@ public class LightFlicker : MonoBehaviour
         // Randomly assign a new target intensity at intervals
         if (Time.frameCount % (Mathf.FloorToInt(60f / flickerSpeed)) == 0)
         {
-            targetIntensity = Random.Range(0f, 2f);
+            targetIntensity = Random.Range(0f, 100f);
         }
     }
 }
