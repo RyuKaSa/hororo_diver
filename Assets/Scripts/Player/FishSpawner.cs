@@ -20,7 +20,7 @@ public class FishSpawner : MonoBehaviour
 
     [Header("Depth Settings")]
     [SerializeField] private float depthOffsetRange = 1f; // Depth variation within a school
-    private readonly float[] parallaxDepths = { -10f, 2.5f, 7.5f, 12.5f }; // Parallax depth levels
+    private readonly float[] parallaxDepths = { -7.5f, 2.5f, 7.5f, 12.5f }; // Parallax depth levels
 
     [Header("Sorting Layers for Parallax Levels")]
     [SerializeField] private string sortLayerMinus10 = "Foreground"; 

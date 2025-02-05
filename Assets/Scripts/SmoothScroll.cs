@@ -11,6 +11,8 @@ public class SmoothScroll : MonoBehaviour
     public float speed;
     public float accelerationFactor;
 
+    public bool isActif = true;
+
     void Start()
     {
         // offset = new Vector3(0, speed, 0);
@@ -20,6 +22,9 @@ public class SmoothScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!isActif) {
+            return;
+        }
         float finalSpeed = speed;
 
         float action = key.ReadValue<float>();

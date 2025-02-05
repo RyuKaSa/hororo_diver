@@ -56,9 +56,11 @@ public sealed class Player : MonoBehaviour, IDamageable
 
     private float oxygenAmount = 100f;
 
-    private float oxygenLossPerFrame = 0.05f;
+    public float drowningDamage = 2.3f;
 
-    private float oxygenGainPerFrame = 0.1f;
+    public float oxygenLossPerFrame = 15f;
+
+    public float oxygenGainPerFrame = 30f;
 
     private bool attackTrigger = false;
 
@@ -77,7 +79,7 @@ public sealed class Player : MonoBehaviour, IDamageable
             onLogic: state =>
             {
                 playerInput.UpdateMovement();
-                oxygenAmount += oxygenGainPerFrame;
+                oxygenAmount += oxygenGainPerFrame * Time.deltaTime;
 
                 // fix limit to 100
                 if (oxygenAmount > 100f)
@@ -106,7 +108,7 @@ public sealed class Player : MonoBehaviour, IDamageable
                 weaponGO.transform.position = new Vector3(-1000f, -1000f, 0f);
 
                 playerInput.UpdateMovement();
-                oxygenAmount -= oxygenLossPerFrame;
+                oxygenAmount -= oxygenLossPerFrame * Time.deltaTime;
                 if (oxygenAmount < 0f)
                 {
                     oxygenAmount = 0f;
@@ -301,7 +303,7 @@ public sealed class Player : MonoBehaviour, IDamageable
 
         if (oxygenAmount <= 0f)
         {
-            health -= 0.3f * Time.deltaTime;
+            health -= drowningDamage * Time.deltaTime;
         }
 
         timeBetween2AttackInput += Time.deltaTime;
