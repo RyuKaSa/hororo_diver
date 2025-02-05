@@ -20,8 +20,13 @@ public class Player_Input : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private CapsuleOrientation capsuleOrientation;
-    
+
+    public InputActionAsset inputActionAsset;
+
     public InputAction moveAction;
+    private InputAction attackAction;
+    private InputAction swapAction;
+
 
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 currentVelocity = Vector2.zero;
@@ -43,6 +48,27 @@ public class Player_Input : MonoBehaviour
     {
         if (animator == null) animator = GetComponent<Animator>();
         defaultScale = transform.localScale;
+    }
+
+    public void Awake()
+    {
+        if (inputActionAsset != null)
+        {
+            attackAction = inputActionAsset.FindAction("attackAction");
+            if (attackAction == null)
+            {
+                Debug.Log("attackAction is null");
+            }
+            swapAction = inputActionAsset.FindAction("swapAction");
+            if (swapAction == null)
+            {
+                Debug.Log("swapAction is null");
+            }
+
+            attackAction.Enable();
+            swapAction.Enable();
+
+        }
     }
 
     private bool LoadAttributes()
@@ -75,7 +101,7 @@ public class Player_Input : MonoBehaviour
         UpdateAnimation(moveDirection);
 
         // Calculate velocity directly from WASD input without running logic
-        float speed = attributes["speed"].FinalValue(); 
+        float speed = attributes["speed"].FinalValue();
         targetVelocity = moveDirection * speed;
 
         // Smoothly transition to target velocity using acceleration
@@ -117,8 +143,9 @@ public class Player_Input : MonoBehaviour
 
     public INPUT_ACTION GetPlayerActionByKey()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) return INPUT_ACTION.ATTACK_ACTION;
-        if (Keyboard.current.gKey.wasPressedThisFrame) return INPUT_ACTION.SWAP_WEAPON_ACTION;
+        Debug.Log("attackAction.triggered = " + attackAction.triggered + " swapAction.triggered = " + swapAction.triggered);
+        if (attackAction.triggered) return INPUT_ACTION.ATTACK_ACTION;
+        if (swapAction.triggered) return INPUT_ACTION.SWAP_WEAPON_ACTION;
         return INPUT_ACTION.NO_ACTION;
     }
 
@@ -137,7 +164,7 @@ public class Player_Input : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + (Vector3)currentVelocity);
     }
-    
+
     public Vector2 GetCurrentVelocity() => currentVelocity;
     public Vector2 GetMoveDirection() => moveDirection;
 }
