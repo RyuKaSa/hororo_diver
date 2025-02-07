@@ -19,6 +19,9 @@ public sealed class Ore : MonoBehaviour
     [SerializeField]
     private string name;
 
+    [SerializeField]
+    private ColoredFlash coloredFlash;
+
     private int currentHit = 0;
 
 
@@ -32,6 +35,9 @@ public sealed class Ore : MonoBehaviour
     {
         currentHit += 1;
         Debug.Log("Current hit = " + currentHit + " required == current = " + (currentHit == hitRequired));
+        coloredFlash.Flash(Color.white);
+        var audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         return currentHit == hitRequired;
     }
 

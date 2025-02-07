@@ -26,6 +26,8 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
 
     private float attack = 0.15f;
 
+    private bool isHitting = false; // Flag to prevent multiple hits during the same animation
+
     public string WeaponName()
     {
         return weaponName;
@@ -35,12 +37,13 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check collision with Ore Layer
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ore"))
+        if (!isHitting && collision.gameObject.layer == LayerMask.NameToLayer("Ore") && (animator.GetBool("isMining") || animator.GetBool("isMiningRev")))
         {
             var ore = collision.gameObject.GetComponent<Ore>();
 
             if (ore != null)
             {
+                isHitting = true;
                 Debug.Log("Hit ore gameObject name = " + gameObject.name);
                 var pickOre = ore.HitOre();
                 if (pickOre)
@@ -49,6 +52,15 @@ public sealed class Pickaxe : MonoBehaviour, IWeapons
                 }
             }
 
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        // Reset hitting state when exiting collision
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ore"))
+        {
+            isHitting = false;
         }
     }
 
