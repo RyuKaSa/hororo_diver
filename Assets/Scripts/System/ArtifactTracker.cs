@@ -5,19 +5,20 @@ public class ArtifactTracker : MonoBehaviour
 {
     public List<Artifact> artifacts; // List of all artifacts in the game
     public Transform playerTransform;
-    public float distanceThreshold = 10f; // Distance at which to notify the player
+    public float distanceThreshold = 1000f; // Distance at which to notify the player
     public GameObject indicatorPrefab;
-    public AudioClip sonarSound; // Sonar sound to play
     private GameObject currentIndicator;
     private AudioSource audioSource; // AudioSource for playing the sonar sound
+
+    public float sonarCooldown = 3.7f; // Time in seconds between sonar sounds
+    private float sonarCooldownTimer = 0f; 
 
     void Start()
     {
         // Find all artifacts in the scene at the start
         artifacts = new List<Artifact>(FindObjectsOfType<Artifact>());
 
-        // Get the AudioSource component attached to the player (or another object)
-        audioSource = playerTransform.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -25,25 +26,21 @@ public class ArtifactTracker : MonoBehaviour
         // Find the nearest artifact
         Artifact nearestArtifact = GetNearestArtifact();
 
+        sonarCooldownTimer += Time.deltaTime;
+
         if (nearestArtifact != null)
         {
             Vector3 directionToArtifact = (nearestArtifact.transform.position - playerTransform.position).normalized;
 
-            if (currentIndicator == null)
-            {
-                currentIndicator = Instantiate(indicatorPrefab, nearestArtifact.transform.position, Quaternion.identity);
-            }
-            currentIndicator.transform.position = nearestArtifact.transform.position + directionToArtifact * 2f; // Place indicator near the artifact
-            currentIndicator.transform.LookAt(playerTransform.position); // Make the indicator point towards the player
-
             float distance = Vector3.Distance(playerTransform.position, nearestArtifact.transform.position);
-
             if (distance <= distanceThreshold)
             {
-                // Trigger sonar sound when near an artifact
-                PlaySonarSound(distance);
-
+                if (sonarCooldownTimer >= sonarCooldown){
+                    PlaySonarSound(distance);
+                    sonarCooldownTimer = 0f;
+                }
                 Debug.Log($"Artifact is within range: {distance} meters.");
+
             }
             else
             {
@@ -61,12 +58,16 @@ public class ArtifactTracker : MonoBehaviour
         // Play the sonar sound and adjust its pitch based on the proximity
         if (!audioSource.isPlaying)
         {
-            audioSource.clip = sonarSound;
+            Debug.Log("Audio is playing");
             audioSource.Play();
         }
 
-        // Adjust pitch based on the distance (the closer the player is, the higher the pitch)
-        float pitch = Mathf.Clamp(1.0f / (distance / distanceThreshold), 0.5f, 2f);
+        // Adjust pitch based on the distance
+        float normalizedDistance = Mathf.InverseLerp(0f, distanceThreshold, distance); // Normalize distance between 0 and 1
+        float volume = Mathf.Lerp(0.01f, 1f, 1 - normalizedDistance);
+        float pitch = Mathf.Lerp(0.5f, 1f, 1 - normalizedDistance);
+
+        audioSource.volume = volume;
         audioSource.pitch = pitch;
     }
 

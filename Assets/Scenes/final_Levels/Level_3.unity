@@ -174,6 +174,8 @@ MonoBehaviour:
   boxCollider: {fileID: 3615684}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 37380751}
+  end: {fileID: 2069519107}
 --- !u!50 &3615683
 Rigidbody2D:
   serializedVersion: 4
@@ -1757,6 +1759,8 @@ MonoBehaviour:
   boxCollider: {fileID: 182352111}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1091360983}
+  end: {fileID: 225006971}
 --- !u!50 &182352110
 Rigidbody2D:
   serializedVersion: 4
@@ -2249,9 +2253,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2077360819}
+  - {fileID: 2045881473}
   - {fileID: 1318159122}
   - {fileID: 369574975}
-  - {fileID: 2045881473}
   m_Father: {fileID: 1726719844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &255014118
@@ -2572,7 +2576,7 @@ Transform:
   m_GameObject: {fileID: 369574974}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.77, y: 0, z: 0}
+  m_LocalPosition: {x: -7.89, y: 3.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5664,6 +5668,8 @@ MonoBehaviour:
   boxCollider: {fileID: 868244053}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1558226672}
+  end: {fileID: 533539940}
 --- !u!50 &868244052
 Rigidbody2D:
   serializedVersion: 4
@@ -7107,6 +7113,8 @@ MonoBehaviour:
   boxCollider: {fileID: 1044347678}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 853216817}
+  end: {fileID: 193682049}
 --- !u!50 &1044347677
 Rigidbody2D:
   serializedVersion: 4
@@ -8052,6 +8060,8 @@ MonoBehaviour:
   boxCollider: {fileID: 1085327321}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1924498500}
+  end: {fileID: 2126971267}
 --- !u!50 &1085327320
 Rigidbody2D:
   serializedVersion: 4
@@ -10179,8 +10189,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318159121}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.22, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -24.58, y: 2.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10242,6 +10252,8 @@ MonoBehaviour:
   boxCollider: {fileID: 1367672074}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1487876137}
+  end: {fileID: 447116496}
 --- !u!50 &1367672073
 Rigidbody2D:
   serializedVersion: 4
@@ -10723,6 +10735,8 @@ MonoBehaviour:
   boxCollider: {fileID: 1407560712}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1513771598}
+  end: {fileID: 1976971180}
 --- !u!50 &1407560711
 Rigidbody2D:
   serializedVersion: 4
@@ -11604,6 +11618,8 @@ MonoBehaviour:
   boxCollider: {fileID: 1531313233}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1005231727}
+  end: {fileID: 1399158099}
 --- !u!50 &1531313232
 Rigidbody2D:
   serializedVersion: 4
@@ -13748,6 +13764,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1726719844}
+  - component: {fileID: 1726719846}
+  - component: {fileID: 1726719845}
   m_Layer: 0
   m_Name: Artifacts
   m_TagString: Untagged
@@ -13780,6 +13798,119 @@ Transform:
   - {fileID: 531247973}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1726719845
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726719843}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e0e38ebebd0688d47849057d2a3b9dcc, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.015
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1726719846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726719843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547edd1dcdd316f478a015402951d68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  artifacts: []
+  playerTransform: {fileID: 2004542401}
+  distanceThreshold: 100
+  indicatorPrefab: {fileID: 0}
+  sonarCooldown: 3.7
 --- !u!1 &1743176072
 GameObject:
   m_ObjectHideFlags: 0
@@ -14346,6 +14477,8 @@ MonoBehaviour:
   boxCollider: {fileID: 1826405197}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 2146283289}
+  end: {fileID: 1817501593}
 --- !u!50 &1826405196
 Rigidbody2D:
   serializedVersion: 4
@@ -15744,6 +15877,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 531247973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2004542401 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9048885439074828291, guid: 4ca92f4e81412334395ac93257c5ad2c, type: 3}
+  m_PrefabInstance: {fileID: 1286532702}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2028293923
 GameObject:
   m_ObjectHideFlags: 0
@@ -15828,6 +15966,8 @@ MonoBehaviour:
   boxCollider: {fileID: 2045881476}
   name: artifact
   inventory: {fileID: 1073326282}
+  begin: {fileID: 1318159122}
+  end: {fileID: 369574975}
 --- !u!50 &2045881475
 Rigidbody2D:
   serializedVersion: 4

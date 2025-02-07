@@ -17,6 +17,8 @@ public sealed class Artifact : MonoBehaviour
     [SerializeField]
     private Inventory inventory;
 
+    public Transform begin, end;
+
     void Start()
     {
         var go = GameObject.Find("Inventory UI");
@@ -44,7 +46,8 @@ public sealed class Artifact : MonoBehaviour
         {
             inventory.AddItem(FromArtifactName());
             var component = GameObject.Find("MisterFish").GetComponent<MisterFish>();
-            component.TriggerKinematic();
+            
+            component.TriggerKinematic(begin, end);
             Destroy(gameObject);
         }
     }

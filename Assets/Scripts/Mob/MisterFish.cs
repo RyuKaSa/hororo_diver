@@ -411,6 +411,7 @@ public class MisterFish : MonoBehaviour
         var pos = kinematicData.MoveStraightLine();
         transform.position = new Vector3(pos.x, pos.y, 0f);
 
+        Debug.Log("Vector3.Distance(transform.position, kinematicData.end.position) = " + Vector3.Distance(transform.position, kinematicData.end.position));
         if (Vector3.Distance(transform.position, kinematicData.end.position) <= 1f)
         {
             if (!audioSource.isPlaying)
@@ -451,12 +452,16 @@ public class MisterFish : MonoBehaviour
 
     }
 
-    public void TriggerKinematic()
+    public void TriggerKinematic(Transform begin, Transform end)
     {
-        Debug.Log("Trigger kinematic");
+        Debug.Log("Trigger kinematic begin = " + begin.position + " end = " + end.position);
+        begin.position = new Vector3(begin.position.x, begin.position.y, 0f);
+        end.position = new Vector3(end.position.x, end.position.y, 0f);
+
         kinematicData.isTriggered = true;
         kinematicData.startTime = Time.time;
-
+        kinematicData.begin = begin;
+        kinematicData.end = end;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
